@@ -1,4 +1,7 @@
+// Copyright (c) 2022, Paul Sumpner.  All rights reserved.
+
 import 'package:flutter/material.dart';
+import 'package:subdivide/hue.dart';
 import 'package:subdivide/screen_adjust.dart';
 import 'package:subdivide/vertices.dart';
 
@@ -36,16 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
-      f();
+      subdivide();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      backgroundColor: Hue.background,
       body: Center(
         child: ListView(
           children: <Widget>[
