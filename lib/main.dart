@@ -47,15 +47,23 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
             const Text(
               'icosahedron in octahedron:',
             ),
             Image(
                 height: screenAdjust(0.7, context),
-                image: const AssetImage('images/icosahedron in octahedron.png')),
+                image: const AssetImage('images/icosahedron_in_octahedron.png')),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/icosahedron_subdivided_frequency_3.png')),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/truncated_icosahedron.png')),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/geodesic_polyhedron.png')),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
