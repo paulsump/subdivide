@@ -1,3 +1,5 @@
+// Copyright (c) 2022, Paul Sumpner.  All rights reserved.
+
 import 'dart:core';
 
 import 'package:subdivide/out.dart';
@@ -9,6 +11,7 @@ const root5 = 2.23606797749979;
 
 // https://youtu.be/xMh_LtlOs_4?t=69
 // https://mathworld.wolfram.com/RegularPentagon.html
+// https://www.youtube.com/watch?v=xMh_LtlOs_4&ab_channel=MechanicalMachineDesign
 
 const double c1 = (root5 - 1) / 4;
 const double c2 = (root5 + 1) / 4;
@@ -44,7 +47,6 @@ const vertices = <Vertex>[
   Vertex(0, 0, -root5 / 2),
 ];
 
-/// (An octahedron that fits into a unit cube).
 List<Vector3> generateIcosahedron() {
   return [];
 }

@@ -50,23 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Hue.background,
       body: Center(
-        child: ListView(
-          children: <Widget>[
-            const Text(
-              'icosahedron in octahedron:',
-            ),
+        child: Column(
+          children: [
             Image(
                 height: screenAdjust(0.7, context),
-                image: const AssetImage('images/icosahedron_in_octahedron.png')),
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage('images/icosahedron_subdivided_frequency_3.png')),
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage('images/truncated_icosahedron.png')),
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage('images/geodesic_polyhedron.png')),
+                image: const AssetImage(
+                    'images/pentagonal_gyroelongated_bipyramid.png')),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
