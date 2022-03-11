@@ -16,7 +16,7 @@ and south latitudes.
 
 This scheme takes advantage of the fact that the regular icosahedron is a pentagonal gyroelongated
 bipyramid"... .
-<img src="https://github.com/paulsump/subdivide/blob/9575ba8c212c746b3ea5642179132c77b1f8772c/images/pentagonal_gyroelongated_bipyramid.png" >
+<img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" >
 
 ### Then...
 
