@@ -1,7 +1,8 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/face.dart';
+import 'package:subdivide/model/tri.dart';
+import 'package:subdivide/view/face.dart';
 
 class Ball extends StatelessWidget {
   const Ball({Key? key, required this.tris}) : super(key: key);
@@ -15,30 +16,12 @@ class Ball extends StatelessWidget {
     return CustomPaint(
       painter: _Painter(
         faces: tris.map(
-          (tri) => Face(
-            path: Path()..addPolygon(getOffsets(tri), true),
-            paint: getPaint(tri),
-          ),
+              (tri) => Face.fromTri(tri),
         ),
       ),
     );
   }
 }
-
-class Face {
-  const Face({required this.path, required this.paint});
-
-  final Path path;
-  final Paint paint;
-}
-
-List<Offset> getOffsets(Tri tri) {
-  return [];
-}
-
-Paint getPaint(Tri tri, {PaintingStyle style = PaintingStyle.fill}) => Paint()
-  ..color = tri.color
-  ..style = style;
 
 /// The painter for [Ball].
 class _Painter extends CustomPainter {

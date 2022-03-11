@@ -3,7 +3,7 @@
 import 'dart:core';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:subdivide/math_3d.dart';
+import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 

@@ -1,9 +1,9 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/hue.dart';
-import 'package:subdivide/screen_adjust.dart';
-import 'package:subdivide/subdivide.dart';
+import 'package:subdivide/model/subdivide.dart';
+import 'package:subdivide/view/hue.dart';
+import 'package:subdivide/view/screen_adjust.dart';
 
 void main() {
   runApp(const MyApp());

@@ -3,7 +3,7 @@
 Ultimately planning to create a football from a truncated icosahedron. I can load and render one
 from an obj file already, but I want full control and understanding of where the vertices are, for
 various animation ideas and in order to do the final part of pushing out each face, like how a
-football is stiched together, so I'm going to create it from scratch...
+football is stitched together, so I'm going to create it from scratch...
 
 | icosahedron_in_octahedron | icosahedron_subdivided_frequency_3 |
 | ------------- | ------------- |
@@ -16,6 +16,8 @@ football is stiched together, so I'm going to create it from scratch...
 ## TODO
 
 - Create coordinates for tetrahedron (top half of octahedron)
-- Create coords of top half of icosahedron by finding 'midpoint'
-- Along tetrahedron's edges, where 'midpoint' is the golden ratio.
-
+- Create coords of top half of icosahedron by subdividing at 'midpoint' along tetrahedron's edges,
+  where 'midpoint' is the golden ratio.
+- Mirror top to bottom to create icosahedron.
+- Subdivide with frequency 3.
+- Color the black parts of the football and push everything out to unit radius.
