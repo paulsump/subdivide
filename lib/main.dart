@@ -1,6 +1,7 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
+import 'package:subdivide/model/generate.dart';
 import 'package:subdivide/model/subdivide.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/screen_adjust.dart';
@@ -40,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter++;
       Subdivide.subdivide();
+      generateIcosahedron();
     });
   }
 

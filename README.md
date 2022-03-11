@@ -31,7 +31,7 @@ there won't be need for triangles..
 ## TODO
 
 - Create vertices of icosahedron using the spherical coords idea above (but I'll use a radius of
-  root5 an x of 2 and a height of 1 (atan(0.5)).
+  root5/2, an x of 1 and a height of 0.5 (atan(0.5)).
 - Place pentagon patch at each vertex described above
 - Place hexagon patch at the mid point of each equilateral triangle of the vertices described above.
 - Round of the edges of each patch to make it look like the ball is stitched together.
