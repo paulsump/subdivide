@@ -5,11 +5,14 @@ from an obj file already, but I want full control and understanding of where the
 various animation ideas and in order to do the final part of pushing out each face, like how a
 football is stitched together, so I'm going to create it from scratch...
 
-Octahedron in a cube:
-cube_octahedron | icosahedron_in_octahedron | icosahedron_subdivided_frequency_3 | | ------------- |
-------------- |
-| <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/icosahedron_in_octahedron.png" width="248">
-| <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/icosahedron_subdivided_frequency_3.png" width="248">
+### First step: Octahedron in a unit cube.
+<img src="https://github.com/paulsump/subdivide/blob/9575ba8c212c746b3ea5642179132c77b1f8772c/images/cube_octahedron.png" >
+
+### Then...
+
+| icosahedron_in_octahedron | icosahedron_subdivided_frequency_3 |
+| ------------- | ------------- |
+| <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/icosahedron_in_octahedron.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/icosahedron_subdivided_frequency_3.png" width="248">
 |
 
 | geodesic_polyhedron | truncated_icosahedron |
