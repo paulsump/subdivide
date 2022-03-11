@@ -9,14 +9,12 @@ class Ball extends StatelessWidget {
 
   final List<Tri> tris;
 
-  // tris = <Tri>[];
-
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _Painter(
         faces: tris.map(
-              (tri) => Face.fromTri(tri),
+          (tri) => Face.fromTri(tri),
         ),
       ),
     );
