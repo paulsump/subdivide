@@ -26,7 +26,7 @@ there won't be need for triangles..
 
 | pentagonal_gyroelongated_bipyramid | truncated_icosahedron |
 | ------------- | ------------- |
-| <img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" > width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/truncated_icosahedron.png" width="248"> |
+| <img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/truncated_icosahedron.png" width="248"> |
 
 ## TODO
 
