@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:subdivide/out.dart';
 
-const noWarn = log;
+const noWarn = out;
 
 /// convenient access to screen dimensions.
 Size getScreenSize(BuildContext context) => MediaQuery.of(context).size;

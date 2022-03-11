@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subdivide/screen_adjust.dart';
+import 'package:subdivide/vertices.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
+      f();
     });
   }
 
