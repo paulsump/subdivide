@@ -1,0 +1,34 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+const noWarn = log;
+
+/// convenient access to screen dimensions.
+Size getScreenSize(BuildContext context) => MediaQuery.of(context).size;
+
+double getScreenWidth(BuildContext context) => getScreenSize(context).width;
+
+double getScreenHeight(BuildContext context) => getScreenSize(context).height;
+
+Offset getScreenCenter(BuildContext context) {
+  final size = getScreenSize(context);
+  return Offset(size.width, size.height) / 2;
+}
+
+bool isPortrait(BuildContext context) {
+  final screen = getScreenSize(context);
+  return screen.width < screen.height;
+}
+
+/// object dimensions calculated using the shortestEdge of the screen...
+
+double screenAdjust(double length, BuildContext context) =>
+    length * _getScreenShortestEdge(context);
+
+double _getScreenShortestEdge(BuildContext context) {
+  final screen = getScreenSize(context);
+
+  return min(screen.width, screen.height);
+}

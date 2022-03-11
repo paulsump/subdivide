@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subdivide/screen_adjust.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,8 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'icosahedron in octahedron:',
             ),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/icosahedron in octahedron.png')),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
