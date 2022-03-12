@@ -24,7 +24,9 @@ const double c2 = (root5 + 1) / 4;
 const double s1 = 0.9510565162951535; //sqrt(10+2*root5)/4;
 const double s2 = 0.5877852522924731; //sqrt(10-2*root5)/4;
 
-final icosahedron = ShapeData(
+//HACK for quick hot reload
+// final icosahedron = ShapeData(
+ShapeData get icosahedron => ShapeData(
   vertices: <Vector3>[
 //north pole (z)
     Vector3(0, 0, root5 / 2),
