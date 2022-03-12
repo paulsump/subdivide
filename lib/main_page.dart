@@ -1,3 +1,5 @@
+// Copyright (c) 2022, Paul Sumpner.  All rights reserved.
+
 import 'package:flutter/material.dart';
 import 'package:subdivide/gesturer.dart';
 import 'package:subdivide/horizon.dart';
@@ -22,10 +24,16 @@ class MainPage extends StatelessWidget {
           child: Stack(children: const [
             Horizon(),
             Gesturer(),
-            UnitToScreen(child: Triangle()),
+            UnitToScreen(
+                child: Triangle(
+              offsets: offsets,
+              color: Colors.purple,
+            )),
           ]),
         ),
       ),
     );
   }
 }
+
+const offsets = [Offset(0, 0), Offset(1, 0), Offset(0, 1)];

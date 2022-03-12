@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 
 class Triangle extends StatelessWidget {
-  const Triangle({Key? key}) : super(key: key);
+  const Triangle({Key? key, required this.offsets, required this.color})
+      : super(key: key);
+
+  final List<Offset> offsets;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return const CustomPaint(painter: _Painter());
+    return CustomPaint(
+        painter: _Painter(
+            Path()..addPolygon(offsets, true),
+            Paint()
+              ..color = color
+              ..style = PaintingStyle.fill));
   }
 }
 
-const offsets = [Offset(0, 0), Offset(1, 0), Offset(0, 1)];
-
 /// The painter for [Ball].
 class _Painter extends CustomPainter {
-  const _Painter();
+  const _Painter(this.path, this.paint_);
+
+  final Path path;
+  final Paint paint_;
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawPath(
-        Path()..addPolygon(offsets, true),
-        Paint()
-          ..color = Colors.purple
-          ..style = PaintingStyle.fill);
+    canvas.drawPath(path, paint_);
   }
 
   @override
