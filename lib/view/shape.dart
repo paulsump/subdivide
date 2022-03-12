@@ -11,17 +11,19 @@ import 'package:vector_math/vector_math_64.dart' as vecmath;
 import 'triangle.dart';
 
 class Shape extends StatelessWidget {
-  const Shape({Key? key, required this.faces}) : super(key: key);
+  const Shape({Key? key, required this.transform, required this.faces}) : super(key: key);
 
   final List<Face> faces;
+  final Matrix4 transform;
 
   @override
   Widget build(BuildContext context) {
     return UnitToScreen(child: Stack(children: _calcTriangles(context)));
   }
 
-  List<Triangle> _calcTriangles(BuildContext context) {
-    final vertices = getVertices(context);
+    List<Triangle> _calcTriangles(BuildContext context) {
+    final vertices =  getVertices(context).map((vertex)=>transform.transform3(vertex)).toList();
+
     final triangles = <Triangle>[];
 
     for (final face in faces) {

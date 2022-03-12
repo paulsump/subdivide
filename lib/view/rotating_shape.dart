@@ -1,4 +1,11 @@
+// Copyright (c) 2022, Paul Sumpner.  All rights reserved.
+
 import 'package:flutter/material.dart';
+import 'package:subdivide/model/face.dart';
+import 'dart:math';
+import 'package:vector_math/vector_math_64.dart';
+
+import 'package:subdivide/view/shape.dart';
 
 class RotatingShape extends StatefulWidget {
   const RotatingShape({Key? key}) : super(key: key);
@@ -17,6 +24,8 @@ class _RotatingShapeState extends State<RotatingShape>
     super.initState();
   }
 
+  double get radiansY => radians(_controller.value * pi * 2);
+
   @override
   void dispose() {
     _controller.dispose();
@@ -25,6 +34,9 @@ class _RotatingShapeState extends State<RotatingShape>
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Shape(
+      transform: Matrix4.rotationY(radiansY),
+      faces: const [Face(0, 1, 2)],
+    );
   }
 }
