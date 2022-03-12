@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:subdivide/model/face.dart';
 import 'package:subdivide/model/math_3d.dart';
@@ -36,7 +37,7 @@ class Shape extends StatelessWidget {
       const Color color = Colors.purple;
 
       triangles.add(Triangle(
-        offsets: offsets,
+        offsets: [getOffset(a), getOffset(b), getOffset(c)],
         color: Color.fromARGB(
             255,
             (brightness * color.red).toInt(),
@@ -48,4 +49,4 @@ class Shape extends StatelessWidget {
   }
 }
 
-const offsets = [Offset(0, 0), Offset(1, 0), Offset(0, 1)];
+Offset getOffset(vecmath.Vector3 v) => Offset(v.x, v.y);
