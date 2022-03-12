@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/gestures/gesturer.dart';
+import 'package:subdivide/model/shape.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/horizon.dart';
 import 'package:subdivide/view/hue.dart';
-import 'package:subdivide/view/triangle.dart';
-import 'package:subdivide/view/unit_to_screen.dart';
 
 const noWarn = [out];
 
@@ -24,16 +23,10 @@ class MainPage extends StatelessWidget {
           child: Stack(children: const [
             Horizon(),
             Gesturer(),
-            UnitToScreen(
-                child: Triangle(
-              offsets: offsets,
-              color: Colors.purple,
-            )),
+            Shape(faces: []),
           ]),
         ),
       ),
     );
   }
 }
-
-const offsets = [Offset(0, 0), Offset(1, 0), Offset(0, 1)];
