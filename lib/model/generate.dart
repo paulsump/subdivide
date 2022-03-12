@@ -2,8 +2,8 @@
 
 import 'dart:core';
 
+import 'package:subdivide/model/tri.dart';
 import 'package:subdivide/out.dart';
-import 'package:vector_math/vector_math_64.dart';
 
 const noWarn = out;
 
@@ -25,8 +25,8 @@ class Vertex {
   const Vertex(this.x, this.y, this.z);
 }
 
-/// vertices of a unit octahedron.
-const vertices = <Vertex>[
+/// vertices of a unit icosahedron.
+const icosahedronVertices = <Vertex>[
 //north pole (z)
   Vertex(0, 0, root5 / 2),
 // top pentagon
@@ -47,8 +47,10 @@ const vertices = <Vertex>[
   Vertex(0, 0, -root5 / 2),
 ];
 
-List<Vector3> generateIcosahedron() {
-  return [];
+List<Tri> generateIcosahedron() {
+  return [
+    const Tri(0, 2, 1)
+  ];
 }
 
 const pentagon = <Vertex>[

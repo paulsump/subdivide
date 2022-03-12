@@ -15,10 +15,17 @@ class Face {
   final Paint paint;
 }
 
+// TODO matrix4 provider,
+// TODO transform3(vertex) all the vertices first
+// TODO icosahedronVertices
 List<Offset> getOffsets(Tri tri) {
   return [];
 }
 
 Paint getPaint(Tri tri, {PaintingStyle style = PaintingStyle.fill}) => Paint()
-  ..color = tri.color
+  ..color = getColor(tri)
   ..style = style;
+
+Color getColor(Tri tri) {
+  return Colors.purple;
+}
