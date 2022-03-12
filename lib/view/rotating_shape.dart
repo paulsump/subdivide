@@ -31,7 +31,7 @@ class _RotatingShapeState extends State<RotatingShape>
         setState(() {});
       });
 
-    // _controller.repeat();
+    _controller.repeat();
     super.initState();
   }
 

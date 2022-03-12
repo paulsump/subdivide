@@ -30,30 +30,38 @@ ShapeData get icosahedron => ShapeData(
   vertices: <Vector3>[
 //north pole (z)
     Vector3(0, 0, root5 / 2),
-// top pentagon
+// top pentagon from top anticlockwise
     Vector3(0, 1, 0.5),
     Vector3(-s1, c1, 0.5),
     Vector3(-s2, -c2, 0.5),
     Vector3(s2, -c2, 0.5),
     Vector3(s1, c1, 0.5),
 
-    // bottom pentagon
-    Vector3(0, -1, -0.5),
-    Vector3(-s1, -c1, -0.5),
+    // bottom pentagon from top anticlockwise
     Vector3(-s2, c2, -0.5),
-    Vector3(s2, c2, -0.5),
+    Vector3(-s1, -c1, -0.5),
+    Vector3(0, -1, -0.5),
     Vector3(s1, -c1, -0.5),
+    Vector3(s2, c2, -0.5),
 
     // south pole
     Vector3(0, 0, -root5 / 2),
   ],
   faces: const [
+    // top
     Face(0, 1, 2),
     Face(0, 2,3),
     Face(0, 3,4),
     Face(0, 4,5),
     Face(0, 5,1),
-  ],
+
+//bottom
+    Face(11, 10,9),
+    Face(11, 9,8),
+    Face(11, 8,7),
+    Face(11, 7,6),
+    Face(11, 6,10),
+],
 );
 
 final triangle = ShapeData(
