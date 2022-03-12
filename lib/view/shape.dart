@@ -27,7 +27,8 @@ class Shape extends StatelessWidget {
 
         final vertices = shapeData.vertices
         .map((vertex) => transform.transform3(
-              vecmath.Vector3.copy(vertex),
+          vecmath.Vector3.copy(vertex),
+          // vecmath.Vector3(vertex.x,-vertex.y,vertex.z),
             ))
         .toList();
 
@@ -44,10 +45,11 @@ class Shape extends StatelessWidget {
       final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
       var brightness = normal.dot(light).clamp(0.0, 1.0);
+      // var brightness = 1;
       const Color color = Colors.purple;
 
       triangles.add(Triangle(
-        offsets: [getOffset(a), getOffset(b), getOffset(c)],
+        offsets: [flipY(a), flipY(b), flipY(c)],
         color: Color.fromARGB(
             255,
             (brightness * color.red).toInt(),
@@ -59,4 +61,4 @@ class Shape extends StatelessWidget {
   }
 }
 
-Offset getOffset(vecmath.Vector3 v) => Offset(v.x, v.y);
+Offset flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);

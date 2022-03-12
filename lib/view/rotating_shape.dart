@@ -31,7 +31,7 @@ class _RotatingShapeState extends State<RotatingShape>
         setState(() {});
       });
 
-    _controller.repeat();
+    // _controller.repeat();
     super.initState();
   }
 
@@ -45,11 +45,12 @@ class _RotatingShapeState extends State<RotatingShape>
     const double _scale = 9;
 
     var transform = Matrix4.translationValues(0, 2, 1);
-    transform.scale(_scale, -_scale);
+    transform.scale(_scale, _scale);
+
     transform.rotateX(radians(10));
     transform.rotateY(radiansY);
+
     return transform;
-    return Matrix4.rotationY(radiansY);
   }
 
   @override
