@@ -1,8 +1,8 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
+import 'package:subdivide/gestures/pan_zoom.dart';
 import 'package:subdivide/out.dart';
-import 'package:subdivide/pan_zoom.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 
 const noWarn = out;

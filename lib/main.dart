@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:subdivide/gestures/pan_zoom.dart';
 import 'package:subdivide/main_page.dart';
 import 'package:subdivide/out.dart';
-import 'package:subdivide/pan_zoom.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 

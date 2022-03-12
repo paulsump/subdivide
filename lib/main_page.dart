@@ -1,12 +1,12 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/gesturer.dart';
-import 'package:subdivide/horizon.dart';
+import 'package:subdivide/gestures/gesturer.dart';
 import 'package:subdivide/out.dart';
-import 'package:subdivide/triangle.dart';
-import 'package:subdivide/unit_to_screen.dart';
+import 'package:subdivide/view/horizon.dart';
 import 'package:subdivide/view/hue.dart';
+import 'package:subdivide/view/triangle.dart';
+import 'package:subdivide/view/unit_to_screen.dart';
 
 const noWarn = [out];
 

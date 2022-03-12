@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:subdivide/gesture_handler.dart';
+import 'package:subdivide/gestures/gesture_handler.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 

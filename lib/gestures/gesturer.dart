@@ -1,8 +1,8 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/gesture_handler.dart';
-import 'package:subdivide/pan_zoom.dart';
+import 'package:subdivide/gestures/gesture_handler.dart';
+import 'package:subdivide/gestures/pan_zoom.dart';
 
 /// Handle gestures, passing them to [Brusher] or [PanZoomer].
 ///

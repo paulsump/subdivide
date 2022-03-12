@@ -1,4 +1,4 @@
-import 'package:subdivide/face.dart';
+import 'package:subdivide/model/face.dart';
 
 class Shape {
   const Shape(this.faces);
