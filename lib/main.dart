@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:subdivide/gestures/pan_zoom.dart';
 import 'package:subdivide/main_page.dart';
 import 'package:subdivide/out.dart';
+import 'package:subdivide/vertices.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 
@@ -25,6 +26,7 @@ class TheApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => PanZoomNotifier()),
+        ChangeNotifierProvider(create: (_) => VertexNotifier()),
       ],
       child: MaterialApp(
         theme: _buildThemeData(context),
