@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/gestures/gesturer.dart';
-import 'package:subdivide/model/shape.dart';
+import 'package:subdivide/model/face.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/horizon.dart';
 import 'package:subdivide/view/hue.dart';
+import 'package:subdivide/view/shape.dart';
 
 const noWarn = [out];
 
@@ -23,7 +24,7 @@ class MainPage extends StatelessWidget {
           child: Stack(children: const [
             Horizon(),
             Gesturer(),
-            Shape(faces: []),
+            Shape(faces: [Face(0, 1, 2)]),
           ]),
         ),
       ),
