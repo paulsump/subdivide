@@ -4,13 +4,13 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:subdivide/model/face.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 const noWarn = out;
 
-ShapeNotifier getShapeNotifier(BuildContext context,
-        {required bool listen}) =>
+ShapeNotifier getShapeNotifier(BuildContext context, {required bool listen}) =>
     Provider.of<ShapeNotifier>(context, listen: listen);
 
 /// Access to the Shape data.
@@ -22,6 +22,7 @@ class ShapeNotifier extends ChangeNotifier {
     Vector3(0, 1, 0)
   ];
 
-  List<Vector3> get vertices => _vertices;
+  final List<Face> faces = [const Face(0, 1, 2)];
 
+  List<Vector3> get vertices => _vertices;
 }

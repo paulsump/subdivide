@@ -32,11 +32,9 @@ class Shape extends StatelessWidget {
             ))
         .toList();
 
-    const faces = [Face(0, 1, 2)];
-
     final triangles = <Triangle>[];
 
-    for (final face in faces) {
+    for (final face in shapeNotifier.faces) {
       var a = vertices[face.a];
       var b = vertices[face.b];
       var c = vertices[face.c];
