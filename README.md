@@ -24,9 +24,9 @@ I'm going to make a patch (like a patch work quilt) for a pentagon and for a hex
 the places dictated by the vertices described by the picture above. they'll look abit like this, but
 there won't be need for triangles..
 
-| pentagonal_gyroelongated_bipyramid | truncated_icosahedron |
-| ------------- | ------------- |
-| <img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" > width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/truncated_icosahedron.png" width="248"> |
+| pentagonal_gyroelongated_bipyramid | truncated_icosahedron | football |
+| ------------- | ------------- | ------------- |
+| <img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/truncated_icosahedron.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/ccc78998a5aeca553813a14d859180172eadab62/images/football.jpg" width="248"> |
 
 ## TODO
 
