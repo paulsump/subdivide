@@ -1,7 +1,6 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/model/face.dart';
 import 'package:subdivide/out.dart';
 import 'dart:math';
 
@@ -52,8 +51,7 @@ class _RotatingShapeState extends State<RotatingShape>
   @override
   Widget build(BuildContext context) {
     return Shape(
-      transform: getTransform(),
-      faces: const [Face(0, 1, 2)],
+      transform: getTransform()
     );
   }
 }

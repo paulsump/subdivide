@@ -14,10 +14,8 @@ import 'package:subdivide/out.dart';
 const noWarn = out;
 
 class Shape extends StatelessWidget {
-  const Shape({Key? key, required this.transform, required this.faces})
-      : super(key: key);
+  const Shape({Key? key, required this.transform}) : super(key: key);
 
-  final List<Face> faces;
   final Matrix4 transform;
 
   @override
@@ -31,6 +29,8 @@ class Shape extends StatelessWidget {
               vecmath.Vector3.copy(vertex),
             ))
         .toList();
+
+    const faces = [Face(0, 1, 2)];
 
     final triangles = <Triangle>[];
 
