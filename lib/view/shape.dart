@@ -1,10 +1,9 @@
 import 'dart:core';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:subdivide/model/face.dart';
 import 'package:subdivide/model/math_3d.dart';
-import 'package:subdivide/vertices.dart';
+import 'package:subdivide/model/vertices.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
