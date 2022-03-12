@@ -2,7 +2,6 @@
 
 import 'dart:core';
 
-import 'package:subdivide/model/tri.dart';
 import 'package:subdivide/out.dart';
 
 const noWarn = out;
@@ -47,11 +46,11 @@ const icosahedronVertices = <Vertex>[
   Vertex(0, 0, -root5 / 2),
 ];
 
-List<Tri> generateIcosahedron() {
-  return [
-    const Tri(0, 2, 1)
-  ];
-}
+// List<Tri> generateIcosahedron() {
+//   return [
+//     const Tri(0, 2, 1)
+//   ];
+// }
 
 const pentagon = <Vertex>[
   Vertex(0, 1, 0.5),
