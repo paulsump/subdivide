@@ -20,6 +20,8 @@ class _RotatingShapeState extends State<RotatingShape>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
+  double get radiansY => _controller.value * pi * 2;
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -33,19 +35,24 @@ class _RotatingShapeState extends State<RotatingShape>
     super.initState();
   }
 
-  double get radiansY => _controller.value * pi * 2;
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  Matrix4 getTransform() {
+    // todo shape offset and scale
+    // var trans = Matrix4.translationValues(_viewPortX, _viewPortY, 1);
+    // trans.scale(_scale, -_scale);
+    // return trans;
+    return Matrix4.rotationY(radiansY);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // out('${_controller.value}->$radiansY');
     return Shape(
-      transform: Matrix4.rotationY(radiansY),
+      transform: getTransform(),
       faces: const [Face(0, 1, 2)],
     );
   }

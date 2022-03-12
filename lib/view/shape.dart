@@ -40,6 +40,8 @@ class Shape extends StatelessWidget {
       var c = vertices[face.c];
 
       var normal = Math3d.normal(a, b, c).normalized();
+      //todo back face cull
+//      if (0 < normal.z) {
       final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
       var brightness = normal.dot(light).clamp(0.0, 1.0);
