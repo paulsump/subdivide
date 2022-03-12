@@ -24,7 +24,9 @@ class Shape extends StatelessWidget {
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
-    final vertices = getVertices(context)
+    ShapeNotifier shapeNotifier= getShapeNotifier(context, listen: false);
+
+        final vertices = shapeNotifier.vertices
         .map((vertex) => transform.transform3(
               vecmath.Vector3.copy(vertex),
             ))

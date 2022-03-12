@@ -26,7 +26,7 @@ class TheApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => PanZoomNotifier()),
-        ChangeNotifierProvider(create: (_) => VertexNotifier()),
+        ChangeNotifierProvider(create: (_) => ShapeNotifier()),
       ],
       child: MaterialApp(
         theme: _buildThemeData(context),
