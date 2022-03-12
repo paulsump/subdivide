@@ -50,12 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Hue.background,
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
             Image(
                 height: screenAdjust(0.7, context),
                 image: const AssetImage(
                     'images/pentagonal_gyroelongated_bipyramid.png')),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/truncated_icosahedron.png')),
+            Image(
+                height: screenAdjust(0.7, context),
+                image: const AssetImage('images/football.jpg')),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,

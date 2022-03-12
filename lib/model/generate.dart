@@ -50,3 +50,11 @@ const vertices = <Vertex>[
 List<Vector3> generateIcosahedron() {
   return [];
 }
+
+const pentagon = <Vertex>[
+  Vertex(0, 1, 0.5),
+  Vertex(-s1, c1, 0.5),
+  Vertex(-s2, -c2, 0.5),
+  Vertex(s2, -c2, 0.5),
+  Vertex(s1, c1, 0.5),
+];
