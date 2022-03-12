@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:subdivide/gestures/pan_zoom.dart';
+import 'package:subdivide/model/generate.dart';
 import 'package:subdivide/view/main_page.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/model/shape_notifier.dart';
@@ -44,7 +45,7 @@ class TheApp extends StatelessWidget {
 
                 final shapeNotifier= getShapeNotifier(context, listen: false);
 
-                // shapeNotifier.vertices =
+                shapeNotifier.init(generateShapeData());
               }
 
               // final
@@ -84,3 +85,4 @@ class TheApp extends StatelessWidget {
     );
   }
 }
+

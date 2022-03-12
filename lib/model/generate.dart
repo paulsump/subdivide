@@ -2,7 +2,19 @@
 
 import 'dart:core';
 
+import 'package:subdivide/model/face.dart';
+import 'package:subdivide/model/shape_notifier.dart';
 import 'package:subdivide/out.dart';
+import 'package:vector_math/vector_math_64.dart';
+
+ShapeData generateShapeData() => ShapeData(
+      vertices: [
+        Vector3(0, 0, 0),
+        Vector3(1, 0, 0),
+        Vector3(0, 1, 0),
+      ],
+      faces: const [Face(0, 1, 2)],
+    );
 
 const noWarn = out;
 

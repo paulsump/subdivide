@@ -23,9 +23,9 @@ class Shape extends StatelessWidget {
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
-    final shapeNotifier= getShapeNotifier(context, listen: false);
+    final shapeData= getShapeData(context, listen: false);
 
-        final vertices = shapeNotifier.vertices
+        final vertices = shapeData.vertices
         .map((vertex) => transform.transform3(
               vecmath.Vector3.copy(vertex),
             ))
@@ -33,7 +33,7 @@ class Shape extends StatelessWidget {
 
     final triangles = <Triangle>[];
 
-    for (final face in shapeNotifier.faces) {
+    for (final face in shapeData.faces) {
       var a = vertices[face.a];
       var b = vertices[face.b];
       var c = vertices[face.c];
