@@ -7,7 +7,8 @@ import 'package:subdivide/model/shape_notifier.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-ShapeData generateShapeData() => icosahedron;
+// ShapeData generateShapeData() => icosahedron;
+ShapeData generateShapeData() => triangle;
 
 const noWarn = out;
 

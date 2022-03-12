@@ -5,6 +5,7 @@ import 'package:subdivide/out.dart';
 import 'dart:math';
 
 import 'package:subdivide/view/shape.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 const noWarn = out;
 
@@ -41,10 +42,13 @@ class _RotatingShapeState extends State<RotatingShape>
   }
 
   Matrix4 getTransform() {
-    // todo shape offset and scale
-    // var trans = Matrix4.translationValues(_viewPortX, _viewPortY, 1);
-    // trans.scale(_scale, -_scale);
-    // return trans;
+    const double _scale = 9;
+
+    var transform = Matrix4.translationValues(0, 2, 1);
+    transform.scale(_scale, -_scale);
+    transform.rotateX(radians(10));
+    transform.rotateY(radiansY);
+    return transform;
     return Matrix4.rotationY(radiansY);
   }
 
