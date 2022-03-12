@@ -31,7 +31,7 @@ class ShapeNotifier extends ChangeNotifier {
   // late ShapeData _shapeData;
 
   // ShapeData get shapeData => _shapeData;
-  //HACK for quick hot reaload
+  //TODO remove HACK for quick hot reaload
   ShapeData get shapeData => generateShapeData();
 
   void init(ShapeData shapeData_) {

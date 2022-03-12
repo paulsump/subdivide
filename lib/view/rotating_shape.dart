@@ -1,9 +1,9 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
-import 'package:flutter/material.dart';
-import 'package:subdivide/out.dart';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:subdivide/out.dart';
 import 'package:subdivide/view/shape.dart';
 import 'package:vector_math/vector_math_64.dart';
 
@@ -26,7 +26,7 @@ class _RotatingShapeState extends State<RotatingShape>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 30000),
     )..addListener(() {
         setState(() {});
       });
