@@ -1,79 +1,80 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/model/generate.dart';
-import 'package:subdivide/model/subdivide.dart';
+import 'package:provider/provider.dart';
+import 'package:subdivide/main_page.dart';
+import 'package:subdivide/out.dart';
+import 'package:subdivide/pan_zoom.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+/// prevent 'organise imports' from removing imports
+/// when temporarily commenting out.
+const noWarn = out;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void main() => runApp(createApp());
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+Widget createApp() => const TheApp();
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      Subdivide.subdivide();
-      generateIcosahedron();
-    });
-  }
+/// The only App in this app.
+class TheApp extends StatelessWidget {
+  const TheApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Hue.background,
-      body: Center(
-        child: ListView(
-          children: [
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage(
-                    'images/pentagonal_gyroelongated_bipyramid.png')),
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage('images/truncated_icosahedron.png')),
-            Image(
-                height: screenAdjust(0.7, context),
-                image: const AssetImage('images/football.jpg')),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PanZoomNotifier()),
+      ],
+      child: MaterialApp(
+        theme: _buildThemeData(context),
+        home: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxHeight == 0) {
+              return Container();
+            } else {
+              final panZoomNotifier =
+                  getPanZoomNotifier(context, listen: false);
+
+              // Initialize once only
+              if (panZoomNotifier.scale == 0) {
+                panZoomNotifier.initializeScale(screenAdjust(0.06494, context));
+              }
+
+              // final
+              return WillPopScope(
+                onWillPop: () async => false,
+                child: Stack(
+                  children: const [
+                    MainPage(),
+                  ],
+                ),
+              );
+            }
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+  ThemeData _buildThemeData(BuildContext context) {
+    return ThemeData(
+      canvasColor: Hue.menu,
+      textTheme: Theme.of(context).textTheme.apply(bodyColor: Hue.text),
+      // for icon buttons only atm
+      iconTheme: Theme.of(context).iconTheme.copyWith(
+            color: Hue.enabledIcon,
+          ),
+      tooltipTheme: TooltipThemeData(
+        /// TODO Responsive to screen size - removed magic numbers
+        verticalOffset: 55,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(color: Hue.tip),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+        primary: Hue.button,
+      )),
     );
   }
 }
