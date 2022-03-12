@@ -28,7 +28,6 @@ class Shape extends StatelessWidget {
         final vertices = shapeData.vertices
         .map((vertex) => transform.transform3(
           vecmath.Vector3.copy(vertex),
-          // vecmath.Vector3(vertex.x,-vertex.y,vertex.z),
             ))
         .toList();
 
@@ -45,7 +44,6 @@ class Shape extends StatelessWidget {
       final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
       var brightness = normal.dot(light).clamp(0.0, 1.0);
-      // var brightness = 1;
       const Color color = Colors.purple;
 
       triangles.add(Triangle(
