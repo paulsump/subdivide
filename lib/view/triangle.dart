@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:subdivide/out.dart';
+
+const noWarn = out;
 
 class Triangle extends StatelessWidget {
-  const Triangle({Key? key, required this.offsets, required this.color})
-      : super(key: key);
+  const Triangle({
+    Key? key,
+    required this.offsets,
+    required this.color,
+  }) : super(key: key);
 
   final List<Offset> offsets;
   final Color color;
@@ -31,5 +37,5 @@ class _Painter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_Painter oldDelegate) => false;
+  bool shouldRepaint(_Painter oldDelegate) => true;
 }

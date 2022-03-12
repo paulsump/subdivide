@@ -9,9 +9,13 @@ import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 import 'triangle.dart';
+import 'package:subdivide/out.dart';
+
+const noWarn = out;
 
 class Shape extends StatelessWidget {
-  const Shape({Key? key, required this.transform, required this.faces}) : super(key: key);
+  const Shape({Key? key, required this.transform, required this.faces})
+      : super(key: key);
 
   final List<Face> faces;
   final Matrix4 transform;
@@ -21,8 +25,12 @@ class Shape extends StatelessWidget {
     return UnitToScreen(child: Stack(children: _calcTriangles(context)));
   }
 
-    List<Triangle> _calcTriangles(BuildContext context) {
-    final vertices =  getVertices(context).map((vertex)=>transform.transform3(vertex)).toList();
+  List<Triangle> _calcTriangles(BuildContext context) {
+    final vertices = getVertices(context)
+        .map((vertex) => transform.transform3(
+              vecmath.Vector3.copy(vertex),
+            ))
+        .toList();
 
     final triangles = <Triangle>[];
 
