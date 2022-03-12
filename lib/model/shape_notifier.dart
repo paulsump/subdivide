@@ -22,7 +22,10 @@ class ShapeNotifier extends ChangeNotifier {
     Vector3(0, 1, 0)
   ];
 
-  final List<Face> faces = [const Face(0, 1, 2)];
+  final List<Face> _faces = [const Face(0, 1, 2)];
 
   List<Vector3> get vertices => _vertices;
+  List<Face> get faces => _faces;
+
+  // void init(List<Vector3> vertices
 }

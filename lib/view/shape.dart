@@ -1,15 +1,14 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/model/face.dart';
 import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/model/shape_notifier.dart';
+import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 import 'triangle.dart';
-import 'package:subdivide/out.dart';
 
 const noWarn = out;
 
@@ -24,7 +23,7 @@ class Shape extends StatelessWidget {
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
-    ShapeNotifier shapeNotifier= getShapeNotifier(context, listen: false);
+    final shapeNotifier= getShapeNotifier(context, listen: false);
 
         final vertices = shapeNotifier.vertices
         .map((vertex) => transform.transform3(

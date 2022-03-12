@@ -41,6 +41,10 @@ class TheApp extends StatelessWidget {
               // Initialize once only
               if (panZoomNotifier.scale == 0) {
                 panZoomNotifier.initializeScale(screenAdjust(0.06494, context));
+
+                final shapeNotifier= getShapeNotifier(context, listen: false);
+
+                // shapeNotifier.vertices =
               }
 
               // final
