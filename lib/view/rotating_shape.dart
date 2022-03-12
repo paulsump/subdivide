@@ -26,7 +26,7 @@ class _RotatingShapeState extends State<RotatingShape>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 30000),
+      duration: const Duration(milliseconds: 10000),
     )..addListener(() {
         setState(() {});
       });
@@ -42,13 +42,15 @@ class _RotatingShapeState extends State<RotatingShape>
   }
 
   Matrix4 getTransform() {
-    const double _scale = 9;
+    const double _scale = 8;
 
     var transform = Matrix4.translationValues(0, -2, 1);
     transform.scale(_scale, _scale);
 
     transform.rotateX(radians(10));
-    transform.rotateY(radiansY);
+    transform.rotateX(radiansY);
+    // transform.rotateY(radiansY);
+    // transform.rotateZ(radiansY);
 
     return transform;
   }

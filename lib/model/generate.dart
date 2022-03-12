@@ -10,6 +10,10 @@ import 'package:vector_math/vector_math_64.dart';
 ShapeData generateShapeData() => icosahedron;
 // ShapeData generateShapeData() => triangle;
 
+void f() {
+  final ff = icosahedron;
+}
+
 const noWarn = out;
 
 const root5 = 2.23606797749979;
@@ -51,17 +55,24 @@ ShapeData get icosahedron => ShapeData(
     // top
     Face(0, 1, 2),
     Face(0, 2,3),
-    Face(0, 3,4),
-    Face(0, 4,5),
-    Face(0, 5,1),
+        Face(0, 3, 4),
+        Face(0, 4, 5),
+        Face(0, 5, 1),
 
 //bottom
-    Face(11, 10,9),
-    Face(11, 9,8),
-    Face(11, 8,7),
-    Face(11, 7,6),
-    Face(11, 6,10),
-],
+        Face(11, 10, 9),
+        Face(11, 9, 8),
+        Face(11, 8, 7),
+        Face(11, 7, 6),
+        Face(11, 6, 10),
+
+        // between
+        Face(1, 6, 2),
+        Face(2, 7, 3),
+        Face(3, 8, 4),
+        Face(4, 9, 5),
+        Face(5, 10, 1),
+      ],
 );
 
 final triangle = ShapeData(
