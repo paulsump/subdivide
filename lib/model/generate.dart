@@ -8,15 +8,27 @@ import 'package:vector_math/vector_math_64.dart';
 
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
-    // ShapeData(meshes: <Mesh>[subdivide(icosahedron)]);
+    // subdivide(icosahedron);
     subdivideFrequency3(icosahedron);
+
+int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
+  int index = vertices.length;
+
+  // TODO only add IF not found
+  vertices.add(vector3);
+  return index;
+}
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
 ShapeData subdivideFrequency3(ShapeData old) {
-  // TODO VERtices shoule be shared in ShapeData
   final vertices = <Vector3>[...old.vertices];
-  final faces = <Face>[];
+
+  final dark = <Face>[];
+  final light = <Face>[];
+
+  final darkMesh = Mesh(faces: dark, dark: true);
+  final lightMesh = Mesh(faces: light, dark: false);
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -30,28 +42,22 @@ ShapeData subdivideFrequency3(ShapeData old) {
     final r = a - c;
 
     // one third along edge
-    // todo extract getIndexOrAdd
-    final p1 = vertices.length;
-    vertices.add(a + p / 3);
-    final q1 = vertices.length;
-    vertices.add(b + q / 3);
-    final r1 = vertices.length;
-    vertices.add(c + r / 3);
+    final int p1 = _getOrAdd(a + p / 3, vertices);
+    final int q1 = _getOrAdd(b + q / 3, vertices);
+    final int r1 = _getOrAdd(c + r / 3, vertices);
 
     // two thirds along edge
-    final p2 = vertices.length;
-    vertices.add(a + p * 2 / 3);
-    final q2 = vertices.length;
-    vertices.add(b + q * 2 / 3);
-    final r2 = vertices.length;
-    vertices.add(c + r * 2 / 3);
+    final int p2 = _getOrAdd(a + p * 2 / 3, vertices);
+    final int q2 = _getOrAdd(b + q * 2 / 3, vertices);
+    final int r2 = _getOrAdd(c + r * 2 / 3, vertices);
 
     // centre
-    final s = vertices.length;
-    vertices.add((a + b + c) / 3);
+    final int s = _getOrAdd((a + b + c) / 3, vertices);
 
     // outer 3 are dark
-    // todo each one should be added to that dark corner's mesh
+    dark.add(Face(face.a, p1, r2));
+    dark.add(Face(face.b, q1, p2));
+    dark.add(Face(face.c, r1, q2));
     // this will make the smooth corners of the patch (the round bit at the end of the seam
 
     // inner 6 are light
@@ -61,6 +67,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
 
+  return ShapeData(vertices: vertices, meshes: [darkMesh, lightMesh]);
   return icosahedron;
 }
 
