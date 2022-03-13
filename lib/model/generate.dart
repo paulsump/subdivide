@@ -7,18 +7,18 @@ import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 // ShapeData generateShapeData() => icosahedron;
-ShapeData generateShapeData() => subdivide(icosahedron, frequency: 3);
+ShapeData generateShapeData() => subdivide(subdivide(subdivide(icosahedron)));
 // ShapeData generateShapeData() => triangle;
 
 void generateSubdividedIcosahedron() {
   // for each vector coming out from a vertex
   // go a third of the way along and add that ver (do face the same time)
-  subdivide(icosahedron, frequency: 3);
+  subdivide(icosahedron);
 }
 
-ShapeData subdivide(ShapeData old, {required int frequency}) {
+ShapeData subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
-  final faces = <Face>[...old.faces];
+  final faces = <Face>[];
 
   for (final face in old.faces) {
     final a = vertices[face.a];
@@ -42,6 +42,9 @@ ShapeData subdivide(ShapeData old, {required int frequency}) {
     faces.add(Face(i, face.b, j));
     faces.add(Face(j, face.c, k));
     faces.add(Face(k, i, j));
+  }
+  for (final vertex in vertices) {
+    vertex.normalize();
   }
   return ShapeData(vertices: vertices, faces: faces);
 }
