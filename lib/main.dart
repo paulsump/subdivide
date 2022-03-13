@@ -15,7 +15,7 @@ import 'package:subdivide/view/screen_adjust.dart';
 
 /// prevent 'organise imports' from removing imports
 /// when temporarily commenting out.
-const noWarn = out;
+const noWarn = [out, unawaited, loadShapeData];
 
 void main() => runApp(createApp());
 
@@ -49,11 +49,9 @@ class TheApp extends StatelessWidget {
                 final shapeNotifier = getShapeNotifier(context, listen: false);
 
                 shapeNotifier.init(generateShapeData());
-                generateSubdividedIcosahedron();
-                unawaited(loadTest());
+                // unawaited(loadShapeData());
                 // shapeNotifier.init(persistedShapeData());
               }
-
               // final
               return WillPopScope(
                 onWillPop: () async => false,

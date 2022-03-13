@@ -8,12 +8,7 @@ import 'package:subdivide/out.dart';
 
 const noWarn = out;
 
-ShapeData persistedShapeData() {
-  //TODO Load async
-  return ShapeData.fromString('');
-}
-
-Future<ShapeData> loadTest() async {
+Future<ShapeData> loadShapeData() async {
   final assetStrings = await _Assets._getStrings('shapes/test');
 
   return ShapeData.fromString(assetStrings['test.json']!);

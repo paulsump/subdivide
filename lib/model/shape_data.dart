@@ -33,6 +33,34 @@ class ShapeNotifier extends ChangeNotifier {
 
 class ShapeData {
   const ShapeData({
+    required this.meshes,
+  });
+
+  final List<Mesh> meshes;
+
+  ShapeData.fromString(String json) : this.fromJson(jsonDecode(json));
+
+  @override
+  String toString() => jsonEncode(this);
+
+  ShapeData.fromJson(Map<String, dynamic> json)
+      : meshes = json['meshes']
+            .map<Mesh>(
+              (m) => Mesh.fromJson(m),
+            )
+            .toList();
+
+  Map<String, dynamic> toJson() => {
+        'meshes': meshes
+            .map(
+              (m) => m.toJson(),
+            )
+            .toList(),
+      };
+}
+
+class Mesh {
+  const Mesh({
     required this.vertices,
     required this.faces,
   });
@@ -41,12 +69,12 @@ class ShapeData {
 
   final List<Face> faces;
 
-  ShapeData.fromString(String json) : this.fromJson(jsonDecode(json));
+  Mesh.fromString(String json) : this.fromJson(jsonDecode(json));
 
   @override
   String toString() => jsonEncode(this);
 
-  ShapeData.fromJson(Map<String, dynamic> json)
+  Mesh.fromJson(Map<String, dynamic> json)
       : vertices = json['vertices']
             .map<Vector3>(
               (v) => Vector3Persist.fromJson(v),
@@ -58,8 +86,7 @@ class ShapeData {
             )
             .toList();
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'vertices': vertices
             .map(
               (v) => Vec3Persist(v),

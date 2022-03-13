@@ -25,35 +25,38 @@ class Shape extends StatelessWidget {
   List<Triangle> _calcTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
 
-    final vertices = shapeData.vertices
-        .map((vertex) => transform.transform3(
-              vecmath.Vector3.copy(vertex),
-            ))
-        .toList();
-
     final triangles = <Triangle>[];
 
-    for (final face in shapeData.faces) {
-      final a = vertices[face.a];
-      final b = vertices[face.b];
-      final c = vertices[face.c];
+    for (final mesh in shapeData.meshes) {
+      const Color color = Colors.purple;
 
-      final normal = Math3d.normal(a, b, c).normalized();
+      final vertices = mesh.vertices
+          .map((vertex) => transform.transform3(
+                vecmath.Vector3.copy(vertex),
+              ))
+          .toList();
 
-      if (0 < normal.z) {
-        final light = vecmath.Vector3(0.0, 0.0, 1.0);
+      for (final face in mesh.faces) {
+        final a = vertices[face.a];
+        final b = vertices[face.b];
+        final c = vertices[face.c];
 
-        final brightness = normal.dot(light).clamp(0.0, 1.0);
-        const Color color = Colors.purple;
+        final normal = Math3d.normal(a, b, c).normalized();
 
-        triangles.add(Triangle(
-          offsets: [flipY(a), flipY(b), flipY(c)],
-          color: Color.fromARGB(
-              255,
-              (brightness * color.red).toInt(),
-              (brightness * color.green).toInt(),
-              (brightness * color.blue).toInt()),
-        ));
+        if (0 < normal.z) {
+          final light = vecmath.Vector3(0.0, 0.0, 1.0);
+
+          final brightness = normal.dot(light).clamp(0.0, 1.0);
+
+          triangles.add(Triangle(
+            offsets: [flipY(a), flipY(b), flipY(c)],
+            color: Color.fromARGB(
+                255,
+                (brightness * color.red).toInt(),
+                (brightness * color.green).toInt(),
+                (brightness * color.blue).toInt()),
+          ));
+        }
       }
     }
     return triangles;

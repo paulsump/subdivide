@@ -7,7 +7,8 @@ import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 // ShapeData generateShapeData() => icosahedron;
-ShapeData generateShapeData() => subdivide(subdivide(subdivide(icosahedron)));
+ShapeData generateShapeData() =>
+    ShapeData(meshes: <Mesh>[subdivide(icosahedron)]);
 // ShapeData generateShapeData() => triangle;
 
 void generateSubdividedIcosahedron() {
@@ -16,7 +17,7 @@ void generateSubdividedIcosahedron() {
   subdivide(icosahedron);
 }
 
-ShapeData subdivide(ShapeData old) {
+Mesh subdivide(Mesh old) {
   final vertices = <Vector3>[...old.vertices];
   final faces = <Face>[];
 
@@ -46,7 +47,7 @@ ShapeData subdivide(ShapeData old) {
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return ShapeData(vertices: vertices, faces: faces);
+  return Mesh(vertices: vertices, faces: faces);
 }
 
 const noWarn = out;
@@ -65,7 +66,7 @@ const double s2 = 0.5877852522924731; //sqrt(10-2*root5)/4;
 
 //TODO remove HACK for quick hot reload
 // final icosahedron = ShapeData(
-ShapeData get icosahedron => ShapeData(
+Mesh get icosahedron => Mesh(
       vertices: <Vector3>[
         // north pole (z)
         Vector3(0, 0, root5 / 2),
@@ -118,7 +119,7 @@ ShapeData get icosahedron => ShapeData(
       ],
     );
 
-final triangle = ShapeData(
+final triangle = Mesh(
   vertices: [
     Vector3(0, 0, 0),
     Vector3(1, 0, 0),
