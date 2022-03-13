@@ -9,10 +9,13 @@ import 'package:vector_math/vector_math_64.dart';
 ShapeData generateShapeData() => icosahedron;
 // ShapeData generateShapeData() => triangle;
 
-void f() {
+void generateSubdividedIcosahedron() {
   // final ff = icosahedron;
   // for each vector coming out from a vertex
   // go a third of the way along and add that ver (do face the same time)
+  final vertices = <Vector3>[Vector3(1, 2, 3)];
+  final faces = <Face>[const Face(4, 5, 6)];
+  out(ShapeData(vertices: vertices, faces: faces));
 }
 
 const noWarn = out;

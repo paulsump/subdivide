@@ -43,9 +43,11 @@ class TheApp extends StatelessWidget {
               if (panZoomNotifier.scale == 0) {
                 panZoomNotifier.initializeScale(screenAdjust(0.06494, context));
 
-                final shapeNotifier= getShapeNotifier(context, listen: false);
+                final shapeNotifier = getShapeNotifier(context, listen: false);
 
                 shapeNotifier.init(generateShapeData());
+                generateSubdividedIcosahedron();
+                // shapeNotifier.init(persistedShapeData());
               }
 
               // final
@@ -85,4 +87,3 @@ class TheApp extends StatelessWidget {
     );
   }
 }
-
