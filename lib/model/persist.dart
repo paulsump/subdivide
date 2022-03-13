@@ -9,6 +9,7 @@ import 'package:subdivide/out.dart';
 const noWarn = out;
 
 ShapeData persistedShapeData() {
+  //TODO Load async
   return ShapeData.fromString('');
 }
 
@@ -17,7 +18,7 @@ Future<void> loadTest() async {
 
   final shapeData = ShapeData.fromString(assetStrings['test.json']!);
 
-  out(shapeData);
+  // out(shapeData);
 }
 
 /// for loading asset files

@@ -49,7 +49,7 @@ class TheApp extends StatelessWidget {
                 final shapeNotifier = getShapeNotifier(context, listen: false);
 
                 shapeNotifier.init(generateShapeData());
-                // generateSubdividedIcosahedron();
+                generateSubdividedIcosahedron();
                 unawaited(loadTest());
                 // shapeNotifier.init(persistedShapeData());
               }

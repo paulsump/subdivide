@@ -48,8 +48,8 @@ class _RotatingShapeState extends State<RotatingShape>
     transform.scale(_scale, _scale);
 
     transform.rotateX(radians(10));
-    transform.rotateX(radiansY);
-    // transform.rotateY(radiansY);
+    // transform.rotateX(radiansY);
+    transform.rotateY(radiansY);
     // transform.rotateZ(radiansY);
 
     return transform;

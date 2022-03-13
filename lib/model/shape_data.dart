@@ -55,11 +55,16 @@ class ShapeData {
         faces = json['faces']
             .map<Face>(
               (f) => Face.fromJson(f),
-        )
+            )
             .toList();
 
-  Map<String, dynamic> toJson() => {
-        'vertices': vertices.map((v) => Vec3(v)).toList(),
+  Map<String, dynamic> toJson() =>
+      {
+        'vertices': vertices
+            .map(
+              (v) => Vec3Persist(v),
+            )
+            .toList(),
         'faces': faces,
       };
 }
@@ -69,8 +74,8 @@ class Vector3Persist {
       Vector3(json['x'], json['y'], json['z']);
 }
 
-class Vec3 {
-  Vec3(Vector3 v)
+class Vec3Persist {
+  Vec3Persist(Vector3 v)
       : x = v.x,
         y = v.y,
         z = v.z;
