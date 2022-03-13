@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/model/math_3d.dart';
-import 'package:subdivide/model/shape_notifier.dart';
+import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/unit_to_screen.dart';
@@ -23,11 +23,11 @@ class Shape extends StatelessWidget {
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
-    final shapeData= getShapeData(context, listen: false);
+    final shapeData = getShapeData(context, listen: false);
 
-        final vertices = shapeData.vertices
+    final vertices = shapeData.vertices
         .map((vertex) => transform.transform3(
-          vecmath.Vector3.copy(vertex),
+              vecmath.Vector3.copy(vertex),
             ))
         .toList();
 
@@ -41,20 +41,20 @@ class Shape extends StatelessWidget {
       var normal = Math3d.normal(a, b, c).normalized();
 
       if (0 < normal.z) {
-       final light = vecmath.Vector3(0.0, 0.0, 1.0);
+        final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
-       var brightness = normal.dot(light).clamp(0.0, 1.0);
-       const Color color = Colors.purple;
+        var brightness = normal.dot(light).clamp(0.0, 1.0);
+        const Color color = Colors.purple;
 
-       triangles.add(Triangle(
-         offsets: [flipY(a), flipY(b), flipY(c)],
-         color: Color.fromARGB(
-             255,
-             (brightness * color.red).toInt(),
-             (brightness * color.green).toInt(),
-             (brightness * color.blue).toInt()),
-       ));
-     }
+        triangles.add(Triangle(
+          offsets: [flipY(a), flipY(b), flipY(c)],
+          color: Color.fromARGB(
+              255,
+              (brightness * color.red).toInt(),
+              (brightness * color.green).toInt(),
+              (brightness * color.blue).toInt()),
+        ));
+      }
     }
     return triangles;
   }

@@ -2,8 +2,7 @@
 
 import 'dart:core';
 
-import 'package:subdivide/model/face.dart';
-import 'package:subdivide/model/shape_notifier.dart';
+import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
