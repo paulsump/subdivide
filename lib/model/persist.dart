@@ -1,3 +1,5 @@
+// Copyright (c) 2022, Paul Sumpner.  All rights reserved.
+
 import 'dart:convert';
 
 import 'package:flutter/services.dart';

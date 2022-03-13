@@ -52,10 +52,10 @@ class ShapeData {
               (v) => Vector3Persist.fromJson(v),
             )
             .toList(),
-        faces = json['cubes']
+        faces = json['faces']
             .map<Face>(
               (f) => Face.fromJson(f),
-            )
+        )
             .toList();
 
   Map<String, dynamic> toJson() => {
