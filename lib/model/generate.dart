@@ -126,18 +126,17 @@ ShapeData get icosahedron => ShapeData(vertices: <Vector3>[
       Vector3(s1, c1, 0.5),
 
       // bottom pentagon from top anticlockwise
-        Vector3(-s2, c2, -0.5),
-        Vector3(-s1, -c1, -0.5),
-        Vector3(0, -1, -0.5),
-        Vector3(s1, -c1, -0.5),
-        Vector3(s2, c2, -0.5),
+      Vector3(-s2, c2, -0.5),
+      Vector3(-s1, -c1, -0.5),
+      Vector3(0, -1, -0.5),
+      Vector3(s1, -c1, -0.5),
+      Vector3(s2, c2, -0.5),
 
-        // south pole
-        Vector3(0, 0, -root5 / 2),
-      ],
-        meshes: <Mesh>[
-      Mesh(
-        faces: const [
+      // south pole
+      Vector3(0, 0, -root5 / 2),
+    ], meshes: <Mesh>[
+      const Mesh(
+        faces: [
           // top
           Face(0, 1, 2),
           Face(0, 2, 3),
@@ -148,15 +147,15 @@ ShapeData get icosahedron => ShapeData(vertices: <Vector3>[
           // bottom
           Face(11, 10, 9),
           Face(11, 9, 8),
-            Face(11, 8, 7),
-            Face(11, 7, 6),
-            Face(11, 6, 10),
+          Face(11, 8, 7),
+          Face(11, 7, 6),
+          Face(11, 6, 10),
 
-            // top between
-            Face(1, 6, 2),
-            Face(2, 7, 3),
-            Face(3, 8, 4),
-            Face(4, 9, 5),
+          // top between
+          Face(1, 6, 2),
+          Face(2, 7, 3),
+          Face(3, 8, 4),
+          Face(4, 9, 5),
           Face(5, 10, 1),
 
           // bottom between
@@ -175,8 +174,8 @@ final triangle = ShapeData(vertices: [
   Vector3(1, 0, 0),
   Vector3(0, 1, 0),
 ], meshes: <Mesh>[
-  Mesh(
-    faces: const [Face(0, 1, 2)],
+  const Mesh(
+    faces: [Face(0, 1, 2)],
     dark: false,
   )
 ]);
