@@ -33,8 +33,7 @@ class ShapeNotifier extends ChangeNotifier {
 
 class ShapeData {
   const ShapeData({
-    required this.meshes,
-  });
+    required this.meshes});
 
   final List<Mesh> meshes;
 
@@ -63,13 +62,15 @@ class Mesh {
   const Mesh({
     required this.vertices,
     required this.faces,
-    required this.colorIndex,
+    required this.dark,
   });
 
   final List<Vector3> vertices;
 
   final List<Face> faces;
-  final int colorIndex;
+
+  //TODO Rename to int colorIndex?
+  final bool dark;
 
   Mesh.fromString(String json) : this.fromJson(jsonDecode(json));
 
@@ -87,7 +88,7 @@ class Mesh {
               (f) => Face.fromJson(f),
             )
             .toList(),
-        colorIndex = json.containsKey('colorIndex') ? json['colorIndex'] : 0;
+        dark = json.containsKey('colorIndex') ? json['colorIndex'] : 0;
 
   Map<String, dynamic> toJson() =>
       {
@@ -97,7 +98,7 @@ class Mesh {
             )
             .toList(),
         'faces': faces,
-        'colorIndex': colorIndex,
+        'colorIndex': dark,
       };
 }
 

@@ -8,13 +8,24 @@ import 'package:vector_math/vector_math_64.dart';
 
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
-    ShapeData(meshes: <Mesh>[subdivide(icosahedron)]);
-// ShapeData generateShapeData() => triangle;
+    // ShapeData(meshes: <Mesh>[subdivide(icosahedron)]);
+    ShapeData(meshes: <Mesh>[subdivideFrequency3(icosahedron)]);
 
-void generateSubdividedIcosahedron() {
-  // for each vector coming out from a vertex
-  // go a third of the way along and add that ver (do face the same time)
-  subdivide(icosahedron);
+/// for each vector coming out from a vertex
+/// go a third of the way along and add that ver (do face the same time)
+Mesh subdivideFrequency3(Mesh old) {
+  final vertices = <Vector3>[...old.vertices];
+  final faces = <Face>[];
+
+  for (final face in old.faces) {
+    // outer 3 are dark (rename)
+    // later can pull in the first 12 vertices in.
+    // later, putting in the seam in a straight line is easy (sacrifice corner?)
+    // inner 6 are light
+  }
+
+  return icosahedron;
+  return Mesh(vertices: vertices, faces: faces, dark: false);
 }
 
 Mesh subdivide(Mesh old) {
@@ -47,7 +58,7 @@ Mesh subdivide(Mesh old) {
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return Mesh(vertices: vertices, faces: faces, colorIndex: 0);
+  return Mesh(vertices: vertices, faces: faces, dark: false);
 }
 
 const noWarn = out;
@@ -117,7 +128,7 @@ Mesh get icosahedron => Mesh(
         Face(9, 10, 5),
         Face(10, 6, 1),
       ],
-      colorIndex: 0,
+      dark: false,
     );
 
 final triangle = Mesh(
@@ -127,5 +138,5 @@ final triangle = Mesh(
     Vector3(0, 1, 0),
   ],
   faces: const [Face(0, 1, 2)],
-  colorIndex: 0,
+  dark: false,
 );
