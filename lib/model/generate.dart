@@ -9,16 +9,16 @@ import 'package:vector_math/vector_math_64.dart';
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
     // ShapeData(meshes: <Mesh>[subdivide(icosahedron)]);
-    ShapeData(meshes: <Mesh>[subdivideFrequency3(icosahedron)]);
+    subdivideFrequency3(icosahedron);
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
-Mesh subdivideFrequency3(Mesh old) {
+ShapeData subdivideFrequency3(ShapeData old) {
   // TODO VERtices shoule be shared in ShapeData
   final vertices = <Vector3>[...old.vertices];
   final faces = <Face>[];
 
-  for (final face in old.faces) {
+  for (final face in old.meshes.first.faces) {
     // face corners
     final a = vertices[face.a];
     final b = vertices[face.b];
@@ -62,14 +62,13 @@ Mesh subdivideFrequency3(Mesh old) {
   }
 
   return icosahedron;
-  return Mesh(vertices: vertices, faces: faces, dark: false);
 }
 
-Mesh subdivide(Mesh old) {
+ShapeData subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
   final faces = <Face>[];
 
-  for (final face in old.faces) {
+  for (final face in old.meshes.first.faces) {
     final a = vertices[face.a];
     final b = vertices[face.b];
     final c = vertices[face.c];
@@ -95,7 +94,8 @@ Mesh subdivide(Mesh old) {
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return Mesh(vertices: vertices, faces: faces, dark: false);
+  return ShapeData(
+      vertices: vertices, meshes: <Mesh>[Mesh(faces: faces, dark: false)]);
 }
 
 const noWarn = out;
@@ -114,19 +114,18 @@ const double s2 = 0.5877852522924731; //sqrt(10-2*root5)/4;
 
 //TODO remove HACK for quick hot reload
 // final icosahedron = ShapeData(
-Mesh get icosahedron => Mesh(
-      vertices: <Vector3>[
-        // north pole (z)
-        Vector3(0, 0, root5 / 2),
+ShapeData get icosahedron => ShapeData(vertices: <Vector3>[
+      // north pole (z)
+      Vector3(0, 0, root5 / 2),
 
-        // top pentagon from top anticlockwise
-        Vector3(0, 1, 0.5),
-        Vector3(-s1, c1, 0.5),
-        Vector3(-s2, -c2, 0.5),
-        Vector3(s2, -c2, 0.5),
-        Vector3(s1, c1, 0.5),
+      // top pentagon from top anticlockwise
+      Vector3(0, 1, 0.5),
+      Vector3(-s1, c1, 0.5),
+      Vector3(-s2, -c2, 0.5),
+      Vector3(s2, -c2, 0.5),
+      Vector3(s1, c1, 0.5),
 
-        // bottom pentagon from top anticlockwise
+      // bottom pentagon from top anticlockwise
         Vector3(-s2, c2, -0.5),
         Vector3(-s1, -c1, -0.5),
         Vector3(0, -1, -0.5),
@@ -136,44 +135,48 @@ Mesh get icosahedron => Mesh(
         // south pole
         Vector3(0, 0, -root5 / 2),
       ],
-      faces: const [
-        // top
-        Face(0, 1, 2),
-        Face(0, 2, 3),
-        Face(0, 3, 4),
-        Face(0, 4, 5),
-        Face(0, 5, 1),
+        meshes: <Mesh>[
+      Mesh(
+        faces: const [
+          // top
+          Face(0, 1, 2),
+          Face(0, 2, 3),
+          Face(0, 3, 4),
+          Face(0, 4, 5),
+          Face(0, 5, 1),
 
-        // bottom
-        Face(11, 10, 9),
-        Face(11, 9, 8),
-        Face(11, 8, 7),
-        Face(11, 7, 6),
-        Face(11, 6, 10),
+          // bottom
+          Face(11, 10, 9),
+          Face(11, 9, 8),
+            Face(11, 8, 7),
+            Face(11, 7, 6),
+            Face(11, 6, 10),
 
-        // top between
-        Face(1, 6, 2),
-        Face(2, 7, 3),
-        Face(3, 8, 4),
-        Face(4, 9, 5),
-        Face(5, 10, 1),
+            // top between
+            Face(1, 6, 2),
+            Face(2, 7, 3),
+            Face(3, 8, 4),
+            Face(4, 9, 5),
+          Face(5, 10, 1),
 
-        // bottom between
-        Face(6, 7, 2),
-        Face(7, 8, 3),
-        Face(8, 9, 4),
-        Face(9, 10, 5),
-        Face(10, 6, 1),
-      ],
-      dark: false,
-    );
+          // bottom between
+          Face(6, 7, 2),
+          Face(7, 8, 3),
+          Face(8, 9, 4),
+          Face(9, 10, 5),
+          Face(10, 6, 1),
+        ],
+        dark: false,
+      )
+    ]);
 
-final triangle = Mesh(
-  vertices: [
-    Vector3(0, 0, 0),
-    Vector3(1, 0, 0),
-    Vector3(0, 1, 0),
-  ],
-  faces: const [Face(0, 1, 2)],
-  dark: false,
-);
+final triangle = ShapeData(vertices: [
+  Vector3(0, 0, 0),
+  Vector3(1, 0, 0),
+  Vector3(0, 1, 0),
+], meshes: <Mesh>[
+  Mesh(
+    faces: const [Face(0, 1, 2)],
+    dark: false,
+  )
+]);

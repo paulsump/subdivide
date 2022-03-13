@@ -47,9 +47,9 @@ class _RotatingShapeState extends State<RotatingShape>
     var transform = Matrix4.translationValues(0, -2, 1);
     transform.scale(_scale, _scale);
 
-    transform.rotateX(radians(90));
+    // transform.rotateX(radians(90));
     // transform.rotateX(radiansY);
-    // transform.rotateY(radiansY);
+    transform.rotateY(radiansY);
     // transform.rotateZ(radiansY);
 
     return transform;

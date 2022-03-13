@@ -25,16 +25,16 @@ class Shape extends StatelessWidget {
   List<Triangle> _calcTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
 
+    final vertices = shapeData.vertices
+        .map((vertex) => transform.transform3(
+              vecmath.Vector3.copy(vertex),
+            ))
+        .toList();
+
     final triangles = <Triangle>[];
 
     for (final mesh in shapeData.meshes) {
       final Color color = mesh.dark ? Colors.deepPurple : Colors.teal;
-
-      final vertices = mesh.vertices
-          .map((vertex) => transform.transform3(
-                vecmath.Vector3.copy(vertex),
-              ))
-          .toList();
 
       for (final face in mesh.faces) {
         final a = vertices[face.a];

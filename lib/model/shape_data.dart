@@ -32,8 +32,9 @@ class ShapeNotifier extends ChangeNotifier {
 }
 
 class ShapeData {
-  const ShapeData({
-    required this.meshes});
+  const ShapeData({required this.vertices, required this.meshes});
+
+  final List<Vector3> vertices;
 
   final List<Mesh> meshes;
 
@@ -43,13 +44,24 @@ class ShapeData {
   String toString() => jsonEncode(this);
 
   ShapeData.fromJson(Map<String, dynamic> json)
-      : meshes = json['meshes']
+      : vertices = json['vertices']
+            .map<Vector3>(
+              (v) => Vector3Persist.fromJson(v),
+            )
+            .toList(),
+        meshes = json['meshes']
             .map<Mesh>(
               (m) => Mesh.fromJson(m),
             )
             .toList();
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
+        'vertices': vertices
+            .map(
+              (v) => Vec3Persist(v),
+            )
+            .toList(),
         'meshes': meshes
             .map(
               (m) => m.toJson(),
@@ -60,12 +72,9 @@ class ShapeData {
 
 class Mesh {
   const Mesh({
-    required this.vertices,
     required this.faces,
     required this.dark,
   });
-
-  final List<Vector3> vertices;
 
   final List<Face> faces;
 
@@ -77,12 +86,7 @@ class Mesh {
   String toString() => jsonEncode(this);
 
   Mesh.fromJson(Map<String, dynamic> json)
-      : vertices = json['vertices']
-            .map<Vector3>(
-              (v) => Vector3Persist.fromJson(v),
-            )
-            .toList(),
-        faces = json['faces']
+      : faces = json['faces']
             .map<Face>(
               (f) => Face.fromJson(f),
             )
@@ -91,11 +95,6 @@ class Mesh {
 
   Map<String, dynamic> toJson() =>
       {
-        'vertices': vertices
-            .map(
-              (v) => Vec3Persist(v),
-            )
-            .toList(),
         'faces': faces,
         'colorIndex': dark,
       };
