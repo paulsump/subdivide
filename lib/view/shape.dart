@@ -34,16 +34,16 @@ class Shape extends StatelessWidget {
     final triangles = <Triangle>[];
 
     for (final face in shapeData.faces) {
-      var a = vertices[face.a];
-      var b = vertices[face.b];
-      var c = vertices[face.c];
+      final a = vertices[face.a];
+      final b = vertices[face.b];
+      final c = vertices[face.c];
 
-      var normal = Math3d.normal(a, b, c).normalized();
+      final normal = Math3d.normal(a, b, c).normalized();
 
       if (0 < normal.z) {
         final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
-        var brightness = normal.dot(light).clamp(0.0, 1.0);
+        final brightness = normal.dot(light).clamp(0.0, 1.0);
         const Color color = Colors.purple;
 
         triangles.add(Triangle(

@@ -13,12 +13,10 @@ ShapeData persistedShapeData() {
   return ShapeData.fromString('');
 }
 
-Future<void> loadTest() async {
+Future<ShapeData> loadTest() async {
   final assetStrings = await _Assets._getStrings('shapes/test');
 
-  final shapeData = ShapeData.fromString(assetStrings['test.json']!);
-
-  // out(shapeData);
+  return ShapeData.fromString(assetStrings['test.json']!);
 }
 
 /// for loading asset files

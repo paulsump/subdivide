@@ -6,19 +6,43 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-ShapeData generateShapeData() => icosahedron;
+// ShapeData generateShapeData() => icosahedron;
+ShapeData generateShapeData() => subdivide(icosahedron, frequency: 3);
 // ShapeData generateShapeData() => triangle;
 
 void generateSubdividedIcosahedron() {
   // for each vector coming out from a vertex
   // go a third of the way along and add that ver (do face the same time)
-  out(subdivide(icosahedron, frequency: 3));
+  subdivide(icosahedron, frequency: 3);
 }
 
 ShapeData subdivide(ShapeData old, {required int frequency}) {
-  final vertices = <Vector3>[];
-  final faces = <Face>[];
+  final vertices = <Vector3>[...old.vertices];
+  final faces = <Face>[...old.faces];
 
+  for (final face in old.faces) {
+    final a = vertices[face.a];
+    final b = vertices[face.b];
+    final c = vertices[face.c];
+
+    final p = (a + b) / 2;
+    final q = (b + c) / 2;
+    final r = (c + a) / 2;
+
+    final i = vertices.length;
+    vertices.add(p);
+
+    final j = vertices.length;
+    vertices.add(q);
+
+    final k = vertices.length;
+    vertices.add(r);
+
+    faces.add(Face(face.a, i, k));
+    faces.add(Face(i, face.b, j));
+    faces.add(Face(j, face.c, k));
+    faces.add(Face(k, i, j));
+  }
   return ShapeData(vertices: vertices, faces: faces);
 }
 
