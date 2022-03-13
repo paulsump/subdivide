@@ -61,10 +61,18 @@ ShapeData subdivideFrequency3(ShapeData old) {
     // this will make the smooth corners of the patch (the round bit at the end of the seam
 
     // inner 6 are light
-    // todo each one is added to that light center's mesh
-
+    light.add(Face(p1, s, r2));
+    light.add(Face(p2, s, p1));
+    light.add(Face(q1, s, p2));
+    light.add(Face(q2, s, q1));
+    light.add(Face(r1, s, q2));
+    light.add(Face(r2, s, r1));
     // later can pull in the first 12 vertices in.
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
+  }
+
+  for (final vertex in vertices) {
+    vertex.normalize();
   }
 
   return ShapeData(vertices: vertices, meshes: [darkMesh, lightMesh]);
