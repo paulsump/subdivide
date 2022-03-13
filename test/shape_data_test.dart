@@ -8,7 +8,7 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-const noWarn = out;
+const noWarn = [out, Vector3];
 
 void main() {
   group('json empty', () {
@@ -30,10 +30,10 @@ void main() {
   });
 
   group('json one face', () {
-    final vertices = <Vector3>[Vector3(1, 2, 3)];
-    final faces = <Face>[const Face(4, 5, 6)];
+    // final vertices = <Vector3>[Vector3(1, 2, 3)];
+    // final faces = <Face>[const Face(4, 5, 6)];
 
-    final testShapeData = ShapeData(vertices: vertices, faces: faces);
+    // final testShapeData = ShapeData(vertices: vertices, faces: faces);
     const testJson =
         '{"vertices":[{"x":1.0,"y":2.0,"z":3.0}],"faces":[{"a":4,"b":5,"c":6}]}';
 

@@ -4,9 +4,20 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:subdivide/model/shape_data.dart';
+import 'package:subdivide/out.dart';
+
+const noWarn = out;
 
 ShapeData persistedShapeData() {
   return ShapeData.fromString('');
+}
+
+Future<void> loadTest() async {
+  final assetStrings = await _Assets._getStrings('shapes/test');
+
+  final shapeData = ShapeData.fromString(assetStrings['test.json']!);
+
+  out(shapeData);
 }
 
 /// for loading asset files

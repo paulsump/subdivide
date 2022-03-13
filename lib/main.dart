@@ -1,9 +1,12 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:subdivide/gestures/pan_zoom.dart';
 import 'package:subdivide/model/generate.dart';
+import 'package:subdivide/model/persist.dart';
 import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/hue.dart';
@@ -46,7 +49,8 @@ class TheApp extends StatelessWidget {
                 final shapeNotifier = getShapeNotifier(context, listen: false);
 
                 shapeNotifier.init(generateShapeData());
-                generateSubdividedIcosahedron();
+                // generateSubdividedIcosahedron();
+                unawaited(loadTest());
                 // shapeNotifier.init(persistedShapeData());
               }
 
