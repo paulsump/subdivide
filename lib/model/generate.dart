@@ -14,14 +14,51 @@ ShapeData generateShapeData() =>
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
 Mesh subdivideFrequency3(Mesh old) {
+  // TODO VERtices shoule be shared in ShapeData
   final vertices = <Vector3>[...old.vertices];
   final faces = <Face>[];
 
   for (final face in old.faces) {
-    // outer 3 are dark (rename)
+    // face corners
+    final a = vertices[face.a];
+    final b = vertices[face.b];
+    final c = vertices[face.c];
+
+    // edge vectors
+    final p = b - a;
+    final q = c - b;
+    final r = a - c;
+
+    // one third along edge
+    // todo extract getIndexOrAdd
+    final p1 = vertices.length;
+    vertices.add(a + p / 3);
+    final q1 = vertices.length;
+    vertices.add(b + q / 3);
+    final r1 = vertices.length;
+    vertices.add(c + r / 3);
+
+    // two thirds along edge
+    final p2 = vertices.length;
+    vertices.add(a + p * 2 / 3);
+    final q2 = vertices.length;
+    vertices.add(b + q * 2 / 3);
+    final r2 = vertices.length;
+    vertices.add(c + r * 2 / 3);
+
+    // centre
+    final s = vertices.length;
+    vertices.add((a + b + c) / 3);
+
+    // outer 3 are dark
+    // todo each one should be added to that dark corner's mesh
+    // this will make the smooth corners of the patch (the round bit at the end of the seam
+
+    // inner 6 are light
+    // todo each one is added to that light center's mesh
+
     // later can pull in the first 12 vertices in.
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
-    // inner 6 are light
   }
 
   return icosahedron;

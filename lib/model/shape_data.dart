@@ -69,7 +69,6 @@ class Mesh {
 
   final List<Face> faces;
 
-  //TODO Rename to int colorIndex?
   final bool dark;
 
   Mesh.fromString(String json) : this.fromJson(jsonDecode(json));
