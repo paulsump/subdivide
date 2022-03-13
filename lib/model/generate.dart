@@ -9,7 +9,7 @@ import 'package:vector_math/vector_math_64.dart';
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
     // subdivide(icosahedron);
-    subdivideFrequency3(icosahedron);
+    subdivide(subdivide(subdivideFrequency3(icosahedron)));
 
 int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
   int index = vertices.length;
@@ -81,36 +81,44 @@ ShapeData subdivideFrequency3(ShapeData old) {
 
 ShapeData subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
-  final faces = <Face>[];
+  final dark = <Face>[];
+  final light = <Face>[];
 
-  for (final face in old.meshes.first.faces) {
-    final a = vertices[face.a];
-    final b = vertices[face.b];
-    final c = vertices[face.c];
+  final darkMesh = Mesh(faces: dark, dark: true);
+  final lightMesh = Mesh(faces: light, dark: false);
 
-    final p = (a + b) / 2;
-    final q = (b + c) / 2;
-    final r = (c + a) / 2;
+  final meshes = <Mesh>[darkMesh, lightMesh];
 
-    final i = vertices.length;
-    vertices.add(p);
+  for (final mesh in old.meshes) {
+    final faces = mesh.dark ? darkMesh.faces : lightMesh.faces;
+    for (final face in mesh.faces) {
+      final a = vertices[face.a];
+      final b = vertices[face.b];
+      final c = vertices[face.c];
 
-    final j = vertices.length;
-    vertices.add(q);
+      final p = (a + b) / 2;
+      final q = (b + c) / 2;
+      final r = (c + a) / 2;
 
-    final k = vertices.length;
-    vertices.add(r);
+      final i = vertices.length;
+      vertices.add(p);
 
-    faces.add(Face(face.a, i, k));
-    faces.add(Face(i, face.b, j));
-    faces.add(Face(j, face.c, k));
-    faces.add(Face(k, i, j));
+      final j = vertices.length;
+      vertices.add(q);
+
+      final k = vertices.length;
+      vertices.add(r);
+
+      faces.add(Face(face.a, i, k));
+      faces.add(Face(i, face.b, j));
+      faces.add(Face(j, face.c, k));
+      faces.add(Face(k, i, j));
+    }
   }
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return ShapeData(
-      vertices: vertices, meshes: <Mesh>[Mesh(faces: faces, dark: false)]);
+  return ShapeData(vertices: vertices, meshes: meshes);
 }
 
 const noWarn = out;
