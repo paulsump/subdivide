@@ -63,11 +63,13 @@ class Mesh {
   const Mesh({
     required this.vertices,
     required this.faces,
+    required this.colorIndex,
   });
 
   final List<Vector3> vertices;
 
   final List<Face> faces;
+  final int colorIndex;
 
   Mesh.fromString(String json) : this.fromJson(jsonDecode(json));
 
@@ -84,15 +86,18 @@ class Mesh {
             .map<Face>(
               (f) => Face.fromJson(f),
             )
-            .toList();
+            .toList(),
+        colorIndex = json.containsKey('colorIndex') ? json['colorIndex'] : 0;
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         'vertices': vertices
             .map(
               (v) => Vec3Persist(v),
             )
             .toList(),
         'faces': faces,
+        'colorIndex': colorIndex,
       };
 }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
+import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
@@ -28,7 +29,7 @@ class Shape extends StatelessWidget {
     final triangles = <Triangle>[];
 
     for (final mesh in shapeData.meshes) {
-      const Color color = Colors.purple;
+      final Color color = Hue.mesh[mesh.colorIndex];
 
       final vertices = mesh.vertices
           .map((vertex) => transform.transform3(

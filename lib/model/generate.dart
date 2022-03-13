@@ -47,7 +47,7 @@ Mesh subdivide(Mesh old) {
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return Mesh(vertices: vertices, faces: faces);
+  return Mesh(vertices: vertices, faces: faces, colorIndex: 0);
 }
 
 const noWarn = out;
@@ -117,6 +117,7 @@ Mesh get icosahedron => Mesh(
         Face(9, 10, 5),
         Face(10, 6, 1),
       ],
+      colorIndex: 0,
     );
 
 final triangle = Mesh(
@@ -126,4 +127,5 @@ final triangle = Mesh(
     Vector3(0, 1, 0),
   ],
   faces: const [Face(0, 1, 2)],
+  colorIndex: 0,
 );
