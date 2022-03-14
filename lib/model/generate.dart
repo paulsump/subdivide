@@ -2,6 +2,7 @@
 
 import 'dart:core';
 
+import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
@@ -10,6 +11,7 @@ import 'package:vector_math/vector_math_64.dart';
 ShapeData generateShapeData() =>
     // subdivide(icosahedron);
 // subdivide(subdivide(subdivideFrequency3(icosahedron)));
+// subdivide(subdivideFrequency3(icosahedron));
     subdivideFrequency3(icosahedron);
 
 /// for each vector coming out from a vertex
@@ -37,26 +39,17 @@ ShapeData subdivideFrequency3(ShapeData old) {
     final r = a - c;
 
     // one third along edge
-    final int p1 = _getOrAdd(a + p * 1 / 3, vertices);
-    final int q1 = _getOrAdd(b + q * 1 / 3, vertices);
-    final int r1 = _getOrAdd(c + r * 1 / 3, vertices);
+    int p1 = _getOrAdd(a + p * 1 / 3, vertices);
+    int q1 = _getOrAdd(b + q * 1 / 3, vertices);
+    int r1 = _getOrAdd(c + r * 1 / 3, vertices);
 
     // two thirds along edge
-    final int p2 = _getOrAdd(a + p * 2 / 3, vertices);
-    final int q2 = _getOrAdd(b + q * 2 / 3, vertices);
-    final int r2 = _getOrAdd(c + r * 2 / 3, vertices);
+    int p2 = _getOrAdd(a + p * 2 / 3, vertices);
+    int q2 = _getOrAdd(b + q * 2 / 3, vertices);
+    int r2 = _getOrAdd(c + r * 2 / 3, vertices);
 
     // centre
     final int s = _getOrAdd((a + b + c) / 3, vertices);
-
-    // outer 3 are dark
-    dark.add(Face(face.a, p1, r2));
-    dark.add(Face(face.b, q1, p2));
-    dark.add(Face(face.c, r1, q2));
-
-    //TODO DO calc once only
-    darkLength = (vertices[p1] + vertices[q1] + vertices[r1]).length / 3;
-    // TODO smooth corners of the patch (the round bit at the end of the seam
 
     // inner 6 are light
     light.add(Face(p1, s, r2));
@@ -65,6 +58,35 @@ ShapeData subdivideFrequency3(ShapeData old) {
     light.add(Face(q2, s, q1));
     light.add(Face(r1, s, q2));
     light.add(Face(r2, s, r1));
+
+    //TODO USe midpoint of pentagon, not this hexagon midpoint...
+    darkLength = (vertices[p1] + vertices[q1] + vertices[r1]).length / 3;
+
+    // TODO smooth corners of the patch (the round bit at the end of the seam
+    double scale = 0.9;
+    p1 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[p1], a.normalized() * darkLength),
+        vertices);
+    p2 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[p2], b.normalized() * darkLength),
+        vertices);
+    q1 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[q1], b.normalized() * darkLength),
+        vertices);
+    q2 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[q2], c.normalized() * darkLength),
+        vertices);
+    r1 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[r1], c.normalized() * darkLength),
+        vertices);
+    r2 = _getOrAdd(
+        Math3d.scaleAround(scale, vertices[r2], a.normalized() * darkLength),
+        vertices);
+    // outer 3 are dark
+    dark.add(Face(face.a, p1, r2));
+    dark.add(Face(face.b, q1, p2));
+    dark.add(Face(face.c, r1, q2));
+
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
 
@@ -100,6 +122,7 @@ ShapeData subdivide(ShapeData old) {
 
   for (final mesh in old.meshes) {
     final faces = mesh.dark ? darkMesh.faces : lightMesh.faces;
+
     for (final face in mesh.faces) {
       final a = vertices[face.a];
       final b = vertices[face.b];
@@ -109,14 +132,9 @@ ShapeData subdivide(ShapeData old) {
       final q = (b + c) / 2;
       final r = (c + a) / 2;
 
-      final i = vertices.length;
-      vertices.add(p);
-
-      final j = vertices.length;
-      vertices.add(q);
-
-      final k = vertices.length;
-      vertices.add(r);
+      final i = _getOrAdd(p, vertices);
+      final j = _getOrAdd(q, vertices);
+      final k = _getOrAdd(r, vertices);
 
       faces.add(Face(face.a, i, k));
       faces.add(Face(i, face.b, j));

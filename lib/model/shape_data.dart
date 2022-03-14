@@ -100,6 +100,7 @@ class Mesh {
       };
 }
 
+//TODO turn these two classes into one Vertex class with const constructor
 class Vector3Persist {
   static Vector3 fromJson(Map<String, dynamic> json) =>
       Vector3(json['x'], json['y'], json['z']);

@@ -18,10 +18,17 @@ class Math3d {
     return bVector.cross(cVector);
   }
 
-  /// Calculate the sum of the z values of a face.  Used during
-  /// sorting and rendering to draw faces in order from
-  /// back to front.
-// static double sumZ(Vector3 p1, Vector3 p2, Vector3 p3) {
-//   return p1.z + p2.z + p3.z;
-// }
+  /// Scale the distance of a vector from a central point
+  /// i.e. move it closer or further away from 'origin'
+  static Vector3 scaleAround(
+    double scale,
+    Vector3 vertex_,
+    Vector3 origin,
+  ) {
+    var vertex = Vector3.copy(vertex_);
+    vertex -= origin;
+    vertex *= scale;
+    vertex += origin;
+    return vertex;
+  }
 }

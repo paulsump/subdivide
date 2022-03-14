@@ -23,4 +23,17 @@ void main() {
       expect(normal, equals(expected));
     });
   });
+
+  group('scaleAround', () {
+    test('axis', () {
+      final xAxis = Vector3(1, 0, 0);
+
+      final testVertex = Vector3(1, 1, 0);
+
+      final scaled = Math3d.scaleAround(2, testVertex, xAxis);
+
+      final expected = Vector3(1, 2, 0);
+      expect(scaled, equals(expected));
+    });
+  });
 }
