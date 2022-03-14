@@ -20,7 +20,7 @@ class Math3d {
 
   /// Scale the distance of a vector from a central point
   /// i.e. move it closer or further away from 'origin'
-  static Vector3 scaleAround(
+  static Vector3 scaleFrom(
     double scale,
     Vector3 vertex_,
     Vector3 origin,

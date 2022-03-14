@@ -38,6 +38,9 @@ ShapeData subdivideFrequency3(ShapeData old) {
     final q = c - b;
     final r = a - c;
 
+    // centre
+    final int s = _getOrAdd((a + b + c) / 3, vertices);
+
     // one third along edge
     int p1 = _getOrAdd(a + p * 1 / 3, vertices);
     int q1 = _getOrAdd(b + q * 1 / 3, vertices);
@@ -47,9 +50,6 @@ ShapeData subdivideFrequency3(ShapeData old) {
     int p2 = _getOrAdd(a + p * 2 / 3, vertices);
     int q2 = _getOrAdd(b + q * 2 / 3, vertices);
     int r2 = _getOrAdd(c + r * 2 / 3, vertices);
-
-    // centre
-    final int s = _getOrAdd((a + b + c) / 3, vertices);
 
     // inner 6 are light
     light.add(Face(p1, s, r2));
@@ -65,22 +65,22 @@ ShapeData subdivideFrequency3(ShapeData old) {
     // TODO smooth corners of the patch (the round bit at the end of the seam
     double scale = 0.9;
     p1 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[p1], a.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[p1], a.normalized() * darkLength),
         vertices);
     p2 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[p2], b.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[p2], b.normalized() * darkLength),
         vertices);
     q1 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[q1], b.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[q1], b.normalized() * darkLength),
         vertices);
     q2 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[q2], c.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[q2], c.normalized() * darkLength),
         vertices);
     r1 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[r1], c.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[r1], c.normalized() * darkLength),
         vertices);
     r2 = _getOrAdd(
-        Math3d.scaleAround(scale, vertices[r2], a.normalized() * darkLength),
+        Math3d.scaleFrom(scale, vertices[r2], a.normalized() * darkLength),
         vertices);
     // outer 3 are dark
     dark.add(Face(face.a, p1, r2));

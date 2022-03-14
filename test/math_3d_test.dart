@@ -30,7 +30,7 @@ void main() {
 
       final testVertex = Vector3(1, 1, 0);
 
-      final scaled = Math3d.scaleAround(2, testVertex, xAxis);
+      final scaled = Math3d.scaleFrom(2, testVertex, xAxis);
 
       final expected = Vector3(1, 2, 0);
       expect(scaled, equals(expected));
