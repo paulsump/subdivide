@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/shape.dart';
-import 'package:vector_math/vector_math_64.dart';
 
 const noWarn = out;
 

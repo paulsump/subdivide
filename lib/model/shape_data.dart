@@ -5,10 +5,11 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:subdivide/model/generate.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-const noWarn = out;
+const noWarn = [out, generateShapeData];
 
 ShapeData getShapeData(BuildContext context, {required bool listen}) =>
     getShapeNotifier(context, listen: listen).shapeData;
@@ -19,15 +20,15 @@ ShapeNotifier getShapeNotifier(BuildContext context, {required bool listen}) =>
 /// Access to the [ShapeData].
 /// Generated in generate.dart, drawn by [Shape].
 class ShapeNotifier extends ChangeNotifier {
-  late ShapeData _shapeData;
+  // late ShapeData _shapeData;
 
-  ShapeData get shapeData => _shapeData;
+  // ShapeData get shapeData => _shapeData;
 
   //TODO remove HACK for quick hot reaload
-  // ShapeData get shapeData => generateShapeData();
+  ShapeData get shapeData => generateShapeData();
 
   void init(ShapeData shapeData_) {
-    _shapeData = shapeData_;
+    // _shapeData = shapeData_;
   }
 }
 

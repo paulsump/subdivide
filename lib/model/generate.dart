@@ -10,22 +10,17 @@ import 'package:vector_math/vector_math_64.dart';
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
     // subdivide(icosahedron);
-    subdivide(subdivide(subdivideFrequency3(icosahedron)));
+// subdivide(subdivide(subdivideFrequency3(icosahedron)));
 // subdivide(subdivideFrequency3(icosahedron));
-//     subdivideFrequency3(icosahedron);
+    subdivideFrequency3(icosahedron);
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
 ShapeData subdivideFrequency3(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
 
-  final dark = <Face>[];
-  final darkMesh = Mesh(faces: dark, dark: true);
-
-  double darkLength = 0;
-  final darkMeshes = <Mesh>[darkMesh];
+  final darkMeshes = <Mesh>[];
   final lightMeshes = <Mesh>[];
-  double scale = 0.9;
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -62,28 +57,16 @@ ShapeData subdivideFrequency3(ShapeData old) {
     light.add(Face(r1, s, q2));
     light.add(Face(r2, s, r1));
 
-    //TODO USe midpoint of pentagon, not this hexagon midpoint...
-    darkLength = (vertices[p1] + vertices[q1] + vertices[r1]).length / 3;
+    final dark = <Face>[];
+    darkMeshes.add(Mesh(faces: dark, dark: true));
 
     // TODO smooth corners of the patch (the round bit at the end of the seam
-    p1 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[p1], a.normalized() * darkLength),
-        vertices);
-    p2 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[p2], b.normalized() * darkLength),
-        vertices);
-    q1 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[q1], b.normalized() * darkLength),
-        vertices);
-    q2 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[q2], c.normalized() * darkLength),
-        vertices);
-    r1 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[r1], c.normalized() * darkLength),
-        vertices);
-    r2 = _getOrAdd(
-        Math3d.scaleFrom(scale, vertices[r2], a.normalized() * darkLength),
-        vertices);
+    p1 = _getOrAdd(vertices[p1], vertices);
+    p2 = _getOrAdd(vertices[p2], vertices);
+    q1 = _getOrAdd(vertices[q1], vertices);
+    q2 = _getOrAdd(vertices[q2], vertices);
+    r1 = _getOrAdd(vertices[r1], vertices);
+    r2 = _getOrAdd(vertices[r2], vertices);
     // outer 3 are dark
     dark.add(Face(face.a, p1, r2));
     dark.add(Face(face.b, q1, p2));
@@ -91,6 +74,8 @@ ShapeData subdivideFrequency3(ShapeData old) {
 
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
+
+  double scale = 0.9;
 
   // scale the light hexagons
   for (final lightMesh in lightMeshes) {
@@ -104,28 +89,35 @@ ShapeData subdivideFrequency3(ShapeData old) {
     }
   }
 
-  // scale the dark pentagons
-  for (final lightMesh in lightMeshes) {
-    final faces = lightMesh.faces;
-    int p1 = faces[0].a;
-    int p2 = faces[1].a;
-    int q1 = faces[2].a;
-    int q2 = faces[3].a;
-    int r1 = faces[4].a;
-    int r2 = faces[5].a;
+  var total = Vector3(0, 0, 0);
+
+  for (final face in darkMeshes.first.faces) {
+    total += vertices[face.b];
   }
+
+  final double darkLength = total.length / 3;
 
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
     vertices[i] *= darkLength;
   }
+
+  // scale the dark pentagons
+  for (final darkMesh in darkMeshes) {
+    for (final face in darkMesh.faces) {
+      final origin = vertices[face.a];
+
+      vertices[face.b] = Math3d.scaleFrom(scale, vertices[face.b], origin);
+      vertices[face.c] = Math3d.scaleFrom(scale, vertices[face.c], origin);
+    }
+  }
+
   // for (final vertex in vertices) {
   //   vertex.normalize();
   // }
 
   return ShapeData(
       vertices: vertices, meshes: <Mesh>[...darkMeshes, ...lightMeshes]);
-  return icosahedron;
 }
 
 int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
