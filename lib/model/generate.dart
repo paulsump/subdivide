@@ -25,6 +25,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
   double darkLength = 0;
   final darkMeshes = <Mesh>[darkMesh];
   final lightMeshes = <Mesh>[];
+  double scale = 0.9;
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -65,7 +66,6 @@ ShapeData subdivideFrequency3(ShapeData old) {
     darkLength = (vertices[p1] + vertices[q1] + vertices[r1]).length / 3;
 
     // TODO smooth corners of the patch (the round bit at the end of the seam
-    double scale = 0.9;
     p1 = _getOrAdd(
         Math3d.scaleFrom(scale, vertices[p1], a.normalized() * darkLength),
         vertices);
@@ -92,6 +92,17 @@ ShapeData subdivideFrequency3(ShapeData old) {
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
 
+  // Give patch a center
+  for (final lightMesh in lightMeshes) {
+    for (final face in lightMesh.faces) {
+      //p,q,or r
+      final pqr = vertices[face.a];
+      final s = vertices[face.b];
+      final length = s.length * scale;
+      //p,q,or r
+      vertices[face.a] = Math3d.scaleFrom(scale, pqr, s.normalized() * length);
+    }
+  }
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
     vertices[i] *= darkLength;
