@@ -9,15 +9,8 @@ import 'package:vector_math/vector_math_64.dart';
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
     // subdivide(icosahedron);
-    subdivide(subdivide(subdivideFrequency3(icosahedron)));
-
-int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
-  int index = vertices.length;
-
-  // TODO only add IF not found
-  vertices.add(vector3);
-  return index;
-}
+// subdivide(subdivide(subdivideFrequency3(icosahedron)));
+    subdivideFrequency3(icosahedron);
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
@@ -29,6 +22,8 @@ ShapeData subdivideFrequency3(ShapeData old) {
 
   final darkMesh = Mesh(faces: dark, dark: true);
   final lightMesh = Mesh(faces: light, dark: false);
+
+  double darkLength = 0;
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -42,9 +37,9 @@ ShapeData subdivideFrequency3(ShapeData old) {
     final r = a - c;
 
     // one third along edge
-    final int p1 = _getOrAdd(a + p / 3, vertices);
-    final int q1 = _getOrAdd(b + q / 3, vertices);
-    final int r1 = _getOrAdd(c + r / 3, vertices);
+    final int p1 = _getOrAdd(a + p * 1 / 3, vertices);
+    final int q1 = _getOrAdd(b + q * 1 / 3, vertices);
+    final int r1 = _getOrAdd(c + r * 1 / 3, vertices);
 
     // two thirds along edge
     final int p2 = _getOrAdd(a + p * 2 / 3, vertices);
@@ -58,7 +53,10 @@ ShapeData subdivideFrequency3(ShapeData old) {
     dark.add(Face(face.a, p1, r2));
     dark.add(Face(face.b, q1, p2));
     dark.add(Face(face.c, r1, q2));
-    // this will make the smooth corners of the patch (the round bit at the end of the seam
+
+    //TODO DO calc once only
+    darkLength = (vertices[p1] + vertices[q1] + vertices[r1]).length / 3;
+    // TODO smooth corners of the patch (the round bit at the end of the seam
 
     // inner 6 are light
     light.add(Face(p1, s, r2));
@@ -67,16 +65,27 @@ ShapeData subdivideFrequency3(ShapeData old) {
     light.add(Face(q2, s, q1));
     light.add(Face(r1, s, q2));
     light.add(Face(r2, s, r1));
-    // later can pull in the first 12 vertices in.
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
 
-  for (final vertex in vertices) {
-    vertex.normalize();
+  for (int i = 0; i < old.vertices.length; ++i) {
+    vertices[i].normalize();
+    vertices[i] *= darkLength;
   }
+  // for (final vertex in vertices) {
+  //   vertex.normalize();
+  // }
 
   return ShapeData(vertices: vertices, meshes: [darkMesh, lightMesh]);
   return icosahedron;
+}
+
+int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
+  int index = vertices.length;
+
+  // TODO only add IF not found
+  vertices.add(vector3);
+  return index;
 }
 
 ShapeData subdivide(ShapeData old) {
