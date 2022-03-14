@@ -20,12 +20,10 @@ ShapeData subdivideFrequency3(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
 
   final dark = <Face>[];
-  final light = <Face>[];
-
   final darkMesh = Mesh(faces: dark, dark: true);
-  final lightMesh = Mesh(faces: light, dark: false);
 
   double darkLength = 0;
+  final meshes = <Mesh>[darkMesh];
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -52,6 +50,9 @@ ShapeData subdivideFrequency3(ShapeData old) {
     int r2 = _getOrAdd(c + r * 2 / 3, vertices);
 
     // inner 6 are light
+    final light = <Face>[];
+    meshes.add(Mesh(faces: light, dark: false));
+
     light.add(Face(p1, s, r2));
     light.add(Face(p2, s, p1));
     light.add(Face(q1, s, p2));
@@ -98,7 +99,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
   //   vertex.normalize();
   // }
 
-  return ShapeData(vertices: vertices, meshes: [darkMesh, lightMesh]);
+  return ShapeData(vertices: vertices, meshes: meshes);
   return icosahedron;
 }
 
