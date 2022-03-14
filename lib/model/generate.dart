@@ -104,6 +104,17 @@ ShapeData subdivideFrequency3(ShapeData old) {
     }
   }
 
+  // scale the dark pentagons
+  for (final lightMesh in lightMeshes) {
+    final faces = lightMesh.faces;
+    int p1 = faces[0].a;
+    int p2 = faces[1].a;
+    int q1 = faces[2].a;
+    int q2 = faces[3].a;
+    int r1 = faces[4].a;
+    int r2 = faces[5].a;
+  }
+
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
     vertices[i] *= darkLength;
