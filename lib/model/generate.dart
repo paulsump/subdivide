@@ -10,9 +10,9 @@ import 'package:vector_math/vector_math_64.dart';
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() =>
     // subdivide(icosahedron);
-// subdivide(subdivide(subdivideFrequency3(icosahedron)));
+    subdivide(subdivide(subdivideFrequency3(icosahedron)));
 // subdivide(subdivideFrequency3(icosahedron));
-    subdivideFrequency3(icosahedron);
+//     subdivideFrequency3(icosahedron);
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
@@ -92,7 +92,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
     // later, putting in the seam in a straight line is easy (sacrifice corner?)
   }
 
-  // Give patch a center
+  // scale the light hexagons
   for (final lightMesh in lightMeshes) {
     for (final face in lightMesh.faces) {
       //p,q,or r
@@ -103,6 +103,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
       vertices[face.a] = Math3d.scaleFrom(scale, pqr, s.normalized() * length);
     }
   }
+
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
     vertices[i] *= darkLength;
