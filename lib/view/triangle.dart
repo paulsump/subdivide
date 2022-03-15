@@ -16,14 +16,16 @@ class Triangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: _Painter(
-            Path()..addPolygon(offsets, true),
-            Paint()
-              ..color = color
-              ..style = PaintingStyle.fill,
-            Paint()
-              ..color = color
-              ..style = PaintingStyle.stroke));
+      painter: _Painter(
+        Path()..addPolygon(offsets, true),
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.fill,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke,
+      ),
+    );
   }
 }
 

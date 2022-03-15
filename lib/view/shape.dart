@@ -26,14 +26,10 @@ class Shape extends StatelessWidget {
     final shapeData = getShapeData(context, listen: false);
 
     final vertices = shapeData.vertices
-        .map((vertex) => transform.transform3(
-              vecmath.Vector3.copy(vertex),
-            ))
+        .map((vertex) => transform.transform3(vecmath.Vector3.copy(vertex)))
         .toList();
     final vertices2 = shapeData.vertices2
-        .map((vertex) => transform.transform3(
-              vecmath.Vector3.copy(vertex),
-            ))
+        .map((vertex) => transform.transform3(vecmath.Vector3.copy(vertex)))
         .toList();
 
     final triangles = <Triangle>[];
