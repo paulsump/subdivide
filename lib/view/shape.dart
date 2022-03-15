@@ -6,6 +6,7 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/unit_to_screen.dart';
+import 'package:subdivide/view/vertex_notifier.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 import 'triangle.dart';
@@ -13,9 +14,7 @@ import 'triangle.dart';
 const noWarn = out;
 
 class Shape extends StatelessWidget {
-  const Shape({Key? key, required this.transform}) : super(key: key);
-
-  final Matrix4 transform;
+  const Shape({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +23,7 @@ class Shape extends StatelessWidget {
 
   List<Triangle> _calcTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
+    final transform = getTransform(context, listen: true);
 
     final vertices = shapeData.vertices
         .map((vertex) => transform.transform3(vecmath.Vector3.copy(vertex)))

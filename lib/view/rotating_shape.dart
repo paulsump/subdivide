@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/shape.dart';
+import 'package:subdivide/view/vertex_notifier.dart';
 
 const noWarn = out;
 
@@ -27,7 +28,7 @@ class _RotatingShapeState extends State<RotatingShape>
       vsync: this,
       duration: const Duration(milliseconds: 100000),
     )..addListener(() {
-        setState(() {});
+      setTransform(getTransform(), context);
       });
 
     _controller.repeat();
@@ -56,6 +57,6 @@ class _RotatingShapeState extends State<RotatingShape>
 
   @override
   Widget build(BuildContext context) {
-    return Shape(transform: getTransform());
+    return const Shape();
   }
 }
