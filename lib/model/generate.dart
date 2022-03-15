@@ -107,7 +107,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final darkSeam = <Face>[];
     darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
 
-    // TODO smooth corners of the patch (the round bit at the end of the seam
+    darkSeam.add(Face(r2, p1, r2_, c2: true));
+    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true));
+    darkSeam.add(Face(p2, q1, p2_, c2: true));
+    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true));
+    darkSeam.add(Face(r1, q2_, q2, b2: true));
+    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true));
   }
 
   double scale = 0.95;
