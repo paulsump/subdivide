@@ -13,8 +13,8 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  // shapeData = _subdivide(shapeData);
   shapeData = _subdivide(shapeData);
+  // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
   for (final vertex in shapeData.vertices2) {
@@ -87,6 +87,13 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true));
     lightSeam.add(Face(r1, q2, q2_, c2: true));
     lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true));
+
+    lightSeam.add(Face(p1, p1_, p2, b2: true));
+    lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true));
+    lightSeam.add(Face(q2, q1, q1_, c2: true));
+    lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true));
+    lightSeam.add(Face(r2, r1, r1_, c2: true));
+    lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true));
 
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
