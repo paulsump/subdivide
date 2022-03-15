@@ -13,8 +13,8 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  shapeData = _subdivide(shapeData);
-  _normalize(shapeData.vertices);
+  // shapeData = _subdivide(shapeData);
+  // _normalize(shapeData.vertices);
   return shapeData;
 }
 
@@ -104,7 +104,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     // TODO smooth corners of the patch (the round bit at the end of the seam
   }
 
-  double scale = 0.9;
+  double scale = 0.6;
 
   // scale the light hexagons
   for (final lightMesh in lightMeshes) {
@@ -116,7 +116,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
       final length = s.length * scale;
 
       //p,q,or r
-      vertices[face.a] = Math3d.scaleFrom(scale, pqr, s.normalized() * length);
+      vertices[face.a] = Math3d.scaleFrom(scale, pqr, s);
     }
   }
 
@@ -152,8 +152,8 @@ ShapeData _subdivideFrequency3(ShapeData old) {
   return ShapeData(vertices: vertices, meshes: <Mesh>[
     ...darkMeshes,
     ...lightMeshes,
-    ...lightSeamMeshes,
-    ...darkSeamMeshes
+    // ...lightSeamMeshes,
+    // ...darkSeamMeshes
   ]);
 }
 
