@@ -12,19 +12,22 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
-  shapeData = subdivideFrequency3(shapeData);
-  // shapeData = subdivide(shapeData);
-  // _normalize(shapeData.vertices);
+  shapeData = _subdivideFrequency3(shapeData);
+  shapeData = _subdivide(shapeData);
+  _normalize(shapeData.vertices);
   return shapeData;
 }
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
-ShapeData subdivideFrequency3(ShapeData old) {
+ShapeData _subdivideFrequency3(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
 
   final darkMeshes = <Mesh>[];
   final lightMeshes = <Mesh>[];
+
+  final darkSeamMeshes = <Mesh>[];
+  final lightSeamMeshes = <Mesh>[];
 
   for (final face in old.meshes.first.faces) {
     // face corners
@@ -61,10 +64,28 @@ ShapeData subdivideFrequency3(ShapeData old) {
     light.add(Face(r1, s, q2));
     light.add(Face(r2, s, r1));
 
+    // copy vertices for the seam
+    final int p1_ = _getOrAdd(vertices[p1], vertices);
+    final int p2_ = _getOrAdd(vertices[p2], vertices);
+    final int q1_ = _getOrAdd(vertices[q1], vertices);
+    final int q2_ = _getOrAdd(vertices[q2], vertices);
+    final int r1_ = _getOrAdd(vertices[r1], vertices);
+    final int r2_ = _getOrAdd(vertices[r2], vertices);
+
+    final lightSeam = <Face>[];
+    lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
+
+    lightSeam.add(Face(r2, r2_, p1));
+    lightSeam.add(Face(r2_, p1_, p1));
+    lightSeam.add(Face(p2, p2_, q1));
+    lightSeam.add(Face(p2_, q1_, q1));
+    lightSeam.add(Face(r1, q2, q2_));
+    lightSeam.add(Face(r1, q2_, r1_));
+
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
 
-    // TODO smooth corners of the patch (the round bit at the end of the seam
+    // copy vertices for the dark pentagon
     p1 = _getOrAdd(vertices[p1], vertices);
     p2 = _getOrAdd(vertices[p2], vertices);
     q1 = _getOrAdd(vertices[q1], vertices);
@@ -77,7 +98,10 @@ ShapeData subdivideFrequency3(ShapeData old) {
     dark.add(Face(face.b, q1, p2));
     dark.add(Face(face.c, r1, q2));
 
-    // later, putting in the seam in a straight line is easy (sacrifice corner?)
+    final darkSeam = <Face>[];
+    darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
+
+    // TODO smooth corners of the patch (the round bit at the end of the seam
   }
 
   double scale = 0.9;
@@ -125,8 +149,12 @@ ShapeData subdivideFrequency3(ShapeData old) {
     }
   }
 
-  return ShapeData(
-      vertices: vertices, meshes: <Mesh>[...darkMeshes, ...lightMeshes]);
+  return ShapeData(vertices: vertices, meshes: <Mesh>[
+    ...darkMeshes,
+    ...lightMeshes,
+    ...lightSeamMeshes,
+    ...darkSeamMeshes
+  ]);
 }
 
 /// add vector and return it's index
