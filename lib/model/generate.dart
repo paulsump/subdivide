@@ -7,9 +7,11 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
+final noWarn = [_normalize, out, _triangle, _subdivide];
+
 // ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() {
-  ShapeData shapeData = icosahedron;
+  ShapeData shapeData = _icosahedron;
   shapeData = subdivideFrequency3(shapeData);
   // shapeData = subdivide(shapeData);
   // _normalize(shapeData.vertices);
@@ -136,7 +138,7 @@ int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
   return index;
 }
 
-ShapeData subdivide(ShapeData old) {
+ShapeData _subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
 
   final dark = <Face>[];
@@ -179,8 +181,6 @@ void _normalize(List<Vector3> vertices) {
   }
 }
 
-const noWarn = out;
-
 const root5 = 2.23606797749979;
 
 // https://youtu.be/xMh_LtlOs_4?t=69
@@ -195,7 +195,7 @@ const double s2 = 0.5877852522924731; //sqrt(10-2*root5)/4;
 
 //TODO remove HACK for quick hot reload
 // final icosahedron = ShapeData(
-ShapeData get icosahedron => ShapeData(vertices: <Vector3>[
+ShapeData get _icosahedron => ShapeData(vertices: <Vector3>[
       // north pole (z)
       Vector3(0, 0, root5 / 2),
 
@@ -250,7 +250,7 @@ ShapeData get icosahedron => ShapeData(vertices: <Vector3>[
       )
     ]);
 
-final triangle = ShapeData(vertices: [
+final _triangle = ShapeData(vertices: [
   Vector3(0, 0, 0),
   Vector3(1, 0, 0),
   Vector3(0, 1, 0),
