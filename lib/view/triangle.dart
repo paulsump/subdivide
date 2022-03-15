@@ -23,32 +23,28 @@ class Triangle extends StatelessWidget {
   Widget build(BuildContext context) {
     final normal = Math3d.normal(a, b, c).normalized();
 
-    if (0 > normal.z) {
-      return Container();
-    } else {
-      final light = vecmath.Vector3(0.0, 0.0, 1.0);
+    final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
-      final brightness = normal.dot(light).clamp(0.0, 1.0);
-      final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
+    final brightness = normal.dot(light).clamp(0.0, 1.0);
+    final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
 
-      final color = Color.fromARGB(
-          255,
-          (brightness * color_.red).toInt(),
-          (brightness * color_.green).toInt(),
-          (brightness * color_.blue).toInt());
+    final color = Color.fromARGB(
+        255,
+        (brightness * color_.red).toInt(),
+        (brightness * color_.green).toInt(),
+        (brightness * color_.blue).toInt());
 
-      return CustomPaint(
-        painter: _Painter(
-          Path()..addPolygon(offsets, true),
-          Paint()
-            ..color = color
-            ..style = PaintingStyle.fill,
-          Paint()
-            ..color = color
-            ..style = PaintingStyle.stroke,
-        ),
-      );
-    }
+    return CustomPaint(
+      painter: _Painter(
+        Path()..addPolygon(offsets, true),
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.fill,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke,
+      ),
+    );
   }
 }
 
