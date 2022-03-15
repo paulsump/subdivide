@@ -52,12 +52,12 @@ class ShapeData {
   ShapeData.fromJson(Map<String, dynamic> json)
       : vertices = json['vertices']
             .map<Vector3>(
-              (v) => Vector3Persist.fromJson(v),
+              (v) => Vertex.fromJson(v),
             )
             .toList(),
         vertices2 = json['vertices']
             .map<Vector3>(
-              (v) => Vector3Persist.fromJson(v),
+              (v) => Vertex.fromJson(v),
             )
             .toList(),
         meshes = json['meshes']
@@ -107,12 +107,7 @@ class Mesh {
       };
 }
 
-//TODO turn these two classes into one Vertex class with const constructor
-class Vector3Persist {
-  static Vector3 fromJson(Map<String, dynamic> json) =>
-      Vector3(json['x'], json['y'], json['z']);
-}
-
+//TODO maybe use this class from json + const constructor
 class Vertex {
   Vertex(Vector3 v)
       : x = v.x,
@@ -121,6 +116,9 @@ class Vertex {
   final double x, y, z;
 
   Map<String, dynamic> toJson() => {'x': x, 'y': y, 'z': z};
+
+  static Vector3 fromJson(Map<String, dynamic> json) =>
+      Vector3(json['x'], json['y'], json['z']);
 }
 
 class Face {
