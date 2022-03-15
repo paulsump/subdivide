@@ -23,14 +23,21 @@ class Shape extends StatelessWidget {
 
   List<Triangle> _calcTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
-    final transform = getTransform(context, listen: true);
 
-    final vertices = shapeData.vertices
-        .map((vertex) => transform.transform3(vecmath.Vector3.copy(vertex)))
-        .toList();
-    final vertices2 = shapeData.vertices2
-        .map((vertex) => transform.transform3(vecmath.Vector3.copy(vertex)))
-        .toList();
+    final vertexNotifier = getVertexNotifier(context, listen: true);
+    final transform = vertexNotifier.transform;
+
+    final vertices = vertexNotifier.vertices;
+    final vertices2 = vertexNotifier.vertices2;
+
+    for (int i = 0; i < shapeData.vertices.length; ++i) {
+      vertices[i] = transform.transformed3(shapeData.vertices[i], vertices[i]);
+    }
+
+    for (int i = 0; i < shapeData.vertices2.length; ++i) {
+      vertices2[i] =
+          transform.transformed3(shapeData.vertices2[i], vertices2[i]);
+    }
 
     final triangles = <Triangle>[];
 

@@ -13,6 +13,7 @@ import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/main_page.dart';
 import 'package:subdivide/view/screen_adjust.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 /// prevent 'organise imports' from removing imports
 /// when temporarily commenting out.
@@ -50,9 +51,19 @@ class TheApp extends StatelessWidget {
 
                 final shapeNotifier = getShapeNotifier(context, listen: false);
 
-                shapeNotifier.init(generateShapeData());
-                // unawaited(loadShapeData());
-                // shapeNotifier.init(persistedShapeData());
+                final shapeData = generateShapeData();
+                shapeNotifier.init(shapeData);
+
+                final vertexNotifier =
+                    getVertexNotifier(context, listen: false);
+
+                vertexNotifier.init(
+                    shapeData.vertices
+                        .map((vertex) => Vector3.copy(vertex))
+                        .toList(),
+                    shapeData.vertices2
+                        .map((vertex) => Vector3.copy(vertex))
+                        .toList());
               }
               // final
               return WillPopScope(

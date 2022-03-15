@@ -28,7 +28,7 @@ class _RotatingShapeState extends State<RotatingShape>
       vsync: this,
       duration: const Duration(milliseconds: 100000),
     )..addListener(() {
-      setTransform(getTransform(), context);
+        setTransform(getTransform(), context);
       });
 
     _controller.repeat();
