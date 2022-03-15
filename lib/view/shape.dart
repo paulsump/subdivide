@@ -41,18 +41,19 @@ class Shape extends StatelessWidget {
         final normal = Math3d.normal(a, b, c).normalized();
 
         if (0 < normal.z) {
-          final light = vecmath.Vector3(0.0, 0.0, 1.0);
+          // final light = vecmath.Vector3(0.0, 0.0, 1.0);
 
-          final brightness = normal.dot(light).clamp(0.0, 1.0);
+          // final brightness = normal.dot(light).clamp(0.0, 1.0);
 
-          triangles.add(Triangle(
-            offsets: [_flipY(a), _flipY(b), _flipY(c)],
-            color: Color.fromARGB(
-                255,
-                (brightness * color.red).toInt(),
-                (brightness * color.green).toInt(),
-                (brightness * color.blue).toInt()),
-          ));
+          triangles.add(Triangle(a: a, b: b, c: c, color_: color));
+          // triangles.add(Triangle(
+          // offsets: [_flipY(a), _flipY(b), _flipY(c)],
+          // color: Color.fromARGB(
+          //     255,
+          //     (brightness * color.red).toInt(),
+          //     (brightness * color.green).toInt(),
+          //     (brightness * color.blue).toInt()),
+          // ));
         }
       }
     }

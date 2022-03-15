@@ -66,8 +66,7 @@ class ShapeData {
             )
             .toList();
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'vertices': vertices.map((v) => Vertex(v)).toList(),
         'vertices2': vertices2.map((v) => Vertex(v)).toList(),
         'meshes': meshes
