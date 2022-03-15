@@ -12,6 +12,7 @@ import 'package:subdivide/out.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/main_page.dart';
 import 'package:subdivide/view/screen_adjust.dart';
+import 'package:subdivide/view/vertex_notifier.dart';
 
 /// prevent 'organise imports' from removing imports
 /// when temporarily commenting out.
@@ -31,6 +32,7 @@ class TheApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => PanZoomNotifier()),
         ChangeNotifierProvider(create: (_) => ShapeNotifier()),
+        ChangeNotifierProvider(create: (_) => VertexNotifier()),
       ],
       child: MaterialApp(
         theme: _buildThemeData(context),
@@ -55,11 +57,7 @@ class TheApp extends StatelessWidget {
               // final
               return WillPopScope(
                 onWillPop: () async => false,
-                child: Stack(
-                  children: const [
-                    MainPage(),
-                  ],
-                ),
+                child: const MainPage(),
               );
             }
           },

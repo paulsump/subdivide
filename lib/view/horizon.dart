@@ -48,7 +48,7 @@ const _rectangleOffsets = [
   Offset(-2, 1.0),
 ];
 
-final _gradientBottomTop = LinearGradient(
+const _gradientBottomTop = LinearGradient(
   colors: [Hue.top, Hue.horizon],
   begin: Alignment.bottomCenter,
   end: Alignment.topCenter,
