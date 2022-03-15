@@ -8,11 +8,13 @@ import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 // ShapeData generateShapeData() => icosahedron;
-ShapeData generateShapeData() =>
-    // subdivide(icosahedron);
-// subdivide(subdivide(subdivideFrequency3(icosahedron)));
-// subdivide(subdivideFrequency3(icosahedron));
-    subdivideFrequency3(icosahedron);
+ShapeData generateShapeData() {
+  ShapeData shapeData = icosahedron;
+  shapeData = subdivideFrequency3(shapeData);
+  // shapeData = subdivide(shapeData);
+  // _normalize(shapeData.vertices);
+  return shapeData;
+}
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
@@ -67,6 +69,7 @@ ShapeData subdivideFrequency3(ShapeData old) {
     q2 = _getOrAdd(vertices[q2], vertices);
     r1 = _getOrAdd(vertices[r1], vertices);
     r2 = _getOrAdd(vertices[r2], vertices);
+
     // outer 3 are dark
     dark.add(Face(face.a, p1, r2));
     dark.add(Face(face.b, q1, p2));
@@ -82,8 +85,10 @@ ShapeData subdivideFrequency3(ShapeData old) {
     for (final face in lightMesh.faces) {
       //p,q,or r
       final pqr = vertices[face.a];
+
       final s = vertices[face.b];
       final length = s.length * scale;
+
       //p,q,or r
       vertices[face.a] = Math3d.scaleFrom(scale, pqr, s.normalized() * length);
     }
@@ -91,11 +96,17 @@ ShapeData subdivideFrequency3(ShapeData old) {
 
   var total = Vector3(0, 0, 0);
 
-  for (final face in darkMeshes.first.faces) {
-    total += vertices[face.b];
+  int count = 0;
+  for (final darkMesh in darkMeshes) {
+    if (darkMesh.faces[0].a == 0) {
+      // p1
+      total += vertices[darkMesh.faces[0].b];
+      count++;
+    }
   }
 
-  final double darkLength = total.length / 3;
+  out(count);
+  final double darkLength = total.length / count;
 
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
@@ -112,14 +123,11 @@ ShapeData subdivideFrequency3(ShapeData old) {
     }
   }
 
-  // for (final vertex in vertices) {
-  //   vertex.normalize();
-  // }
-
   return ShapeData(
       vertices: vertices, meshes: <Mesh>[...darkMeshes, ...lightMeshes]);
 }
 
+/// add vector and return it's index
 int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
   int index = vertices.length;
 
@@ -130,6 +138,7 @@ int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
 
 ShapeData subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
+
   final dark = <Face>[];
   final light = <Face>[];
 
@@ -160,10 +169,14 @@ ShapeData subdivide(ShapeData old) {
       faces.add(Face(k, i, j));
     }
   }
+
+  return ShapeData(vertices: vertices, meshes: meshes);
+}
+
+void _normalize(List<Vector3> vertices) {
   for (final vertex in vertices) {
     vertex.normalize();
   }
-  return ShapeData(vertices: vertices, meshes: meshes);
 }
 
 const noWarn = out;

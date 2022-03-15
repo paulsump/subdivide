@@ -25,7 +25,7 @@ class _RotatingShapeState extends State<RotatingShape>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 20000),
+      duration: const Duration(milliseconds: 200000),
     )..addListener(() {
         setState(() {});
       });
