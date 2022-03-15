@@ -30,6 +30,11 @@ class Shape extends StatelessWidget {
               vecmath.Vector3.copy(vertex),
             ))
         .toList();
+    final vertices2 = shapeData.vertices2
+        .map((vertex) => transform.transform3(
+              vecmath.Vector3.copy(vertex),
+            ))
+        .toList();
 
     final triangles = <Triangle>[];
 
@@ -37,9 +42,9 @@ class Shape extends StatelessWidget {
       final Color color = mesh.dark ? Colors.brown : Colors.white60;
 
       for (final face in mesh.faces) {
-        final a = vertices[face.a];
-        final b = vertices[face.b];
-        final c = vertices[face.c];
+        final a = face.a2 ? vertices2[face.a] : vertices[face.a];
+        final b = face.b2 ? vertices2[face.b] : vertices[face.b];
+        final c = face.c2 ? vertices2[face.c] : vertices[face.c];
 
         final normal = Math3d.normal(a, b, c).normalized();
 

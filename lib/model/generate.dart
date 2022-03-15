@@ -14,7 +14,12 @@ ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
   // shapeData = _subdivide(shapeData);
-  // _normalize(shapeData.vertices);
+  shapeData = _subdivide(shapeData);
+  _normalize(shapeData.vertices);
+  _normalize(shapeData.vertices2);
+  for (final vertex in shapeData.vertices2) {
+    vertex.scale(0.995);
+  }
   return shapeData;
 }
 
@@ -22,6 +27,7 @@ ShapeData generateShapeData() {
 /// go a third of the way along and add that ver (do face the same time)
 ShapeData _subdivideFrequency3(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
+  final vertices2 = <Vector3>[];
 
   final darkMeshes = <Mesh>[];
   final lightMeshes = <Mesh>[];
@@ -65,22 +71,22 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     light.add(Face(r2, s, r1));
 
     // copy vertices for the seam
-    final int p1_ = _getOrAdd(vertices[p1], vertices);
-    final int p2_ = _getOrAdd(vertices[p2], vertices);
-    final int q1_ = _getOrAdd(vertices[q1], vertices);
-    final int q2_ = _getOrAdd(vertices[q2], vertices);
-    final int r1_ = _getOrAdd(vertices[r1], vertices);
-    final int r2_ = _getOrAdd(vertices[r2], vertices);
+    final int p1_ = _getOrAdd(vertices[p1], vertices2);
+    final int p2_ = _getOrAdd(vertices[p2], vertices2);
+    final int q1_ = _getOrAdd(vertices[q1], vertices2);
+    final int q2_ = _getOrAdd(vertices[q2], vertices2);
+    final int r1_ = _getOrAdd(vertices[r1], vertices2);
+    final int r2_ = _getOrAdd(vertices[r2], vertices2);
 
     final lightSeam = <Face>[];
     lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
 
-    lightSeam.add(Face(r2, r2_, p1));
-    lightSeam.add(Face(r2_, p1_, p1));
-    lightSeam.add(Face(p2, p2_, q1));
-    lightSeam.add(Face(p2_, q1_, q1));
-    lightSeam.add(Face(r1, q2, q2_));
-    lightSeam.add(Face(r1, q2_, r1_));
+    lightSeam.add(Face(r2, r2_, p1, b2: true));
+    lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true));
+    lightSeam.add(Face(p2, p2_, q1, b2: true));
+    lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true));
+    lightSeam.add(Face(r1, q2, q2_, c2: true));
+    lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true));
 
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
@@ -104,7 +110,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     // TODO smooth corners of the patch (the round bit at the end of the seam
   }
 
-  double scale = 0.6;
+  double scale = 0.95;
 
   // scale the light hexagons
   for (final lightMesh in lightMeshes) {
@@ -113,7 +119,6 @@ ShapeData _subdivideFrequency3(ShapeData old) {
       final pqr = vertices[face.a];
 
       final s = vertices[face.b];
-      final length = s.length * scale;
 
       //p,q,or r
       vertices[face.a] = Math3d.scaleFrom(scale, pqr, s);
@@ -149,12 +154,16 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     }
   }
 
-  return ShapeData(vertices: vertices, meshes: <Mesh>[
-    ...darkMeshes,
-    ...lightMeshes,
-    // ...lightSeamMeshes,
-    // ...darkSeamMeshes
-  ]);
+  return ShapeData(
+    vertices: vertices,
+    vertices2: vertices2,
+    meshes: <Mesh>[
+      ...darkMeshes,
+      ...lightMeshes,
+      ...lightSeamMeshes,
+      ...darkSeamMeshes
+    ],
+  );
 }
 
 /// add vector and return it's index
@@ -168,6 +177,7 @@ int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
 
 ShapeData _subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
+  final vertices2 = <Vector3>[...old.vertices2];
 
   final dark = <Face>[];
   final light = <Face>[];
@@ -181,26 +191,65 @@ ShapeData _subdivide(ShapeData old) {
     final faces = mesh.dark ? darkMesh.faces : lightMesh.faces;
 
     for (final face in mesh.faces) {
-      final a = vertices[face.a];
-      final b = vertices[face.b];
-      final c = vertices[face.c];
+      final bool a2 = face.a2;
+      final bool b2 = face.b2;
+      final bool c2 = face.c2;
+      final a = a2 ? vertices2[face.a] : vertices[face.a];
+      final b = b2 ? vertices2[face.b] : vertices[face.b];
+      final c = c2 ? vertices2[face.c] : vertices[face.c];
 
       final p = (a + b) / 2;
       final q = (b + c) / 2;
       final r = (c + a) / 2;
 
-      final i = _getOrAdd(p, vertices);
-      final j = _getOrAdd(q, vertices);
-      final k = _getOrAdd(r, vertices);
+      final bool i2 = face.a2 && face.b2;
+      final bool j2 = face.b2 && face.c2;
+      final bool k2 = face.c2 && face.a2;
 
-      faces.add(Face(face.a, i, k));
-      faces.add(Face(i, face.b, j));
-      faces.add(Face(j, face.c, k));
-      faces.add(Face(k, i, j));
+      final i = _getOrAdd(p, i2 ? vertices2 : vertices);
+      final j = _getOrAdd(q, j2 ? vertices2 : vertices);
+      final k = _getOrAdd(r, k2 ? vertices2 : vertices);
+
+      faces.add(Face(
+        face.a,
+        i,
+        k,
+        a2: a2,
+        b2: i2,
+        c2: k2,
+      ));
+      faces.add(Face(
+        i,
+        face.b,
+        j,
+        a2: i2,
+        b2: b2,
+        c2: j2,
+      ));
+      faces.add(Face(
+        j,
+        face.c,
+        k,
+        a2: j2,
+        b2: c2,
+        c2: k2,
+      ));
+      faces.add(Face(
+        k,
+        i,
+        j,
+        a2: k2,
+        b2: i2,
+        c2: j2,
+      ));
     }
   }
 
-  return ShapeData(vertices: vertices, meshes: meshes);
+  return ShapeData(
+    vertices: vertices,
+    vertices2: vertices2,
+    meshes: meshes,
+  );
 }
 
 void _normalize(List<Vector3> vertices) {
@@ -243,7 +292,7 @@ ShapeData get _icosahedron => ShapeData(vertices: <Vector3>[
 
       // south pole
       Vector3(0, 0, -root5 / 2),
-    ], meshes: <Mesh>[
+    ], vertices2: <Vector3>[], meshes: <Mesh>[
       const Mesh(
         faces: [
           // top
@@ -278,13 +327,17 @@ ShapeData get _icosahedron => ShapeData(vertices: <Vector3>[
       )
     ]);
 
-final _triangle = ShapeData(vertices: [
-  Vector3(0, 0, 0),
-  Vector3(1, 0, 0),
-  Vector3(0, 1, 0),
-], meshes: <Mesh>[
-  const Mesh(
-    faces: [Face(0, 1, 2)],
-    dark: false,
-  )
-]);
+final _triangle = ShapeData(
+  vertices: [
+    Vector3(0, 0, 0),
+    Vector3(1, 0, 0),
+    Vector3(0, 1, 0),
+  ],
+  vertices2: <Vector3>[],
+  meshes: <Mesh>[
+    const Mesh(
+      faces: [Face(0, 1, 2)],
+      dark: false,
+    )
+  ],
+);

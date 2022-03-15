@@ -25,7 +25,7 @@ class _RotatingShapeState extends State<RotatingShape>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200000),
+      duration: const Duration(milliseconds: 100000),
     )..addListener(() {
         setState(() {});
       });
@@ -56,8 +56,6 @@ class _RotatingShapeState extends State<RotatingShape>
 
   @override
   Widget build(BuildContext context) {
-    return Shape(
-      transform: getTransform()
-    );
+    return Shape(transform: getTransform());
   }
 }
