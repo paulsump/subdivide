@@ -96,18 +96,18 @@ ShapeData subdivideFrequency3(ShapeData old) {
 
   var total = Vector3(0, 0, 0);
 
-  int count = 0;
   for (final darkMesh in darkMeshes) {
+    // north pole
     if (darkMesh.faces[0].a == 0) {
       // p1
       total += vertices[darkMesh.faces[0].b];
-      count++;
     }
   }
 
-  out(count);
-  final double darkLength = total.length / count;
+  // the distance to midpoint at north pole
+  final double darkLength = total.length / 5;
 
+  // pull all the dark centers in to this mid point
   for (int i = 0; i < old.vertices.length; ++i) {
     vertices[i].normalize();
     vertices[i] *= darkLength;
