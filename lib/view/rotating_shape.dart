@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/shape.dart';
+import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
 
 const noWarn = out;
@@ -57,6 +58,6 @@ class _RotatingShapeState extends State<RotatingShape>
 
   @override
   Widget build(BuildContext context) {
-    return const Shape();
+    return const UnitToScreen(child: Shape());
   }
 }

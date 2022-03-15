@@ -5,7 +5,6 @@ import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangle.dart';
-import 'package:subdivide/view/unit_to_screen.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
@@ -18,7 +17,7 @@ class Shape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnitToScreen(child: Stack(children: _calcTriangles(context)));
+    return Stack(children: _calcTriangles(context));
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
