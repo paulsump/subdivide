@@ -15,7 +15,6 @@ class Triangle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    out(1);
     return CustomPaint(
         painter: _Painter(
             Path()..addPolygon(offsets, true),
