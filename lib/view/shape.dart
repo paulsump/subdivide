@@ -25,19 +25,9 @@ class Shape extends StatelessWidget {
     final shapeData = getShapeData(context, listen: false);
 
     final vertexNotifier = getVertexNotifier(context, listen: true);
-    final transform = vertexNotifier.transform;
 
     final vertices = vertexNotifier.vertices;
     final vertices2 = vertexNotifier.vertices2;
-
-    for (int i = 0; i < shapeData.vertices.length; ++i) {
-      vertices[i] = transform.transformed3(shapeData.vertices[i], vertices[i]);
-    }
-
-    for (int i = 0; i < shapeData.vertices2.length; ++i) {
-      vertices2[i] =
-          transform.transformed3(shapeData.vertices2[i], vertices2[i]);
-    }
 
     final triangles = <Triangle>[];
 
