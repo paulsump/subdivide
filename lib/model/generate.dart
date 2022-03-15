@@ -9,7 +9,6 @@ import 'package:vector_math/vector_math_64.dart';
 
 final noWarn = [_normalize, out, _triangle, _subdivide];
 
-// ShapeData generateShapeData() => icosahedron;
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);

@@ -54,7 +54,7 @@ class Shape extends StatelessWidget {
           final brightness = normal.dot(light).clamp(0.0, 1.0);
 
           triangles.add(Triangle(
-            offsets: [flipY(a), flipY(b), flipY(c)],
+            offsets: [_flipY(a), _flipY(b), _flipY(c)],
             color: Color.fromARGB(
                 255,
                 (brightness * color.red).toInt(),
@@ -68,4 +68,4 @@ class Shape extends StatelessWidget {
   }
 }
 
-Offset flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
+Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);

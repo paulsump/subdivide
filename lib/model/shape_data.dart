@@ -20,15 +20,15 @@ ShapeNotifier getShapeNotifier(BuildContext context, {required bool listen}) =>
 /// Access to the [ShapeData].
 /// Generated in generate.dart, drawn by [Shape].
 class ShapeNotifier extends ChangeNotifier {
-  // late ShapeData _shapeData;
+  late ShapeData _shapeData;
 
-  // ShapeData get shapeData => _shapeData;
+  ShapeData get shapeData => _shapeData;
 
   //TODO remove HACK for quick hot reaload
-  ShapeData get shapeData => generateShapeData();
+  // ShapeData get shapeData => generateShapeData();
 
   void init(ShapeData shapeData_) {
-    // _shapeData = shapeData_;
+    _shapeData = shapeData_;
   }
 }
 
@@ -66,17 +66,10 @@ class ShapeData {
             )
             .toList();
 
-  Map<String, dynamic> toJson() => {
-        'vertices': vertices
-            .map(
-              (v) => Vec3Persist(v),
-            )
-            .toList(),
-        'vertices2': vertices2
-            .map(
-              (v) => Vec3Persist(v),
-            )
-            .toList(),
+  Map<String, dynamic> toJson() =>
+      {
+        'vertices': vertices.map((v) => Vertex(v)).toList(),
+        'vertices2': vertices2.map((v) => Vertex(v)).toList(),
         'meshes': meshes
             .map(
               (m) => m.toJson(),
@@ -120,8 +113,8 @@ class Vector3Persist {
       Vector3(json['x'], json['y'], json['z']);
 }
 
-class Vec3Persist {
-  Vec3Persist(Vector3 v)
+class Vertex {
+  Vertex(Vector3 v)
       : x = v.x,
         y = v.y,
         z = v.z;

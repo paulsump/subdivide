@@ -20,20 +20,25 @@ class Triangle extends StatelessWidget {
             Path()..addPolygon(offsets, true),
             Paint()
               ..color = color
-              ..style = PaintingStyle.fill));
+              ..style = PaintingStyle.fill,
+            Paint()
+              ..color = color
+              ..style = PaintingStyle.stroke));
   }
 }
 
 /// The painter for [Ball].
 class _Painter extends CustomPainter {
-  const _Painter(this.path, this.paint_);
+  const _Painter(this.path, this.paint_, this.paintStroke_);
 
   final Path path;
   final Paint paint_;
+  final Paint paintStroke_;
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(path, paint_);
+    canvas.drawPath(path, paintStroke_);
   }
 
   @override

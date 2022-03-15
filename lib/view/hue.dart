@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// Access to all the colors in the app
 class Hue {
-
+  // TODO remove unused colors
   static const Color top = Color(0xfff07f7e);
   static const Color bottomRight = Color(0xffffd8d6);
 
@@ -41,7 +41,7 @@ class Hue {
   static final Color menu = _darkBLT.withOpacity(0.4);
   static final Color scrim = _darkBLT.withOpacity(0.5);
 
-  static final Color horizon = Colors.lightGreen;
+  static const Color horizon = Colors.lightGreen;
 }
 
 Color _getTweenBLtoBRColor(double t) =>
