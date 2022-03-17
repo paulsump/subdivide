@@ -23,3 +23,5 @@ bipyramid"... .
 | ------------- | ------------- | ------------- |
 | <img src="https://github.com/paulsump/subdivide/blob/32e35399d3873fb33e89ac7f58869133188cac9d/images/pentagonal_gyroelongated_bipyramid.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/e4fc24163952fd9b314cb9e8e5e604c7b5b1a716/images/truncated_icosahedron.png" width="248"> | <img src="https://github.com/paulsump/subdivide/blob/ccc78998a5aeca553813a14d859180172eadab62/images/football.jpg" width="248"> |
 
+### Screen shot
+<img src="https://github.com/paulsump/subdivide/blob/d1a081a3da9b917e9e894ae25aec0f406bccb0a0/images/screen_shot.png" width="444" >
