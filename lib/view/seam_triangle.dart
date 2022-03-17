@@ -50,7 +50,9 @@ class SeamTriangle extends StatelessWidget {
   Color _getColor(vecmath.Vector3 vertex, vecmath.Vector3? origin) {
     final normal =
         origin == null ? vertex.normalized() : (vertex - origin).normalized();
-
+// if(origin != null){
+//   out(   vertex - origin);
+// }
     final brightness = normal.dot(light).clamp(0.0, 1.0);
 
     return Color.fromARGB(

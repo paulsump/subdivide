@@ -78,7 +78,7 @@ class PanZoomer implements GestureHandler {
     final scale = _initial.scale * scale_;
 
     final minScale = screenAdjust(0.03247, context);
-    final maxScale = 10 * minScale;
+    final maxScale = 100 * minScale;
 
     if (minScale < scale &&
         scale < maxScale &&

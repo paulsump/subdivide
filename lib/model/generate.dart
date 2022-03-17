@@ -12,13 +12,21 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  // shapeData = _subdivide(shapeData);
+  shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
-  //TODO NORMalise the origins too
+  for (final mesh in shapeData.meshes) {
+    for (final face in mesh.faces) {
+      // note that this puts it back to where old.vertices would be.
+      if (face.origin != null) {
+        face.origin!.normalize();
+      }
+    }
+  }
+
   for (final vertex in shapeData.vertices2) {
-    vertex.scale(0.92);
+    vertex.scale(0.992);
   }
   return shapeData;
 }
@@ -63,12 +71,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final light = <Face>[];
     lightMeshes.add(Mesh(faces: light, dark: false));
 
-    // light.add(Face(p1, s, r2));
-    // light.add(Face(p2, s, p1));
-    // light.add(Face(q1, s, p2));
-    // light.add(Face(q2, s, q1));
-    // light.add(Face(r1, s, q2));
-    // light.add(Face(r2, s, r1));
+    light.add(Face(p1, s, r2));
+    light.add(Face(p2, s, p1));
+    light.add(Face(q1, s, p2));
+    light.add(Face(q2, s, q1));
+    light.add(Face(r1, s, q2));
+    light.add(Face(r2, s, r1));
 
     // copy vertices for the seam
     final int p1_ = _getOrAdd(vertices[p1], vertices2);

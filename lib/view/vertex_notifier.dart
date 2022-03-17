@@ -45,6 +45,7 @@ class VertexNotifier extends ChangeNotifier {
         if (face.origin != null && face.transformedOrigin != null) {
           final transformedOrigin =
               transform.transformed3(face.origin!, face.transformedOrigin);
+
           face.transformedOrigin!.x = transformedOrigin.x;
           face.transformedOrigin!.y = transformedOrigin.y;
           face.transformedOrigin!.z = transformedOrigin.z;

@@ -18,8 +18,8 @@ class Shape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      ..._calcTriangles(context),
       ..._calcSeamTriangles(context),
+      ..._calcTriangles(context),
     ]);
   }
 
@@ -87,12 +87,12 @@ class Shape extends StatelessWidget {
                 b: b,
                 c: c,
                 color_: color,
-                // aOrigin: face.a2 ? face.origin : null,
-                // bOrigin: face.b2 ? face.origin : null,
-                // cOrigin: face.c2 ? face.origin : null,
-                aOrigin: face.transformedOrigin,
-                bOrigin: face.transformedOrigin,
-                cOrigin: face.transformedOrigin,
+                aOrigin: face.a2 ? face.origin : null,
+                bOrigin: face.b2 ? face.origin : null,
+                cOrigin: face.c2 ? face.origin : null,
+                // aOrigin: face.transformedOrigin,
+                // bOrigin: face.transformedOrigin,
+                // cOrigin: face.transformedOrigin,
               ));
             }
           }
