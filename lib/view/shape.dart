@@ -46,7 +46,7 @@ class Shape extends StatelessWidget {
         final b = face.b2 ? vertices2[face.b] : vertices[face.b];
         final c = face.c2 ? vertices2[face.c] : vertices[face.c];
 
-        if (a.z > 0 && b.z > 0 && c.z > 0) {
+        if (a.z > 0 || b.z > 0 || c.z > 0) {
           final normal = Math3d.normal(a, b, c).normalized();
 
           if (0 < normal.z) {
@@ -79,7 +79,7 @@ class Shape extends StatelessWidget {
           final b = face.b2 ? vertices2[face.b] : vertices[face.b];
           final c = face.c2 ? vertices2[face.c] : vertices[face.c];
 
-          if (a.z > 0 && b.z > 0 && c.z > 0) {
+          if (a.z > 0 || b.z > 0 || c.z > 0) {
             final normal = Math3d.normal(a, b, c).normalized();
             if (0 < normal.z) {
               triangles.add(SeamTriangle(
