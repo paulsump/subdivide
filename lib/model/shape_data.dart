@@ -129,11 +129,12 @@ class Face {
     this.b2 = false,
     this.c2 = false,
     this.origin,
+    this.transformedOrigin,
   });
 
   final int a, b, c;
   final bool a2, b2, c2;
-  final Vector3? origin;
+  final Vector3? origin, transformedOrigin;
 
   Face.fromJson(Map<String, dynamic> json)
       : a = json['a'],
@@ -143,7 +144,8 @@ class Face {
         a2 = false,
         b2 = false,
         c2 = false,
-        origin = null;
+        origin = null,
+        transformedOrigin = null;
 
   Map<String, dynamic> toJson() => {'a': a, 'b': b, 'c': c};
 }

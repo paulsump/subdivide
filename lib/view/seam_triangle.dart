@@ -29,6 +29,7 @@ class SeamTriangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
+    // final offsets = <Offset>[_flipY(aOrigin??a), _flipY(bOrigin??b), _flipY(cOrigin??c)];
     final colors = <Color>[
       _getColor(a, aOrigin),
       _getColor(b, bOrigin),

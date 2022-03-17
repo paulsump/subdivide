@@ -90,9 +90,9 @@ class Shape extends StatelessWidget {
                 // aOrigin: face.a2 ? face.origin : null,
                 // bOrigin: face.b2 ? face.origin : null,
                 // cOrigin: face.c2 ? face.origin : null,
-                aOrigin: face.origin,
-                bOrigin: face.origin,
-                cOrigin: face.origin,
+                aOrigin: face.transformedOrigin,
+                bOrigin: face.transformedOrigin,
+                cOrigin: face.transformedOrigin,
               ));
             }
           }

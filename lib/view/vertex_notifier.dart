@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:subdivide/model/shape_data.dart';
+import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart';
+
+const noWarn = out;
 
 Matrix4 getTransform(BuildContext context, {required bool listen}) =>
     getVertexNotifier(context, listen: listen).transform;
@@ -12,7 +15,7 @@ void setTransform(Matrix4 transform, BuildContext context) =>
     getVertexNotifier(context, listen: false).setTransform(transform, context);
 
 VertexNotifier getVertexNotifier(BuildContext context,
-    {required bool listen}) =>
+        {required bool listen}) =>
     Provider.of<VertexNotifier>(context, listen: listen);
 
 class VertexNotifier extends ChangeNotifier {
@@ -35,6 +38,18 @@ class VertexNotifier extends ChangeNotifier {
     for (int i = 0; i < shapeData.vertices2.length; ++i) {
       vertices2[i] =
           transform.transformed3(shapeData.vertices2[i], vertices2[i]);
+    }
+
+    for (final mesh in shapeData.meshes) {
+      for (final face in mesh.faces) {
+        if (face.origin != null && face.transformedOrigin != null) {
+          final transformedOrigin =
+              transform.transformed3(face.origin!, face.transformedOrigin);
+          face.transformedOrigin!.x = transformedOrigin.x;
+          face.transformedOrigin!.y = transformedOrigin.y;
+          face.transformedOrigin!.z = transformedOrigin.z;
+        }
+      }
     }
     notifyListeners();
   }
