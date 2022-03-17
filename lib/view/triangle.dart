@@ -6,6 +6,7 @@ import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 const noWarn = out;
+get light => vecmath.Vector3(1.0, 1.0, 3.0).normalized();
 
 class Triangle extends StatelessWidget {
   const Triangle({
@@ -38,7 +39,6 @@ class Triangle extends StatelessWidget {
   Color _getColor(vecmath.Vector3 vertex) {
     final normal = vertex.normalized();
 
-    final light = vecmath.Vector3(0.0, 0.0, 1.0);
     final brightness = normal.dot(light).clamp(0.0, 1.0);
 
     return Color.fromARGB(

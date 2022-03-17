@@ -17,7 +17,7 @@ ShapeData generateShapeData() {
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
   for (final vertex in shapeData.vertices2) {
-    vertex.scale(0.995);
+    vertex.scale(0.992);
   }
   return shapeData;
 }

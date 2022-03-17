@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/out.dart';
+import 'package:subdivide/view/triangle.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 const noWarn = out;
@@ -49,7 +50,6 @@ class SeamTriangle extends StatelessWidget {
     final normal =
         origin == null ? vertex.normalized() : (vertex - origin).normalized();
 
-    final light = vecmath.Vector3(0.0, 0.0, 1.0);
     final brightness = normal.dot(light).clamp(0.0, 1.0);
 
     return Color.fromARGB(
