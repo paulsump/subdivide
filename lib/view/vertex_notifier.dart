@@ -40,18 +40,6 @@ class VertexNotifier extends ChangeNotifier {
           transform.transformed3(shapeData.vertices2[i], vertices2[i]);
     }
 
-    for (final mesh in shapeData.meshes) {
-      for (final face in mesh.faces) {
-        if (face.origin != null && face.transformedOrigin != null) {
-          final transformedOrigin =
-              transform.transformed3(face.origin!, face.transformedOrigin);
-
-          face.transformedOrigin!.x = transformedOrigin.x;
-          face.transformedOrigin!.y = transformedOrigin.y;
-          face.transformedOrigin!.z = transformedOrigin.z;
-        }
-      }
-    }
     notifyListeners();
   }
 

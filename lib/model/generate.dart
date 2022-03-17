@@ -81,65 +81,21 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final lightSeam = <Face>[];
     lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
 
-    final holder = Vector3.zero();
-
     // next to dark seams
-    lightSeam.add(Face(r2, r2_, p1,
-        b2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(r2_, p1_, p1,
-        a2: true,
-        b2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(p2, p2_, q1,
-        b2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(p2_, q1_, q1,
-        a2: true,
-        b2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(r1, q2, q2_,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(r1, q2_, r1_,
-        b2: true,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
+    lightSeam.add(Face(r2, r2_, p1, b2: true));
+    lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true));
+    lightSeam.add(Face(p2, p2_, q1, b2: true));
+    lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true));
+    lightSeam.add(Face(r1, q2, q2_, c2: true));
+    lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true));
 
     // next to light seams from another 9 triangles
-    lightSeam.add(Face(p1, p1_, p2,
-        b2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(p2, p1_, p2_,
-        b2: true,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(q2, q1, q1_,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(q2, q1_, q2_,
-        b2: true,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(r2, r1, r1_,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
-    lightSeam.add(Face(r2, r1_, r2_,
-        b2: true,
-        c2: true,
-        origin: Vector3.copy(center),
-        transformedOrigin: Vector3.copy(holder)));
+    lightSeam.add(Face(p1, p1_, p2, b2: true));
+    lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true));
+    lightSeam.add(Face(q2, q1, q1_, c2: true));
+    lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true));
+    lightSeam.add(Face(r2, r1, r1_, c2: true));
+    lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true));
 
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
@@ -160,33 +116,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final darkSeam = <Face>[];
     darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
 
-    darkSeam.add(Face(r2, p1, r2_,
-        c2: true,
-        origin: Vector3.copy(a),
-        transformedOrigin: Vector3.copy(holder)));
-    darkSeam.add(Face(r2_, p1, p1_,
-        a2: true,
-        c2: true,
-        origin: Vector3.copy(a),
-        transformedOrigin: Vector3.copy(holder)));
-    darkSeam.add(Face(p2, q1, p2_,
-        c2: true,
-        origin: Vector3.copy(b),
-        transformedOrigin: Vector3.copy(holder)));
-    darkSeam.add(Face(p2_, q1, q1_,
-        a2: true,
-        c2: true,
-        origin: Vector3.copy(b),
-        transformedOrigin: Vector3.copy(holder)));
-    darkSeam.add(Face(r1, q2_, q2,
-        b2: true,
-        origin: Vector3.copy(c),
-        transformedOrigin: Vector3.copy(holder)));
-    darkSeam.add(Face(r1, r1_, q2_,
-        c2: true,
-        b2: true,
-        origin: Vector3.copy(c),
-        transformedOrigin: Vector3.copy(holder)));
+    darkSeam.add(Face(r2, p1, r2_, c2: true));
+    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true));
+    darkSeam.add(Face(p2, q1, p2_, c2: true));
+    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true));
+    darkSeam.add(Face(r1, q2_, q2, b2: true));
+    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true));
   }
 
   double scale = 0.95;
@@ -229,8 +164,6 @@ ShapeData _subdivideFrequency3(ShapeData old) {
       vertices[face.c] = Math3d.scaleFrom(scale, vertices[face.c], origin);
     }
   }
-
-
 
   return ShapeData(
     vertices: vertices,
@@ -289,46 +222,10 @@ ShapeData _subdivide(ShapeData old) {
       final j = _getOrAdd(q, j2 ? vertices2 : vertices);
       final k = _getOrAdd(r, k2 ? vertices2 : vertices);
 
-      faces.add(Face(
-        face.a,
-        i,
-        k,
-        a2: a2,
-        b2: i2,
-        c2: k2,
-        origin: face.origin,
-        transformedOrigin: face.transformedOrigin,
-      ));
-      faces.add(Face(
-        i,
-        face.b,
-        j,
-        a2: i2,
-        b2: b2,
-        c2: j2,
-        origin: face.origin,
-        transformedOrigin: face.transformedOrigin,
-      ));
-      faces.add(Face(
-        j,
-        face.c,
-        k,
-        a2: j2,
-        b2: c2,
-        c2: k2,
-        origin: face.origin,
-        transformedOrigin: face.transformedOrigin,
-      ));
-      faces.add(Face(
-        k,
-        i,
-        j,
-        a2: k2,
-        b2: i2,
-        c2: j2,
-        origin: face.origin,
-        transformedOrigin: face.transformedOrigin,
-      ));
+      faces.add(Face(face.a, i, k, a2: a2, b2: i2, c2: k2));
+      faces.add(Face(i, face.b, j, a2: i2, b2: b2, c2: j2));
+      faces.add(Face(j, face.c, k, a2: j2, b2: c2, c2: k2));
+      faces.add(Face(k, i, j, a2: k2, b2: i2, c2: j2));
     }
   }
 

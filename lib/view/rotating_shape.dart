@@ -43,7 +43,7 @@ class _RotatingShapeState extends State<RotatingShape>
   }
 
   Matrix4 getTransform() {
-    const double _scale = 8;
+    // const double _scale = 8;
 
     // var transform = Matrix4.translationValues(0, -2, 1);
     var transform = Matrix4.identity();
