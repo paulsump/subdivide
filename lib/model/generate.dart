@@ -18,10 +18,13 @@ ShapeData generateShapeData() {
   _normalize(shapeData.vertices2);
 
   for (final vertex in shapeData.vertices2) {
-    vertex.scale(0.992);
+    vertex.scale(_seamDepth);
   }
   return shapeData;
 }
+
+const _seamDepth = 0.985;
+const double _patchScale = 0.85;
 
 /// for each vector coming out from a vertex
 /// go a third of the way along and add that ver (do face the same time)
@@ -124,15 +127,13 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true));
   }
 
-  double scale = 0.95;
-
   // scale the light hexagons
   for (final lightMesh in lightMeshes) {
     for (final face in lightMesh.faces) {
       final pqr = vertices[face.a];
 
       final s = vertices[face.b];
-      vertices[face.a] = Math3d.scaleFrom(scale, pqr, s);
+      vertices[face.a] = Math3d.scaleFrom(_patchScale, pqr, s);
     }
   }
 
@@ -160,8 +161,10 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     for (final face in darkMesh.faces) {
       final origin = vertices[face.a];
 
-      vertices[face.b] = Math3d.scaleFrom(scale, vertices[face.b], origin);
-      vertices[face.c] = Math3d.scaleFrom(scale, vertices[face.c], origin);
+      vertices[face.b] =
+          Math3d.scaleFrom(_patchScale, vertices[face.b], origin);
+      vertices[face.c] =
+          Math3d.scaleFrom(_patchScale, vertices[face.c], origin);
     }
   }
 
