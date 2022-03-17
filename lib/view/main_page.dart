@@ -1,14 +1,13 @@
 // Copyright (c) 2022, Paul Sumpner.  All rights reserved.
 
 import 'package:flutter/material.dart';
-import 'package:subdivide/const_shape/const_shape.dart';
 import 'package:subdivide/gestures/gesturer.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/horizon.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/rotating_shape.dart';
 
-const noWarn = [out, ConstShape];
+const noWarn = [out];
 
 /// The only page in this app.
 class MainPage extends StatelessWidget {
@@ -25,7 +24,6 @@ class MainPage extends StatelessWidget {
             Horizon(),
             Gesturer(),
             RotatingShape(),
-            // ConstShape(),
           ]),
         ),
       ),

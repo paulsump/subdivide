@@ -15,6 +15,7 @@ const noWarn = [out];
 
 get _light => vec_math.Vector3(0.0, 0.0, 1.0).normalized();
 
+/// The football widget
 class Shape extends StatelessWidget {
   const Shape({Key? key}) : super(key: key);
 

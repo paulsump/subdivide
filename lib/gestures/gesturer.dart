@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:subdivide/gestures/gesture_handler.dart';
 import 'package:subdivide/gestures/pan_zoom.dart';
 
-/// Handle gestures, passing them to [Brusher] or [PanZoomer].
+/// Handle gestures, passing them to [PanZoomer].
 ///
 /// Stateful because of mutable fields.
 class Gesturer extends StatefulWidget {

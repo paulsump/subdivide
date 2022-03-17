@@ -6,6 +6,7 @@ import 'package:subdivide/out.dart';
 
 const noWarn = out;
 
+/// Draw a list o vertex shaded triangles.
 class Triangles extends StatelessWidget {
   const Triangles({
     Key? key,

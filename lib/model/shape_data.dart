@@ -32,6 +32,7 @@ class ShapeNotifier extends ChangeNotifier {
   }
 }
 
+/// All the persisted data needed to render a 3d shape (football)
 class ShapeData {
   const ShapeData({
     required this.vertices,

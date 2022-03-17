@@ -9,12 +9,14 @@ import 'package:vector_math/vector_math_64.dart';
 
 final noWarn = [_normalize, out, _triangle, _subdivide];
 
+/// See README.md
+/// This function is the interface to this file
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
 
   shapeData = _subdivideFrequency3(shapeData);
   shapeData = _subdivide(shapeData);
-  // shapeData = _subdivide(shapeData);
+
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
 
@@ -190,6 +192,7 @@ int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
   return index;
 }
 
+/// See triangle_subdivide.png
 ShapeData _subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
   final vertices2 = <Vector3>[...old.vertices2];

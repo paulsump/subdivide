@@ -8,6 +8,7 @@ import 'package:subdivide/out.dart';
 
 const noWarn = out;
 
+/// Create a shape from json in the 'shapes' assets folder
 Future<ShapeData> loadShapeData() async {
   final assetStrings = await _Assets._getStrings('shapes/test');
 

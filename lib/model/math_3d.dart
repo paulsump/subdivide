@@ -5,6 +5,7 @@ import 'dart:core';
 import 'package:vector_math/vector_math_64.dart';
 
 /// Static helper functions
+/// See the test file.
 class Math3d {
   /// face normal from three vertices on the plane.
   /// (usually the corners of a triangle)
