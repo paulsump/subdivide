@@ -32,6 +32,8 @@ class Shape extends StatelessWidget {
     final vertices2 = vertexNotifier.vertices2;
 
     final triangles = <Triangle>[];
+    final offsets = <Offset>[];
+    final colors = <Color>[];
 
     for (final mesh in shapeData.meshes) {
       final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
@@ -45,18 +47,17 @@ class Shape extends StatelessWidget {
           final normal = Math3d.normal(a, b, c).normalized();
 
           if (0 < normal.z) {
-            final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
-            final colors = <Color>[
+            offsets.addAll(<Offset>[_flipY(a), _flipY(b), _flipY(c)]);
+            colors.addAll(<Color>[
               _getColor(a, face.a2, a, b, c, color),
               _getColor(b, face.b2, a, b, c, color),
               _getColor(c, face.c2, a, b, c, color),
-            ];
-
-            triangles.add(Triangle(offsets: offsets, colors: colors));
+            ]);
           }
         }
       }
     }
+    triangles.add(Triangle(offsets: offsets, colors: colors));
     return triangles;
   }
 }
