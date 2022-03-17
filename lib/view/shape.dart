@@ -51,7 +51,6 @@ class Shape extends StatelessWidget {
               a2: face.a2,
               b2: face.b2,
               c2: face.c2,
-              isFlat: face.a2 || face.b2 || face.c2,
             ));
           }
         }
