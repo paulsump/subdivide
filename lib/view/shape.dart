@@ -41,10 +41,12 @@ class Shape extends StatelessWidget {
         final b = face.b2 ? vertices2[face.b] : vertices[face.b];
         final c = face.c2 ? vertices2[face.c] : vertices[face.c];
 
-        final normal = Math3d.normal(a, b, c).normalized();
+        if (a.z > 0 && b.z > 0 && c.z > 0) {
+          final normal = Math3d.normal(a, b, c).normalized();
 
-        if (0 < normal.z) {
-          triangles.add(Triangle(a: a, b: b, c: c, color_: color));
+          if (0 < normal.z) {
+            triangles.add(Triangle(a: a, b: b, c: c, color_: color));
+          }
         }
       }
     }
@@ -70,10 +72,12 @@ class Shape extends StatelessWidget {
           final b = face.b2 ? vertices2[face.b] : vertices[face.b];
           final c = face.c2 ? vertices2[face.c] : vertices[face.c];
 
-          final normal = Math3d.normal(a, b, c).normalized();
+          if (a.z > 0 && b.z > 0 && c.z > 0) {
+            final normal = Math3d.normal(a, b, c).normalized();
 
-          if (0 < normal.z) {
-            triangles.add(FlatTriangle(a: a, b: b, c: c, color_: color));
+            if (0 < normal.z) {
+              triangles.add(FlatTriangle(a: a, b: b, c: c, color_: color));
+            }
           }
         }
       }
