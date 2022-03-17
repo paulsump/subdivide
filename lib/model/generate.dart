@@ -12,7 +12,7 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  // shapeData = _subdivide(shapeData);
+  shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
@@ -208,6 +208,7 @@ ShapeData _subdivide(ShapeData old) {
       final bool a2 = face.a2;
       final bool b2 = face.b2;
       final bool c2 = face.c2;
+
       final a = a2 ? vertices2[face.a] : vertices[face.a];
       final b = b2 ? vertices2[face.b] : vertices[face.b];
       final c = c2 ? vertices2[face.c] : vertices[face.c];
@@ -231,6 +232,7 @@ ShapeData _subdivide(ShapeData old) {
         a2: a2,
         b2: i2,
         c2: k2,
+        origin: face.origin,
       ));
       faces.add(Face(
         i,
@@ -239,6 +241,7 @@ ShapeData _subdivide(ShapeData old) {
         a2: i2,
         b2: b2,
         c2: j2,
+        origin: face.origin,
       ));
       faces.add(Face(
         j,
@@ -247,6 +250,7 @@ ShapeData _subdivide(ShapeData old) {
         a2: j2,
         b2: c2,
         c2: k2,
+        origin: face.origin,
       ));
       faces.add(Face(
         k,
@@ -255,6 +259,7 @@ ShapeData _subdivide(ShapeData old) {
         a2: k2,
         b2: i2,
         c2: j2,
+        origin: face.origin,
       ));
     }
   }
