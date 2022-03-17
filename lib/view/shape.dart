@@ -7,13 +7,13 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangles.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
-import 'package:vector_math/vector_math_64.dart' as vecmath;
+import 'package:vector_math/vector_math_64.dart' as vec_math;
 
 import 'triangles.dart';
 
 const noWarn = [out];
 
-get _light => vecmath.Vector3(0.0, 0.0, 1.0).normalized();
+get _light => vec_math.Vector3(0.0, 0.0, 1.0).normalized();
 
 class Shape extends StatelessWidget {
   const Shape({Key? key}) : super(key: key);
@@ -57,11 +57,11 @@ class Shape extends StatelessWidget {
 }
 
 Color _getColor(
-  vecmath.Vector3 vertex,
+  vec_math.Vector3 vertex,
   bool flat,
-  vecmath.Vector3 a,
-  vecmath.Vector3 b,
-  vecmath.Vector3 c,
+  vec_math.Vector3 a,
+  vec_math.Vector3 b,
+  vec_math.Vector3 c,
   Color color,
 ) {
   final vertexNormal = vertex.normalized();
@@ -79,4 +79,4 @@ Color _getColor(
       (brightness * color.green).toInt(), (brightness * color.blue).toInt());
 }
 
-Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
+Offset _flipY(vec_math.Vector3 v) => Offset(v.x, -v.y);
