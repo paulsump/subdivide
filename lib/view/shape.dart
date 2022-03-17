@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/model/math_3d.dart';
@@ -6,19 +7,20 @@ import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
 import 'package:subdivide/view/triangle.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
+import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 import 'triangle.dart';
 
 const noWarn = [out];
+
+get _light => vecmath.Vector3(0.0, 0.0, 1.0).normalized();
 
 class Shape extends StatelessWidget {
   const Shape({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      ..._calcTriangles(context),
-    ]);
+    return Stack(children: _calcTriangles(context));
   }
 
   List<Triangle> _calcTriangles(BuildContext context) {
@@ -43,20 +45,43 @@ class Shape extends StatelessWidget {
           final normal = Math3d.normal(a, b, c).normalized();
 
           if (0 < normal.z) {
-            triangles.add(Triangle(
-              a: a,
-              b: b,
-              c: c,
-              color_: color,
-              a2: face.a2,
-              b2: face.b2,
-              c2: face.c2,
-            ));
+            final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
+            final colors = <Color>[
+              _getColor(a, face.a2, a, b, c, color),
+              _getColor(b, face.b2, a, b, c, color),
+              _getColor(c, face.c2, a, b, c, color),
+            ];
+
+            triangles.add(Triangle(offsets: offsets, colors: colors));
           }
         }
       }
     }
     return triangles;
   }
-
 }
+
+Color _getColor(
+  vecmath.Vector3 vertex,
+  bool flat,
+  vecmath.Vector3 a,
+  vecmath.Vector3 b,
+  vecmath.Vector3 c,
+  Color color,
+) {
+  final vertexNormal = vertex.normalized();
+  final vertexBrightness = vertexNormal.dot(_light).clamp(0.0, 1.0);
+
+  var brightness = vertexBrightness;
+  if (flat) {
+    final faceNormal = Math3d.normal(a, b, c).normalized();
+
+    final faceBrightness = faceNormal.dot(_light).clamp(0.0, 1.0);
+    brightness = lerpDouble(brightness, faceBrightness, 0.3)!;
+  }
+
+  return Color.fromARGB(255, (brightness * color.red).toInt(),
+      (brightness * color.green).toInt(), (brightness * color.blue).toInt());
+}
+
+Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);

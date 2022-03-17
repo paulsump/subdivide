@@ -11,6 +11,7 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
+
   shapeData = _subdivideFrequency3(shapeData);
   shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
