@@ -87,9 +87,12 @@ class Shape extends StatelessWidget {
                 b: b,
                 c: c,
                 color_: color,
-                aOrigin: face.a2 ? face.origin : null,
-                bOrigin: face.b2 ? face.origin : null,
-                cOrigin: face.c2 ? face.origin : null,
+                // aOrigin: face.a2 ? face.origin : null,
+                // bOrigin: face.b2 ? face.origin : null,
+                // cOrigin: face.c2 ? face.origin : null,
+                aOrigin: face.origin,
+                bOrigin: face.origin,
+                cOrigin: face.origin,
               ));
             }
           }
