@@ -13,11 +13,11 @@ ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
   // shapeData = _subdivide(shapeData);
-  shapeData = _subdivide(shapeData);
+  // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
   for (final vertex in shapeData.vertices2) {
-    vertex.scale(0.992);
+    vertex.scale(0.92);
   }
   return shapeData;
 }
@@ -62,12 +62,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final light = <Face>[];
     lightMeshes.add(Mesh(faces: light, dark: false));
 
-    light.add(Face(p1, s, r2));
-    light.add(Face(p2, s, p1));
-    light.add(Face(q1, s, p2));
-    light.add(Face(q2, s, q1));
-    light.add(Face(r1, s, q2));
-    light.add(Face(r2, s, r1));
+    // light.add(Face(p1, s, r2));
+    // light.add(Face(p2, s, p1));
+    // light.add(Face(q1, s, p2));
+    // light.add(Face(q2, s, q1));
+    // light.add(Face(r1, s, q2));
+    // light.add(Face(r2, s, r1));
 
     // copy vertices for the seam
     final int p1_ = _getOrAdd(vertices[p1], vertices2);
@@ -81,20 +81,20 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
 
     // next to dark seams
-    lightSeam.add(Face(r2, r2_, p1, b2: true, origin: center));
-    lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true, origin: center));
-    lightSeam.add(Face(p2, p2_, q1, b2: true, origin: center));
-    lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true, origin: center));
-    lightSeam.add(Face(r1, q2, q2_, c2: true, origin: center));
-    lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true, origin: center));
+    // lightSeam.add(Face(r2, r2_, p1, b2: true, origin: center));
+    // lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true, origin: center));
+    // lightSeam.add(Face(p2, p2_, q1, b2: true, origin: center));
+    // lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true, origin: center));
+    // lightSeam.add(Face(r1, q2, q2_, c2: true, origin: center));
+    // lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true, origin: center));
 
     // next to light seams from another 9 triangles
-    lightSeam.add(Face(p1, p1_, p2, b2: true, origin: center));
-    lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true, origin: center));
-    lightSeam.add(Face(q2, q1, q1_, c2: true, origin: center));
-    lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true, origin: center));
-    lightSeam.add(Face(r2, r1, r1_, c2: true, origin: center));
-    lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true, origin: center));
+    // lightSeam.add(Face(p1, p1_, p2, b2: true, origin: center));
+    // lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true, origin: center));
+    // lightSeam.add(Face(q2, q1, q1_, c2: true, origin: center));
+    // lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true, origin: center));
+    // lightSeam.add(Face(r2, r1, r1_, c2: true, origin: center));
+    // lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true, origin: center));
 
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
@@ -115,21 +115,13 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final darkSeam = <Face>[];
     darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
 
-    //TODO SHOULD BE USING correct midpoint = total/5, but that's calculated below.
     // so for now a,b and c are close enough
-    const darkLengthHack = 0.92;
-    darkSeam.add(
-        Face(r2, p1, r2_, c2: true, origin: a.normalized() * darkLengthHack));
-    darkSeam.add(Face(r2_, p1, p1_,
-        a2: true, c2: true, origin: a.normalized() * darkLengthHack));
-    darkSeam.add(
-        Face(p2, q1, p2_, c2: true, origin: b.normalized() * darkLengthHack));
-    darkSeam.add(Face(p2_, q1, q1_,
-        a2: true, c2: true, origin: b.normalized() * darkLengthHack));
-    darkSeam.add(
-        Face(r1, q2_, q2, b2: true, origin: c.normalized() * darkLengthHack));
-    darkSeam.add(Face(r1, r1_, q2_,
-        c2: true, b2: true, origin: c.normalized() * darkLengthHack));
+    darkSeam.add(Face(r2, p1, r2_, c2: true, origin: a));
+    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true, origin: a));
+    darkSeam.add(Face(p2, q1, p2_, c2: true, origin: b));
+    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true, origin: b));
+    darkSeam.add(Face(r1, q2_, q2, b2: true, origin: c));
+    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true, origin: c));
   }
 
   double scale = 0.95;
@@ -176,21 +168,51 @@ ShapeData _subdivideFrequency3(ShapeData old) {
   }
 
   // recalculate origins
-  for (final darkMesh in darkMeshes) {
-    for (final face in darkMesh.faces) {
-      var midpoint = Vector3(0, 0, 0);
-      for (int i = 0; i < 12; ++i) {
+  final midpoints = <Vector3>[];
+
+  for (int i = 0; i < old.vertices.length; ++i) {
+    var midpoint = Vector3(0, 0, 0);
+
+    int debugCount = 0;
+    for (int m = 0; m < darkMeshes.length; ++m) {
+      final darkMesh = darkMeshes[m];
+
+      for (int f = 0; f < darkMesh.faces.length; ++f) {
+        final face = darkMesh.faces[f];
+
         if (face.a == i) {
           // p1
           midpoint += vertices[face.b];
+          debugCount += 1;
         }
       }
-      midpoint /= 5;
+    }
 
-      // TODO set midpoint into corresponding seam face in darkSeamMeshes
-      // face.origin!.x = total.x;
-      // face.origin!.y = total.y;
-      // face.origin!.z = total.z;
+    assert(5 == debugCount);
+    midpoint /= 5;
+
+    midpoints.add(midpoint);
+  }
+
+  for (int i = 0; i < old.vertices.length; ++i) {
+    for (int m = 0; m < darkMeshes.length; ++m) {
+      final darkMesh = darkMeshes[m];
+
+      for (int f = 0; f < darkMesh.faces.length; ++f) {
+        final face = darkMesh.faces[f];
+
+        if (face.a == i) {
+          // p1
+
+          // set midpoint into corresponding seam face in darkSeamMeshes
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.x = midpoints[i].x;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.x = midpoints[i].x;
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.y = midpoints[i].y;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.y = midpoints[i].y;
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.z = midpoints[i].z;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.z = midpoints[i].z;
+        }
+      }
     }
   }
 
