@@ -55,6 +55,7 @@ class _Painter extends CustomPainter {
     var vertices = Vertices(
       VertexMode.triangles,
       [Offset.zero, Offset(100, 0), Offset(100, 100)],
+      colors: [Colors.red, Colors.green, Colors.blue],
     );
 
     canvas.translate(20, 50);
