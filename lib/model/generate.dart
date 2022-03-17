@@ -276,12 +276,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
           // p1
 
           // set midpoint into corresponding seam face in darkSeamMeshes
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.x = midpoints[i].x;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.x = midpoints[i].x;
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.y = midpoints[i].y;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.y = midpoints[i].y;
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.z = midpoints[i].z;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.z = midpoints[i].z;
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.x = old.vertices[i].x;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.x = old.vertices[i].x;
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.y = old.vertices[i].y;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.y = old.vertices[i].y;
+          darkSeamMeshes[m].faces[2 * f + 0].origin!.z = old.vertices[i].z;
+          darkSeamMeshes[m].faces[2 * f + 1].origin!.z = old.vertices[i].z;
         }
       }
     }
