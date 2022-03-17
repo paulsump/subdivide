@@ -6,8 +6,8 @@ import 'package:subdivide/out.dart';
 
 const noWarn = out;
 
-class Triangle extends StatelessWidget {
-  const Triangle({
+class Triangles extends StatelessWidget {
+  const Triangles({
     Key? key,
     required this.offsets,
     required this.colors,
@@ -30,7 +30,7 @@ class Triangle extends StatelessWidget {
   }
 }
 
-/// The painter for [Triangle].
+/// The painter for [Triangles].
 class _Painter extends CustomPainter {
   const _Painter(this.vertices);
 

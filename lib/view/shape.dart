@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/model/shape_data.dart';
 import 'package:subdivide/out.dart';
-import 'package:subdivide/view/triangle.dart';
+import 'package:subdivide/view/triangles.dart';
 import 'package:subdivide/view/vertex_notifier.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
-import 'triangle.dart';
+import 'triangles.dart';
 
 const noWarn = [out];
 
@@ -20,10 +20,6 @@ class Shape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: _calcTriangles(context));
-  }
-
-  List<Triangle> _calcTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
 
     final vertexNotifier = getVertexNotifier(context, listen: true);
@@ -31,7 +27,6 @@ class Shape extends StatelessWidget {
     final vertices = vertexNotifier.vertices;
     final vertices2 = vertexNotifier.vertices2;
 
-    final triangles = <Triangle>[];
     final offsets = <Offset>[];
     final colors = <Color>[];
 
@@ -57,8 +52,7 @@ class Shape extends StatelessWidget {
         }
       }
     }
-    triangles.add(Triangle(offsets: offsets, colors: colors));
-    return triangles;
+    return Triangles(offsets: offsets, colors: colors);
   }
 }
 
