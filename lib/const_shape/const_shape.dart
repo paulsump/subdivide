@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:subdivide/out.dart';
-import 'package:vector_math/vector_math_64.dart' as vecmath;
+// import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 const noWarn = out;
 
@@ -19,7 +19,7 @@ class ConstShape extends StatelessWidget {
   Widget build(BuildContext context) {
     // final triangles = <ConstTriangle>[];
 
-    return CustomPaint(
+    return const CustomPaint(
       painter: _Painter(
           // Path()..addPolygon(offsets, true),
           // Paint()
@@ -33,7 +33,7 @@ class ConstShape extends StatelessWidget {
   }
 }
 
-Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
+// Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
 
 /// The painter for [Ball].
 class _Painter extends CustomPainter {
@@ -54,7 +54,7 @@ class _Painter extends CustomPainter {
     // }
     var vertices = Vertices(
       VertexMode.triangles,
-      [Offset.zero, Offset(100, 0), Offset(100, 100)],
+      [Offset.zero, const Offset(100, 0), const Offset(100, 100)],
       colors: [Colors.red, Colors.green, Colors.blue],
     );
 

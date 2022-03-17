@@ -8,7 +8,7 @@ import 'package:subdivide/view/horizon.dart';
 import 'package:subdivide/view/hue.dart';
 import 'package:subdivide/view/rotating_shape.dart';
 
-const noWarn = [out];
+const noWarn = [out, ConstShape];
 
 /// The only page in this app.
 class MainPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
             Horizon(),
             Gesturer(),
             RotatingShape(),
-            ConstShape(),
+            // ConstShape(),
           ]),
         ),
       ),
