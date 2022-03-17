@@ -16,14 +16,6 @@ ShapeData generateShapeData() {
   // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
-  for (final mesh in shapeData.meshes) {
-    for (final face in mesh.faces) {
-      // note that this puts it back to where old.vertices would be.
-      if (face.origin != null) {
-        face.origin!.normalize();
-      }
-    }
-  }
 
   for (final vertex in shapeData.vertices2) {
     vertex.scale(0.992);
