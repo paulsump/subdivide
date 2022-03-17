@@ -257,62 +257,60 @@ const double c2 = (root5 + 1) / 4;
 const double s1 = 0.9510565162951535; //sqrt(10+2*root5)/4;
 const double s2 = 0.5877852522924731; //sqrt(10-2*root5)/4;
 
-//TODO remove HACK for quick hot reload
-// final icosahedron = ShapeData(
-ShapeData get _icosahedron => ShapeData(vertices: <Vector3>[
-      // north pole (z)
-      Vector3(0, 0, root5 / 2),
+final _icosahedron = ShapeData(vertices: <Vector3>[
+  // north pole (z)
+  Vector3(0, 0, root5 / 2),
 
-      // top pentagon from top anticlockwise
-      Vector3(0, 1, 0.5),
-      Vector3(-s1, c1, 0.5),
-      Vector3(-s2, -c2, 0.5),
-      Vector3(s2, -c2, 0.5),
-      Vector3(s1, c1, 0.5),
+  // top pentagon from top anticlockwise
+  Vector3(0, 1, 0.5),
+  Vector3(-s1, c1, 0.5),
+  Vector3(-s2, -c2, 0.5),
+  Vector3(s2, -c2, 0.5),
+  Vector3(s1, c1, 0.5),
 
-      // bottom pentagon from top anticlockwise
-      Vector3(-s2, c2, -0.5),
-      Vector3(-s1, -c1, -0.5),
-      Vector3(0, -1, -0.5),
-      Vector3(s1, -c1, -0.5),
-      Vector3(s2, c2, -0.5),
+  // bottom pentagon from top anticlockwise
+  Vector3(-s2, c2, -0.5),
+  Vector3(-s1, -c1, -0.5),
+  Vector3(0, -1, -0.5),
+  Vector3(s1, -c1, -0.5),
+  Vector3(s2, c2, -0.5),
 
-      // south pole
-      Vector3(0, 0, -root5 / 2),
-    ], vertices2: <Vector3>[], meshes: <Mesh>[
-      const Mesh(
-        faces: [
-          // top
-          Face(0, 1, 2),
-          Face(0, 2, 3),
-          Face(0, 3, 4),
-          Face(0, 4, 5),
-          Face(0, 5, 1),
+  // south pole
+  Vector3(0, 0, -root5 / 2),
+], vertices2: <Vector3>[], meshes: <Mesh>[
+  const Mesh(
+    faces: [
+      // top
+      Face(0, 1, 2),
+      Face(0, 2, 3),
+      Face(0, 3, 4),
+      Face(0, 4, 5),
+      Face(0, 5, 1),
 
-          // bottom
-          Face(11, 10, 9),
-          Face(11, 9, 8),
-          Face(11, 8, 7),
-          Face(11, 7, 6),
-          Face(11, 6, 10),
+      // bottom
+      Face(11, 10, 9),
+      Face(11, 9, 8),
+      Face(11, 8, 7),
+      Face(11, 7, 6),
+      Face(11, 6, 10),
 
-          // top between
-          Face(1, 6, 2),
-          Face(2, 7, 3),
-          Face(3, 8, 4),
-          Face(4, 9, 5),
-          Face(5, 10, 1),
+      // top between
+      Face(1, 6, 2),
+      Face(2, 7, 3),
+      Face(3, 8, 4),
+      Face(4, 9, 5),
+      Face(5, 10, 1),
 
-          // bottom between
-          Face(6, 7, 2),
-          Face(7, 8, 3),
-          Face(8, 9, 4),
-          Face(9, 10, 5),
-          Face(10, 6, 1),
-        ],
-        dark: false,
-      )
-    ]);
+      // bottom between
+      Face(6, 7, 2),
+      Face(7, 8, 3),
+      Face(8, 9, 4),
+      Face(9, 10, 5),
+      Face(10, 6, 1),
+    ],
+    dark: false,
+  )
+]);
 
 final _triangle = ShapeData(
   vertices: [

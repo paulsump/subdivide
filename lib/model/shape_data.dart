@@ -20,15 +20,15 @@ ShapeNotifier getShapeNotifier(BuildContext context, {required bool listen}) =>
 /// Access to the [ShapeData].
 /// Generated in generate.dart, drawn by [Shape].
 class ShapeNotifier extends ChangeNotifier {
-  // late ShapeData _shapeData;
-  //
-  // ShapeData get shapeData => _shapeData;
+  late ShapeData _shapeData;
+
+  ShapeData get shapeData => _shapeData;
 
   //TODO remove HACK for quick hot reaload
-  ShapeData get shapeData => generateShapeData();
+  // ShapeData get shapeData => generateShapeData();
 
   void init(ShapeData shapeData_) {
-    // _shapeData = shapeData_;
+    _shapeData = shapeData_;
   }
 }
 
@@ -98,11 +98,12 @@ class Mesh {
               (f) => Face.fromJson(f),
             )
             .toList(),
-        dark = json.containsKey('colorIndex') ? json['colorIndex'] : 0;
+        dark = json.containsKey('dark') ? json['dark'] : 0;
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         'faces': faces,
-        'colorIndex': dark,
+        'dark': dark,
       };
 }
 
@@ -137,10 +138,16 @@ class Face {
       : a = json['a'],
         b = json['b'],
         c = json['c'],
-        //TODO
-        a2 = false,
-        b2 = false,
-        c2 = false;
+        a2 = json['a2'],
+        b2 = json['b2'],
+        c2 = json['c2'];
 
-  Map<String, dynamic> toJson() => {'a': a, 'b': b, 'c': c};
+  Map<String, dynamic> toJson() => {
+        'a': a,
+        'b': b,
+        'c': c,
+        'a2': a2,
+        'b2': b2,
+        'c2': c2,
+      };
 }

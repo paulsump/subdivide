@@ -11,6 +11,7 @@ import 'package:vector_math/vector_math_64.dart';
 const noWarn = [out, Vector3];
 
 void main() {
+  //TODO ShapeData persistence tests
   group('ShapeData json empty', () {
     const testJson = '{"meshes": [],"faces": []}';
 

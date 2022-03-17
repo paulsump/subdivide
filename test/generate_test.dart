@@ -10,6 +10,7 @@ import 'package:vector_math/vector_math_64.dart';
 const noWarn = out;
 
 void main() {
+  //TODO generate tests
   group('pentagon', () {
     test('top', () {
       // todo
