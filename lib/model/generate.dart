@@ -12,7 +12,7 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  shapeData = _subdivide(shapeData);
+  // shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
@@ -170,30 +170,30 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
     darkSeam.add(Face(r2, p1, r2_,
         c2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(a),
         transformedOrigin: Vector3.copy(holder)));
     darkSeam.add(Face(r2_, p1, p1_,
         a2: true,
         c2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(a),
         transformedOrigin: Vector3.copy(holder)));
     darkSeam.add(Face(p2, q1, p2_,
         c2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(b),
         transformedOrigin: Vector3.copy(holder)));
     darkSeam.add(Face(p2_, q1, q1_,
         a2: true,
         c2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(b),
         transformedOrigin: Vector3.copy(holder)));
     darkSeam.add(Face(r1, q2_, q2,
         b2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(c),
         transformedOrigin: Vector3.copy(holder)));
     darkSeam.add(Face(r1, r1_, q2_,
         c2: true,
         b2: true,
-        origin: Vector3.copy(holder),
+        origin: Vector3.copy(c),
         transformedOrigin: Vector3.copy(holder)));
   }
 
@@ -238,54 +238,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     }
   }
 
-  // recalculate origins
-  final midpoints = <Vector3>[];
 
-  for (int i = 0; i < old.vertices.length; ++i) {
-    var midpoint = Vector3(0, 0, 0);
-
-    int debugCount = 0;
-    for (int m = 0; m < darkMeshes.length; ++m) {
-      final darkMesh = darkMeshes[m];
-
-      for (int f = 0; f < darkMesh.faces.length; ++f) {
-        final face = darkMesh.faces[f];
-
-        if (face.a == i) {
-          // p1
-          midpoint += vertices[face.b];
-          debugCount += 1;
-        }
-      }
-    }
-
-    // assert(5 == debugCount);
-    midpoint /= 5;
-
-    midpoints.add(midpoint);
-  }
-
-  for (int i = 0; i < old.vertices.length; ++i) {
-    for (int m = 0; m < darkMeshes.length; ++m) {
-      final darkMesh = darkMeshes[m];
-
-      for (int f = 0; f < darkMesh.faces.length; ++f) {
-        final face = darkMesh.faces[f];
-
-        if (face.a == i) {
-          // p1
-// TODO remove midpoint calculation code
-          // set midpoint into corresponding seam face in darkSeamMeshes
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.x = old.vertices[i].x;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.x = old.vertices[i].x;
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.y = old.vertices[i].y;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.y = old.vertices[i].y;
-          darkSeamMeshes[m].faces[2 * f + 0].origin!.z = old.vertices[i].z;
-          darkSeamMeshes[m].faces[2 * f + 1].origin!.z = old.vertices[i].z;
-        }
-      }
-    }
-  }
 
   return ShapeData(
     vertices: vertices,
