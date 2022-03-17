@@ -15,18 +15,27 @@ class Triangle extends StatelessWidget {
     required this.a,
     required this.b,
     required this.c,
+    required this.a2,
+    required this.b2,
+    required this.c2,
     required this.color_,
     required this.isFlat,
   }) : super(key: key);
 
   final vecmath.Vector3 a, b, c;
+  final bool a2, b2, c2;
   final Color color_;
   final bool isFlat;
 
   @override
   Widget build(BuildContext context) {
     final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
-    final colors = <Color>[_getColor(a), _getColor(b), _getColor(c)];
+    // final colors = <Color>[_getColor(a), _getColor(b), _getColor(c)];
+    final colors = <Color>[
+      _getColor(a, a2),
+      _getColor(b, b2),
+      _getColor(c, c2)
+    ];
 
     return CustomPaint(
       painter: _Painter(
@@ -39,12 +48,12 @@ class Triangle extends StatelessWidget {
     );
   }
 
-  Color _getColor(vecmath.Vector3 vertex) {
+  Color _getColor(vecmath.Vector3 vertex, bool flat) {
     final vertexNormal = vertex.normalized();
     final vertexBrightness = vertexNormal.dot(light).clamp(0.0, 1.0);
 
     var brightness = vertexBrightness;
-    if (isFlat) {
+    if (flat) {
       final faceNormal = Math3d.normal(a, b, c).normalized();
 
       final faceBrightness = faceNormal.dot(light).clamp(0.0, 1.0);
