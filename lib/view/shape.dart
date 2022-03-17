@@ -53,6 +53,8 @@ class Shape extends StatelessWidget {
     return triangles;
   }
 
+  /// TODO instead of flat triangles, just work out that correct
+  /// vertex normals for the seams.
   List<FlatTriangle> _calcFlatTriangles(BuildContext context) {
     final shapeData = getShapeData(context, listen: false);
 

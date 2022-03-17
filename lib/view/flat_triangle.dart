@@ -50,7 +50,7 @@ class FlatTriangle extends StatelessWidget {
 
 Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
 
-/// The painter for [Ball].
+/// The painter for [FlatTriangle].
 class _Painter extends CustomPainter {
   const _Painter(this.path, this.paint_, this.paintStroke_);
 

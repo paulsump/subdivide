@@ -31,12 +31,6 @@ class Triangle extends StatelessWidget {
           offsets,
           colors: colors,
         ),
-        Paint()
-          ..color = Colors.red
-          ..style = PaintingStyle.fill,
-        Paint()
-          ..color = Colors.red
-          ..style = PaintingStyle.stroke,
       ),
     );
   }
@@ -57,26 +51,21 @@ class Triangle extends StatelessWidget {
 
 Offset _flipY(vecmath.Vector3 v) => Offset(v.x, -v.y);
 
-/// The painter for [Ball].
+/// The painter for [Triangle].
 class _Painter extends CustomPainter {
-  const _Painter(this.vertices, this.paint_, this.paintStroke_);
+  const _Painter(this.vertices);
 
-  final Paint paint_;
-  final Paint paintStroke_;
   final Vertices vertices;
 
   @override
   void paint(Canvas canvas, Size size) {
-    // canvas.drawPath(path, paint_);
-    // canvas.drawPath(path, paintStroke_);
-    canvas.drawVertices(
-      vertices,
-      BlendMode.srcOver,
-      Paint()..color = Colors.red,
-      // paint_,
-    );
+    canvas.drawVertices(vertices, BlendMode.srcOver, _redPaint);
   }
 
   @override
   bool shouldRepaint(_Painter oldDelegate) => true;
 }
+
+final _redPaint = Paint()
+  ..color = Colors.red
+  ..style = PaintingStyle.stroke;
