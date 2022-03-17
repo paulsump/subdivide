@@ -274,7 +274,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
         if (face.a == i) {
           // p1
-
+// TODO remove midpoint calculation code
           // set midpoint into corresponding seam face in darkSeamMeshes
           darkSeamMeshes[m].faces[2 * f + 0].origin!.x = old.vertices[i].x;
           darkSeamMeshes[m].faces[2 * f + 1].origin!.x = old.vertices[i].x;

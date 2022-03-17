@@ -6,7 +6,7 @@ import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 const noWarn = out;
-get light => vecmath.Vector3(1.0, 1.0, 3.0).normalized();
+get light => vecmath.Vector3(0.0, 0.0, 1.0).normalized();
 
 class Triangle extends StatelessWidget {
   const Triangle({
