@@ -305,6 +305,7 @@ ShapeData _subdivide(ShapeData old) {
         b2: i2,
         c2: k2,
         origin: face.origin,
+        transformedOrigin: face.transformedOrigin,
       ));
       faces.add(Face(
         i,
@@ -314,6 +315,7 @@ ShapeData _subdivide(ShapeData old) {
         b2: b2,
         c2: j2,
         origin: face.origin,
+        transformedOrigin: face.transformedOrigin,
       ));
       faces.add(Face(
         j,
@@ -323,6 +325,7 @@ ShapeData _subdivide(ShapeData old) {
         b2: c2,
         c2: k2,
         origin: face.origin,
+        transformedOrigin: face.transformedOrigin,
       ));
       faces.add(Face(
         k,
@@ -332,6 +335,7 @@ ShapeData _subdivide(ShapeData old) {
         b2: i2,
         c2: j2,
         origin: face.origin,
+        transformedOrigin: face.transformedOrigin,
       ));
     }
   }
