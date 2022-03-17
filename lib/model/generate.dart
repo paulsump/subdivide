@@ -12,8 +12,8 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
+  shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
   for (final vertex in shapeData.vertices2) {
@@ -117,12 +117,19 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
     //TODO SHOULD BE USING correct midpoint = total/5, but that's calculated below.
     // so for now a,b and c are close enough
-    darkSeam.add(Face(r2, p1, r2_, c2: true, origin: Vector3.copy(a)));
-    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true, origin: a));
-    darkSeam.add(Face(p2, q1, p2_, c2: true, origin: b));
-    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true, origin: b));
-    darkSeam.add(Face(r1, q2_, q2, b2: true, origin: c));
-    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true, origin: c));
+    const darkLengthHack = 0.92;
+    darkSeam.add(
+        Face(r2, p1, r2_, c2: true, origin: a.normalized() * darkLengthHack));
+    darkSeam.add(Face(r2_, p1, p1_,
+        a2: true, c2: true, origin: a.normalized() * darkLengthHack));
+    darkSeam.add(
+        Face(p2, q1, p2_, c2: true, origin: b.normalized() * darkLengthHack));
+    darkSeam.add(Face(p2_, q1, q1_,
+        a2: true, c2: true, origin: b.normalized() * darkLengthHack));
+    darkSeam.add(
+        Face(r1, q2_, q2, b2: true, origin: c.normalized() * darkLengthHack));
+    darkSeam.add(Face(r1, r1_, q2_,
+        c2: true, b2: true, origin: c.normalized() * darkLengthHack));
   }
 
   double scale = 0.95;
@@ -165,6 +172,25 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
       vertices[face.b] = Math3d.scaleFrom(scale, vertices[face.b], origin);
       vertices[face.c] = Math3d.scaleFrom(scale, vertices[face.c], origin);
+    }
+  }
+
+  // recalculate origins
+  for (final darkMesh in darkMeshes) {
+    for (final face in darkMesh.faces) {
+      var midpoint = Vector3(0, 0, 0);
+      for (int i = 0; i < 12; ++i) {
+        if (face.a == i) {
+          // p1
+          midpoint += vertices[face.b];
+        }
+      }
+      midpoint /= 5;
+
+      // TODO set midpoint into corresponding seam face in darkSeamMeshes
+      // face.origin!.x = total.x;
+      // face.origin!.y = total.y;
+      // face.origin!.z = total.z;
     }
   }
 

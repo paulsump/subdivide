@@ -34,7 +34,7 @@ class Shape extends StatelessWidget {
     final triangles = <Triangle>[];
 
     for (final mesh in shapeData.meshes) {
-      final Color color = mesh.dark ? Colors.brown : Colors.white60;
+      final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
         if (face.a2 || face.b2 || face.c2) {
@@ -71,7 +71,7 @@ class Shape extends StatelessWidget {
     final triangles = <SeamTriangle>[];
 
     for (final mesh in shapeData.meshes) {
-      final Color color = mesh.dark ? Colors.brown : Colors.white60;
+      final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
         if (face.a2 || face.b2 || face.c2) {
