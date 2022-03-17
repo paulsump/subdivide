@@ -20,7 +20,7 @@ class Shape extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       // ..._calcSeamTriangles(context),
-      ..._calcFlatTriangles(context),
+      // ..._calcFlatTriangles(context),
       ..._calcTriangles(context),
     ]);
   }
@@ -39,11 +39,6 @@ class Shape extends StatelessWidget {
       final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
-        if (face.a2 || face.b2 || face.c2) {
-          // if (true) {
-          continue;
-        }
-
         final a = face.a2 ? vertices2[face.a] : vertices[face.a];
         final b = face.b2 ? vertices2[face.b] : vertices[face.b];
         final c = face.c2 ? vertices2[face.c] : vertices[face.c];
@@ -52,7 +47,13 @@ class Shape extends StatelessWidget {
           final normal = Math3d.normal(a, b, c).normalized();
 
           if (0 < normal.z) {
-            triangles.add(Triangle(a: a, b: b, c: c, color_: color));
+            triangles.add(Triangle(
+              a: a,
+              b: b,
+              c: c,
+              color_: color,
+              isFlat: face.a2 || face.b2 || face.c2,
+            ));
           }
         }
       }

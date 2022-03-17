@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:subdivide/model/math_3d.dart';
 import 'package:subdivide/out.dart';
 import 'package:vector_math/vector_math_64.dart' as vecmath;
 
@@ -15,10 +16,12 @@ class Triangle extends StatelessWidget {
     required this.b,
     required this.c,
     required this.color_,
+    required this.isFlat,
   }) : super(key: key);
 
   final vecmath.Vector3 a, b, c;
   final Color color_;
+  final bool isFlat;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +40,16 @@ class Triangle extends StatelessWidget {
   }
 
   Color _getColor(vecmath.Vector3 vertex) {
-    final normal = vertex.normalized();
+    final vertexNormal = vertex.normalized();
+    final vertexBrightness = vertexNormal.dot(light).clamp(0.0, 1.0);
 
-    final brightness = normal.dot(light).clamp(0.0, 1.0);
+    var brightness = vertexBrightness;
+    if (isFlat) {
+      final faceNormal = Math3d.normal(a, b, c).normalized();
+
+      final faceBrightness = faceNormal.dot(light).clamp(0.0, 1.0);
+      brightness = lerpDouble(brightness, faceBrightness, 0.3)!;
+    }
 
     return Color.fromARGB(
         255,
