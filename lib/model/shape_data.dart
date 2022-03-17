@@ -20,15 +20,15 @@ ShapeNotifier getShapeNotifier(BuildContext context, {required bool listen}) =>
 /// Access to the [ShapeData].
 /// Generated in generate.dart, drawn by [Shape].
 class ShapeNotifier extends ChangeNotifier {
-  late ShapeData _shapeData;
-
-  ShapeData get shapeData => _shapeData;
+  // late ShapeData _shapeData;
+  //
+  // ShapeData get shapeData => _shapeData;
 
   //TODO remove HACK for quick hot reaload
-  // ShapeData get shapeData => generateShapeData();
+  ShapeData get shapeData => generateShapeData();
 
   void init(ShapeData shapeData_) {
-    _shapeData = shapeData_;
+    // _shapeData = shapeData_;
   }
 }
 
@@ -128,10 +128,12 @@ class Face {
     this.a2 = false,
     this.b2 = false,
     this.c2 = false,
+    this.origin,
   });
 
   final int a, b, c;
   final bool a2, b2, c2;
+  final Vector3? origin;
 
   Face.fromJson(Map<String, dynamic> json)
       : a = json['a'],
@@ -140,7 +142,8 @@ class Face {
         //TODO
         a2 = false,
         b2 = false,
-        c2 = false;
+        c2 = false,
+        origin = null;
 
   Map<String, dynamic> toJson() => {'a': a, 'b': b, 'c': c};
 }

@@ -12,7 +12,7 @@ final noWarn = [_normalize, out, _triangle, _subdivide];
 ShapeData generateShapeData() {
   ShapeData shapeData = _icosahedron;
   shapeData = _subdivideFrequency3(shapeData);
-  shapeData = _subdivide(shapeData);
+  // shapeData = _subdivide(shapeData);
   // shapeData = _subdivide(shapeData);
   _normalize(shapeData.vertices);
   _normalize(shapeData.vertices2);
@@ -45,8 +45,8 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final q = c - b;
     final r = a - c;
 
-    // centre
-    final int s = _getOrAdd((a + b + c) / 3, vertices);
+    final center = (a + b + c) / 3;
+    final int s = _getOrAdd(center, vertices);
 
     // one third along edge
     int p1 = _getOrAdd(a + p * 1 / 3, vertices);
@@ -80,19 +80,21 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final lightSeam = <Face>[];
     lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
 
-    lightSeam.add(Face(r2, r2_, p1, b2: true));
-    lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true));
-    lightSeam.add(Face(p2, p2_, q1, b2: true));
-    lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true));
-    lightSeam.add(Face(r1, q2, q2_, c2: true));
-    lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true));
+    // next to dark seams
+    lightSeam.add(Face(r2, r2_, p1, b2: true, origin: center));
+    lightSeam.add(Face(r2_, p1_, p1, a2: true, b2: true, origin: center));
+    lightSeam.add(Face(p2, p2_, q1, b2: true, origin: center));
+    lightSeam.add(Face(p2_, q1_, q1, a2: true, b2: true, origin: center));
+    lightSeam.add(Face(r1, q2, q2_, c2: true, origin: center));
+    lightSeam.add(Face(r1, q2_, r1_, b2: true, c2: true, origin: center));
 
-    lightSeam.add(Face(p1, p1_, p2, b2: true));
-    lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true));
-    lightSeam.add(Face(q2, q1, q1_, c2: true));
-    lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true));
-    lightSeam.add(Face(r2, r1, r1_, c2: true));
-    lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true));
+    // next to light seams from another 9 triangles
+    lightSeam.add(Face(p1, p1_, p2, b2: true, origin: center));
+    lightSeam.add(Face(p2, p1_, p2_, b2: true, c2: true, origin: center));
+    lightSeam.add(Face(q2, q1, q1_, c2: true, origin: center));
+    lightSeam.add(Face(q2, q1_, q2_, b2: true, c2: true, origin: center));
+    lightSeam.add(Face(r2, r1, r1_, c2: true, origin: center));
+    lightSeam.add(Face(r2, r1_, r2_, b2: true, c2: true, origin: center));
 
     final dark = <Face>[];
     darkMeshes.add(Mesh(faces: dark, dark: true));
@@ -113,12 +115,14 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final darkSeam = <Face>[];
     darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
 
-    darkSeam.add(Face(r2, p1, r2_, c2: true));
-    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true));
-    darkSeam.add(Face(p2, q1, p2_, c2: true));
-    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true));
-    darkSeam.add(Face(r1, q2_, q2, b2: true));
-    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true));
+    //TODO SHOULD BE USING correct midpoint = total/5, but that's calculated below.
+    // so for now a,b and c are close enough
+    darkSeam.add(Face(r2, p1, r2_, c2: true, origin: Vector3.copy(a)));
+    darkSeam.add(Face(r2_, p1, p1_, a2: true, c2: true, origin: a));
+    darkSeam.add(Face(p2, q1, p2_, c2: true, origin: b));
+    darkSeam.add(Face(p2_, q1, q1_, a2: true, c2: true, origin: b));
+    darkSeam.add(Face(r1, q2_, q2, b2: true, origin: c));
+    darkSeam.add(Face(r1, r1_, q2_, c2: true, b2: true, origin: c));
   }
 
   double scale = 0.95;
@@ -130,7 +134,6 @@ ShapeData _subdivideFrequency3(ShapeData old) {
       final pqr = vertices[face.a];
 
       final s = vertices[face.b];
-
       //p,q,or r
       vertices[face.a] = Math3d.scaleFrom(scale, pqr, s);
     }
