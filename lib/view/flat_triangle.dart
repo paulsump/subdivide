@@ -7,8 +7,8 @@ import 'package:vector_math/vector_math_64.dart' as vecmath;
 
 const noWarn = out;
 
-class Triangle extends StatelessWidget {
-  const Triangle({
+class FlatTriangle extends StatelessWidget {
+  const FlatTriangle({
     Key? key,
     required this.a,
     required this.b,
@@ -21,8 +21,18 @@ class Triangle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final normal = Math3d.normal(a, b, c).normalized();
+
+    final light = vecmath.Vector3(0.0, 0.0, 1.0);
+
+    final brightness = normal.dot(light).clamp(0.0, 1.0);
     final offsets = <Offset>[_flipY(a), _flipY(b), _flipY(c)];
-    Color color = _color();
+
+    final color = Color.fromARGB(
+        255,
+        (brightness * color_.red).toInt(),
+        (brightness * color_.green).toInt(),
+        (brightness * color_.blue).toInt());
 
     return CustomPaint(
       painter: _Painter(
@@ -35,21 +45,6 @@ class Triangle extends StatelessWidget {
           ..style = PaintingStyle.stroke,
       ),
     );
-  }
-
-  Color _color() {
-    final normal = Math3d.normal(a, b, c).normalized();
-
-    final light = vecmath.Vector3(0.0, 0.0, 1.0);
-
-    final brightness = normal.dot(light).clamp(0.0, 1.0);
-
-    final color = Color.fromARGB(
-        255,
-        (brightness * color_.red).toInt(),
-        (brightness * color_.green).toInt(),
-        (brightness * color_.blue).toInt());
-    return color;
   }
 }
 
