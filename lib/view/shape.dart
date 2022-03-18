@@ -32,7 +32,7 @@ class Shape extends StatelessWidget {
     final colors = <Color>[];
 
     for (final mesh in shapeData.meshes) {
-      final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
+      final Color color = mesh.isDark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
         final a = face.aSeam ? seamVertices[face.a] : vertices[face.a];

@@ -82,12 +82,12 @@ class ShapeData {
 class Mesh {
   const Mesh({
     required this.faces,
-    required this.dark,
+    required this.isDark,
   });
 
   final List<Face> faces;
 
-  final bool dark;
+  final bool isDark;
 
   Mesh.fromString(String json) : this.fromJson(jsonDecode(json));
 
@@ -100,12 +100,12 @@ class Mesh {
               (f) => Face.fromJson(f),
             )
             .toList(),
-        dark = json.containsKey('dark') ? json['dark'] : 0;
+        isDark = json.containsKey('isDark') ? json['isDark'] : false;
 
   Map<String, dynamic> toJson() =>
       {
         'faces': faces,
-        'dark': dark,
+        'isDark': isDark,
       };
 }
 

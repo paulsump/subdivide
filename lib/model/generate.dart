@@ -67,7 +67,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
     // inner 6 are light
     final light = <Face>[];
-    lightMeshes.add(Mesh(faces: light, dark: false));
+    lightMeshes.add(Mesh(faces: light, isDark: false));
 
     light.add(Face(p1, s, r2));
     light.add(Face(p2, s, p1));
@@ -85,7 +85,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     final int r2_ = _getOrAdd(vertices[r2], seamVertices);
 
     final lightSeam = <Face>[];
-    lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
+    lightSeamMeshes.add(Mesh(faces: lightSeam, isDark: false));
 
     // next to dark seams
     lightSeam.add(Face(r2, r2_, p1, bSeam: true));
@@ -104,7 +104,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     lightSeam.add(Face(r2, r1_, r2_, bSeam: true, cSeam: true));
 
     final dark = <Face>[];
-    darkMeshes.add(Mesh(faces: dark, dark: true));
+    darkMeshes.add(Mesh(faces: dark, isDark: true));
 
     // copy vertices for the dark pentagon
     p1 = _getOrAdd(vertices[p1], vertices);
@@ -120,7 +120,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     dark.add(Face(face.c, r1, q2));
 
     final darkSeam = <Face>[];
-    darkSeamMeshes.add(Mesh(faces: darkSeam, dark: true));
+    darkSeamMeshes.add(Mesh(faces: darkSeam, isDark: true));
 
     darkSeam.add(Face(r2, p1, r2_, cSeam: true));
     darkSeam.add(Face(r2_, p1, p1_, aSeam: true, cSeam: true));
@@ -200,13 +200,13 @@ ShapeData _subdivide(ShapeData old) {
   final dark = <Face>[];
   final light = <Face>[];
 
-  final darkMesh = Mesh(faces: dark, dark: true);
-  final lightMesh = Mesh(faces: light, dark: false);
+  final darkMesh = Mesh(faces: dark, isDark: true);
+  final lightMesh = Mesh(faces: light, isDark: false);
 
   final meshes = <Mesh>[darkMesh, lightMesh];
 
   for (final mesh in old.meshes) {
-    final faces = mesh.dark ? darkMesh.faces : lightMesh.faces;
+    final faces = mesh.isDark ? darkMesh.faces : lightMesh.faces;
 
     for (final face in mesh.faces) {
       final bool aSeam = face.aSeam;
@@ -312,7 +312,7 @@ final _icosahedron = ShapeData(vertices: <Vector3>[
       Face(9, 10, 5),
       Face(10, 6, 1),
     ],
-    dark: false,
+    isDark: false,
   )
 ]);
 
@@ -326,7 +326,7 @@ final _triangle = ShapeData(
   meshes: <Mesh>[
     const Mesh(
       faces: [Face(0, 1, 2)],
-      dark: false,
+      isDark: false,
     )
   ],
 );
