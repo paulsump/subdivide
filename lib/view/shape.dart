@@ -44,6 +44,7 @@ class Shape extends StatelessWidget {
 
           if (0 < normal.z) {
             offsets.addAll(<Offset>[_flipY(a), _flipY(b), _flipY(c)]);
+
             colors.addAll(<Color>[
               _getColor(a, face.aSeam, a, b, c, color),
               _getColor(b, face.bSeam, a, b, c, color),
@@ -76,8 +77,16 @@ Color _getColor(
     brightness = lerpDouble(brightness, faceBrightness, 0.3)!;
   }
 
-  return Color.fromARGB(255, (brightness * color.red).toInt(),
-      (brightness * color.green).toInt(), (brightness * color.blue).toInt());
+  return _calcColor(brightness, color);
+}
+
+Color _calcColor(double brightness, Color color) {
+  return Color.fromARGB(
+    255,
+    (brightness * color.red).toInt(),
+    (brightness * color.green).toInt(),
+    (brightness * color.blue).toInt(),
+  );
 }
 
 Offset _flipY(vec_math.Vector3 v) => Offset(v.x, -v.y);
