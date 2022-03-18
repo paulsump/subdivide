@@ -35,9 +35,9 @@ class Shape extends StatelessWidget {
       final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
-        final a = face.a2 ? seamVertices[face.a] : vertices[face.a];
-        final b = face.b2 ? seamVertices[face.b] : vertices[face.b];
-        final c = face.c2 ? seamVertices[face.c] : vertices[face.c];
+        final a = face.aSeam ? seamVertices[face.a] : vertices[face.a];
+        final b = face.bSeam ? seamVertices[face.b] : vertices[face.b];
+        final c = face.cSeam ? seamVertices[face.c] : vertices[face.c];
 
         if (a.z > 0 || b.z > 0 || c.z > 0) {
           final normal = Math3d.normal(a, b, c).normalized();
@@ -45,9 +45,9 @@ class Shape extends StatelessWidget {
           if (0 < normal.z) {
             offsets.addAll(<Offset>[_flipY(a), _flipY(b), _flipY(c)]);
             colors.addAll(<Color>[
-              _getColor(a, face.a2, a, b, c, color),
-              _getColor(b, face.b2, a, b, c, color),
-              _getColor(c, face.c2, a, b, c, color),
+              _getColor(a, face.aSeam, a, b, c, color),
+              _getColor(b, face.bSeam, a, b, c, color),
+              _getColor(c, face.cSeam, a, b, c, color),
             ]);
           }
         }

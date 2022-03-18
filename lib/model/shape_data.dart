@@ -128,28 +128,28 @@ class Face {
     this.a,
     this.b,
     this.c, {
-    this.a2 = false,
-    this.b2 = false,
-    this.c2 = false,
+    this.aSeam = false,
+    this.bSeam = false,
+    this.cSeam = false,
   });
 
   final int a, b, c;
-  final bool a2, b2, c2;
+  final bool aSeam, bSeam, cSeam;
 
   Face.fromJson(Map<String, dynamic> json)
       : a = json['a'],
         b = json['b'],
         c = json['c'],
-        a2 = json['a2'],
-        b2 = json['b2'],
-        c2 = json['c2'];
+        aSeam = json['aSeam'],
+        bSeam = json['bSeam'],
+        cSeam = json['cSeam'];
 
   Map<String, dynamic> toJson() => {
         'a': a,
         'b': b,
         'c': c,
-        'a2': a2,
-        'b2': b2,
-        'c2': c2,
+        'aSeam': aSeam,
+        'bSeam': bSeam,
+        'cSeam': cSeam,
       };
 }
