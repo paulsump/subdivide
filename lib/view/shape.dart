@@ -66,19 +66,19 @@ Color _getColor(
   vec_math.Vector3 c,
   Color color,
 ) {
-  final vertexNormal = vertex.normalized();
-  final vertexBrightness = vertexNormal.dot(_light).clamp(0.0, 1.0);
+  var brightness = _calcBrightness(vertex);
 
-  var brightness = vertexBrightness;
   if (isFlat) {
-    final faceNormal = Math3d.normal(a, b, c).normalized();
+    final faceBrightness = _calcBrightness(Math3d.normal(a, b, c));
 
-    final faceBrightness = faceNormal.dot(_light).clamp(0.0, 1.0);
     brightness = lerpDouble(brightness, faceBrightness, 0.3)!;
   }
 
   return _calcColor(brightness, color);
 }
+
+double _calcBrightness(vec_math.Vector3 normal) =>
+    normal.normalized().dot(_light).clamp(0.0, 1.0);
 
 Color _calcColor(double brightness, Color color) {
   return Color.fromARGB(
