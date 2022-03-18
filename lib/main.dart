@@ -61,7 +61,7 @@ class TheApp extends StatelessWidget {
                     shapeData.vertices
                         .map((vertex) => Vector3.copy(vertex))
                         .toList(),
-                    shapeData.vertices2
+                    shapeData.seamVertices
                         .map((vertex) => Vector3.copy(vertex))
                         .toList());
               }

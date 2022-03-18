@@ -36,12 +36,12 @@ class ShapeNotifier extends ChangeNotifier {
 class ShapeData {
   const ShapeData({
     required this.vertices,
-    required this.vertices2,
+    required this.seamVertices,
     required this.meshes,
   });
 
   final List<Vector3> vertices;
-  final List<Vector3> vertices2;
+  final List<Vector3> seamVertices;
 
   final List<Mesh> meshes;
 
@@ -56,7 +56,7 @@ class ShapeData {
               (v) => Vertex.fromJson(v),
             )
             .toList(),
-        vertices2 = json['vertices']
+        seamVertices = json['vertices']
             .map<Vector3>(
               (v) => Vertex.fromJson(v),
             )
@@ -67,9 +67,10 @@ class ShapeData {
             )
             .toList();
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         'vertices': vertices.map((v) => Vertex(v)).toList(),
-        'vertices2': vertices2.map((v) => Vertex(v)).toList(),
+        'seamVertices': seamVertices.map((v) => Vertex(v)).toList(),
         'meshes': meshes
             .map(
               (m) => m.toJson(),

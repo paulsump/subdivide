@@ -22,7 +22,7 @@ class VertexNotifier extends ChangeNotifier {
   Matrix4 _transform = Matrix4.identity();
 
   late List<Vector3> vertices;
-  late List<Vector3> vertices2;
+  late List<Vector3> seamVertices;
 
   Matrix4 get transform => _transform;
 
@@ -35,9 +35,9 @@ class VertexNotifier extends ChangeNotifier {
       vertices[i] = transform.transformed3(shapeData.vertices[i], vertices[i]);
     }
 
-    for (int i = 0; i < shapeData.vertices2.length; ++i) {
-      vertices2[i] =
-          transform.transformed3(shapeData.vertices2[i], vertices2[i]);
+    for (int i = 0; i < shapeData.seamVertices.length; ++i) {
+      seamVertices[i] =
+          transform.transformed3(shapeData.seamVertices[i], seamVertices[i]);
     }
 
     notifyListeners();
@@ -45,6 +45,6 @@ class VertexNotifier extends ChangeNotifier {
 
   void init(List<Vector3> list, List<Vector3> list2) {
     vertices = list;
-    vertices2 = list2;
+    seamVertices = list2;
   }
 }

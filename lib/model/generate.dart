@@ -18,9 +18,9 @@ ShapeData generateShapeData() {
   shapeData = _subdivide(shapeData);
 
   _normalize(shapeData.vertices);
-  _normalize(shapeData.vertices2);
+  _normalize(shapeData.seamVertices);
 
-  for (final vertex in shapeData.vertices2) {
+  for (final vertex in shapeData.seamVertices) {
     vertex.scale(_seamDepth);
   }
   return shapeData;
@@ -33,7 +33,7 @@ const double _patchScale = 0.85;
 /// go a third of the way along and add that ver (do face the same time)
 ShapeData _subdivideFrequency3(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
-  final vertices2 = <Vector3>[];
+  final seamVertices = <Vector3>[];
 
   final darkMeshes = <Mesh>[];
   final lightMeshes = <Mesh>[];
@@ -77,12 +77,12 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     light.add(Face(r2, s, r1));
 
     // copy vertices for the seam
-    final int p1_ = _getOrAdd(vertices[p1], vertices2);
-    final int p2_ = _getOrAdd(vertices[p2], vertices2);
-    final int q1_ = _getOrAdd(vertices[q1], vertices2);
-    final int q2_ = _getOrAdd(vertices[q2], vertices2);
-    final int r1_ = _getOrAdd(vertices[r1], vertices2);
-    final int r2_ = _getOrAdd(vertices[r2], vertices2);
+    final int p1_ = _getOrAdd(vertices[p1], seamVertices);
+    final int p2_ = _getOrAdd(vertices[p2], seamVertices);
+    final int q1_ = _getOrAdd(vertices[q1], seamVertices);
+    final int q2_ = _getOrAdd(vertices[q2], seamVertices);
+    final int r1_ = _getOrAdd(vertices[r1], seamVertices);
+    final int r2_ = _getOrAdd(vertices[r2], seamVertices);
 
     final lightSeam = <Face>[];
     lightSeamMeshes.add(Mesh(faces: lightSeam, dark: false));
@@ -173,7 +173,7 @@ ShapeData _subdivideFrequency3(ShapeData old) {
 
   return ShapeData(
     vertices: vertices,
-    vertices2: vertices2,
+    seamVertices: seamVertices,
     meshes: <Mesh>[
       ...darkMeshes,
       ...lightMeshes,
@@ -195,7 +195,7 @@ int _getOrAdd(Vector3 vector3, List<Vector3> vertices) {
 /// See triangle_subdivide.png
 ShapeData _subdivide(ShapeData old) {
   final vertices = <Vector3>[...old.vertices];
-  final vertices2 = <Vector3>[...old.vertices2];
+  final seamVertices = <Vector3>[...old.seamVertices];
 
   final dark = <Face>[];
   final light = <Face>[];
@@ -213,9 +213,9 @@ ShapeData _subdivide(ShapeData old) {
       final bool b2 = face.b2;
       final bool c2 = face.c2;
 
-      final a = a2 ? vertices2[face.a] : vertices[face.a];
-      final b = b2 ? vertices2[face.b] : vertices[face.b];
-      final c = c2 ? vertices2[face.c] : vertices[face.c];
+      final a = a2 ? seamVertices[face.a] : vertices[face.a];
+      final b = b2 ? seamVertices[face.b] : vertices[face.b];
+      final c = c2 ? seamVertices[face.c] : vertices[face.c];
 
       final p = (a + b) / 2;
       final q = (b + c) / 2;
@@ -225,9 +225,9 @@ ShapeData _subdivide(ShapeData old) {
       final bool j2 = face.b2 && face.c2;
       final bool k2 = face.c2 && face.a2;
 
-      final i = _getOrAdd(p, i2 ? vertices2 : vertices);
-      final j = _getOrAdd(q, j2 ? vertices2 : vertices);
-      final k = _getOrAdd(r, k2 ? vertices2 : vertices);
+      final i = _getOrAdd(p, i2 ? seamVertices : vertices);
+      final j = _getOrAdd(q, j2 ? seamVertices : vertices);
+      final k = _getOrAdd(r, k2 ? seamVertices : vertices);
 
       faces.add(Face(face.a, i, k, a2: a2, b2: i2, c2: k2));
       faces.add(Face(i, face.b, j, a2: i2, b2: b2, c2: j2));
@@ -238,7 +238,7 @@ ShapeData _subdivide(ShapeData old) {
 
   return ShapeData(
     vertices: vertices,
-    vertices2: vertices2,
+    seamVertices: seamVertices,
     meshes: meshes,
   );
 }
@@ -281,7 +281,7 @@ final _icosahedron = ShapeData(vertices: <Vector3>[
 
   // south pole
   Vector3(0, 0, -root5 / 2),
-], vertices2: <Vector3>[], meshes: <Mesh>[
+], seamVertices: <Vector3>[], meshes: <Mesh>[
   const Mesh(
     faces: [
       // top
@@ -322,7 +322,7 @@ final _triangle = ShapeData(
     Vector3(1, 0, 0),
     Vector3(0, 1, 0),
   ],
-  vertices2: <Vector3>[],
+  seamVertices: <Vector3>[],
   meshes: <Mesh>[
     const Mesh(
       faces: [Face(0, 1, 2)],

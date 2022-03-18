@@ -26,7 +26,7 @@ class Shape extends StatelessWidget {
     final vertexNotifier = getVertexNotifier(context, listen: true);
 
     final vertices = vertexNotifier.vertices;
-    final vertices2 = vertexNotifier.vertices2;
+    final seamVertices = vertexNotifier.seamVertices;
 
     final offsets = <Offset>[];
     final colors = <Color>[];
@@ -35,9 +35,9 @@ class Shape extends StatelessWidget {
       final Color color = mesh.dark ? Colors.blueGrey : Colors.white60;
 
       for (final face in mesh.faces) {
-        final a = face.a2 ? vertices2[face.a] : vertices[face.a];
-        final b = face.b2 ? vertices2[face.b] : vertices[face.b];
-        final c = face.c2 ? vertices2[face.c] : vertices[face.c];
+        final a = face.a2 ? seamVertices[face.a] : vertices[face.a];
+        final b = face.b2 ? seamVertices[face.b] : vertices[face.b];
+        final c = face.c2 ? seamVertices[face.c] : vertices[face.c];
 
         if (a.z > 0 || b.z > 0 || c.z > 0) {
           final normal = Math3d.normal(a, b, c).normalized();
