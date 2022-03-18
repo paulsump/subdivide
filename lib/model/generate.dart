@@ -66,15 +66,15 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     int r2 = _getOrAdd(c + r * 2 / 3, vertices);
 
     // inner 6 are light
-    final light = <Face>[];
-    lightMeshes.add(Mesh(faces: light, isDark: false));
+    final lightMesh = <Face>[];
+    lightMeshes.add(Mesh(faces: lightMesh, isDark: false));
 
-    light.add(Face(p1, s, r2));
-    light.add(Face(p2, s, p1));
-    light.add(Face(q1, s, p2));
-    light.add(Face(q2, s, q1));
-    light.add(Face(r1, s, q2));
-    light.add(Face(r2, s, r1));
+    lightMesh.add(Face(p1, s, r2));
+    lightMesh.add(Face(p2, s, p1));
+    lightMesh.add(Face(q1, s, p2));
+    lightMesh.add(Face(q2, s, q1));
+    lightMesh.add(Face(r1, s, q2));
+    lightMesh.add(Face(r2, s, r1));
 
     // copy vertices for the seam
     final int p1_ = _getOrAdd(vertices[p1], seamVertices);
@@ -103,8 +103,8 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     lightSeam.add(Face(r2, r1, r1_, cSeam: true));
     lightSeam.add(Face(r2, r1_, r2_, bSeam: true, cSeam: true));
 
-    final dark = <Face>[];
-    darkMeshes.add(Mesh(faces: dark, isDark: true));
+    final darkMesh = <Face>[];
+    darkMeshes.add(Mesh(faces: darkMesh, isDark: true));
 
     // copy vertices for the dark pentagon
     p1 = _getOrAdd(vertices[p1], vertices);
@@ -115,9 +115,9 @@ ShapeData _subdivideFrequency3(ShapeData old) {
     r2 = _getOrAdd(vertices[r2], vertices);
 
     // outer 3 are dark
-    dark.add(Face(face.a, p1, r2));
-    dark.add(Face(face.b, q1, p2));
-    dark.add(Face(face.c, r1, q2));
+    darkMesh.add(Face(face.a, p1, r2));
+    darkMesh.add(Face(face.b, q1, p2));
+    darkMesh.add(Face(face.c, r1, q2));
 
     final darkSeam = <Face>[];
     darkSeamMeshes.add(Mesh(faces: darkSeam, isDark: true));
