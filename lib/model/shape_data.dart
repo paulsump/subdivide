@@ -67,8 +67,7 @@ class ShapeData {
             )
             .toList();
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'vertices': vertices.map((v) => Vertex(v)).toList(),
         'seamVertices': seamVertices.map((v) => Vertex(v)).toList(),
         'meshes': meshes
@@ -102,8 +101,7 @@ class Mesh {
             .toList(),
         isDark = json.containsKey('isDark') ? json['isDark'] : false;
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'faces': faces,
         'isDark': isDark,
       };
@@ -115,6 +113,7 @@ class Vertex {
       : x = v.x,
         y = v.y,
         z = v.z;
+
   final double x, y, z;
 
   Map<String, dynamic> toJson() => {'x': x, 'y': y, 'z': z};

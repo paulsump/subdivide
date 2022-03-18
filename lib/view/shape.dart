@@ -59,7 +59,7 @@ class Shape extends StatelessWidget {
 
 Color _getColor(
   vec_math.Vector3 vertex,
-  bool flat,
+  bool isFlat,
   vec_math.Vector3 a,
   vec_math.Vector3 b,
   vec_math.Vector3 c,
@@ -69,7 +69,7 @@ Color _getColor(
   final vertexBrightness = vertexNormal.dot(_light).clamp(0.0, 1.0);
 
   var brightness = vertexBrightness;
-  if (flat) {
+  if (isFlat) {
     final faceNormal = Math3d.normal(a, b, c).normalized();
 
     final faceBrightness = faceNormal.dot(_light).clamp(0.0, 1.0);
